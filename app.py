@@ -1,5 +1,5 @@
-# from flask import Flask
-import pymysql
+from flask import Flask
+# import pymysql
 
 # def selectquery():
 #     retrieve="Select * from student"
