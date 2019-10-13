@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Test</title>
@@ -7,61 +8,75 @@
   <meta content="" name="keywords">
   <meta content="" name="description">
 
-<!-- Main Stylesheet File -->
-<link href="../static/styles.css" rel="stylesheet">
+  <!-- Main Stylesheet File -->
+  <link href="../static/styles.css" rel="stylesheet">
 
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,600,700,700i|Montserrat:300,400,500,600,700" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,600,700,700i|Montserrat:300,400,500,600,700"
+    rel="stylesheet">
 
-<!-- Bootstrap CSS File -->
-<link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap CSS File -->
+  <link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<link rel="stylesheet" href=  
-"https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">  
-        
-    <script src=  
-"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">  
-    </script>  
-        
-    <script src=  
-"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">  
-    </script>  
-        
-    <script src=  
-"https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js">  
-    </script> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
+  </script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js">
+  </script>
+
+  <script>
+
+    // Function which ensures correct question is selected
+    function renderQuestion(x) {
+      // alert(x);
+      ques = document.getElementById("question-data");
+      var row = {{ value| tojson
+    }};
+    // this data is sent in flask using render template, data is sent as comma separated all values
+    // however, index 0 refers to values of all cols separated by comma, alert(row[x-1]);
+    // So row[x-1][1], refers to the (x-1)th row and 1st indexed column
+    ques.innerHTML = "<h5 class='card-title' id='question-num'>Question No. " + x + "</h5>";
+    ques.innerHTML += "<p class='card-text' id='question-content'>" + row[x - 1][1] + "</p>";
+    ques.innerHTML += "<input type='radio' name='option1' value='9'>" + row[x - 1][4] + "<br><br>";
+    ques.innerHTML += "<input type='radio' name='option2' value='10'>" + row[x - 1][5] + "<br><br>";
+    ques.innerHTML += "<input type='radio' name='option3' value='7'>" + row[x - 1][6] + "<br><br>";
+    ques.innerHTML += "<input type='radio' name='option4' value='11'>" + row[x - 1][7] + "<br><br>";
+  }
+  </script>
 </head>
 
 <body>
-    
-    <div class="row">
-            <div class=col-md-8>
-                    <div class="center">
-    <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Question No.1</h5>
-          <p class="card-text">What is the square root of 100?</p>
-          <input type="radio" name="option1" value="9"> 9<br><br>
-          <input type="radio" name="option2" value="10">10<br><br>
-          <input type="radio" name="option3" value="7"> 7<br><br>
-          <input type="radio" name="option4" value="11"> 11<br><br>
-          <div class="save">
-          <a href="#" class="btn btn-primary" style="position: absolute;right: 2px;bottom: 2px; ">Save</a>
-          </div>
-          
-        </div>
-      </div>
+  <div class="row">
+    <div class=col-md-8>
+      <div class="center">
+        <div class="card">
+          <div class="card-body" id="question-data">
+            <!-- <h5 class="card-title" id="question-num">Question No.1</h5>
+              <p class="card-text" id="question-content">What is the square root of 100?</p>
+              <input type="radio" name="option1" value="9"> 9<br><br>
+              <input type="radio" name="option2" value="10">10<br><br>
+              <input type="radio" name="option3" value="7"> 7<br><br>
+              <input type="radio" name="option4" value="11"> 11<br><br> -->
+            </div>
+            <div class="save">
+                <a href="#" class="btn btn-primary" style="position: absolute;right: 2px;bottom: 2px; ">Save</a>
             </div>
         </div>
-   
+      </div>
+    </div>
 
     <div class="col-md-4">
-            <div class="card">
-               
-                <h1 style="text-align: center;">Questions</h1> 
-                  
-                <!-- <h4>Normal Circle Buttons</h4> 
+      <div class="card">
+        <div class="card-body" style="align-self: center;">
+          <h1 style="text-align: center;">Questions</h1>
+
+          <!-- <h4>Normal Circle Buttons</h4> 
                 <button type="button" class="btn btn-primary btn-circle btn-sm">Blue</button> 
                 <button type="button" class="btn btn-secondary btn-circle btn-sm">Gray</button> 
                 <button type="button" class="btn btn-success btn-circle btn-sm">Green</button> 
@@ -69,84 +84,67 @@
                 <button type="button" class="btn btn-warning btn-circle btn-sm">Yellow</button> 
                 <button type="button" class="btn btn-light btn-circle btn-sm">White</button> 
                 <button type="button" class="btn btn-dark btn-circle btn-sm">Black</button>  -->
-              
-                <!-- <h4>Large Circle Buttons</h4>  -->
-                <div class="row" style="align-self: center;">
-                  <div class="que-inline-block" >
-                  <button type="button" class="btn btn-secondary btn-circle btn-xl">1</button> 
-                  <button type="button" class="btn btn-secondary btn-circle btn-xl">2</button> 
-                  <button type="button" class="btn btn-secondary btn-circle btn-xl">3</button>
-                  </div>
 
-                </div>
-              </br>
-                <div class="row" style="align-self: center;">
-                    <div class="que-inline-block" >
-                    <button type="button" class="btn btn-secondary btn-circle btn-xl">4</button> 
-                    <button type="button" class="btn btn-secondary btn-circle btn-xl">5</button> 
-                    <button type="button" class="btn btn-secondary btn-circle btn-xl">6</button>
-                    </div>
-  
-                  </div>
-                </br>
-                  <div class="row" style="align-self: center;">
-                      <div class="que-inline-block" >
-                      <button type="button" class="btn btn-secondary btn-circle btn-xl">7</button> 
-                      <button type="button" class="btn btn-secondary btn-circle btn-xl">8</button> 
-                      <button type="button" class="btn btn-secondary btn-circle btn-xl">9</button>
-                      </div>
-    
-                    </div>
-                  </br>
-                    <div class="row" style="align-self: center;">
-                        <div class="que-inline-block" >
-                        <button type="button" class="btn btn-secondary btn-circle btn-xl">10</button> 
-                        <button type="button" class="btn btn-secondary btn-circle btn-xl">11</button> 
-                        <button type="button" class="btn btn-secondary btn-circle btn-xl">12</button>
-                        </div>
-      
-                      </div>
-                    </br>
+          <!-- <h4>Large Circle Buttons</h4>  -->
+          <div class="row" style="align-self: center;">
+            <div class="que-inline-block">
+              <button type="button" class="btn btn-secondary btn-circle btn-xl" onclick="renderQuestion(1)">1</button>
+              <button type="button" class="btn btn-secondary btn-circle btn-xl" onclick="renderQuestion(2)">2</button>
+              <button type="button" class="btn btn-secondary btn-circle btn-xl" onclick="renderQuestion(3)">3</button>
+            </div>
+          </div>
+          </br>
 
-                      <div class="row" style="align-self: center;">
-                          <div class="que-inline-block" >
-                          <button type="button" class="btn btn-secondary btn-circle btn-xl">13</button> 
-                          <button type="button" class="btn btn-secondary btn-circle btn-xl">14</button> 
-                          <button type="button" class="btn btn-secondary btn-circle btn-xl">15</button>
-                          </div>
-        
-                        </div>
-                      </br>
-                      <div class="row" style="align-self: center;">
-                          <div class="que-inline-block" >
-                              <a href="#" class="btn btn-primary">Save</a>
-                              <a href="#" class="btn btn-primary">Submit Test</a>
-                          </div>
-        
-                        </div>
-                    
-                
-               
-              
-              <!-- <a href="#" class="btn btn-primary">9</a></br></br>
+          <div class="row" style="align-self: center;">
+            <div class="que-inline-block">
+              <button type="button" class="btn btn-secondary btn-circle btn-xl" onclick="renderQuestion(4)">4</button>
+              <button type="button" class="btn btn-secondary btn-circle btn-xl" onclick="renderQuestion(5)">5</button>
+              <button type="button" class="btn btn-secondary btn-circle btn-xl" onclick="renderQuestion(6)">6</button>
+            </div>
+          </div>
+          </br>
+
+          <div class="row" style="align-self: center;">
+            <div class="que-inline-block">
+              <button type="button" class="btn btn-secondary btn-circle btn-xl" onclick="renderQuestion(7)">7</button>
+              <button type="button" class="btn btn-secondary btn-circle btn-xl" onclick="renderQuestion(8)">8</button>
+              <button type="button" class="btn btn-secondary btn-circle btn-xl" onclick="renderQuestion(9)">9</button>
+            </div>
+          </div>
+          </br>
+
+          <div class="row" style="align-self: center;">
+            <div class="que-inline-block">
+              <button type="button" class="btn btn-secondary btn-circle btn-xl" onclick="renderQuestion(10)">10</button>
+              <button type="button" class="btn btn-secondary btn-circle btn-xl" onclick="renderQuestion(11)">11</button>
+              <button type="button" class="btn btn-secondary btn-circle btn-xl" onclick="renderQuestion(12)">12</button>
+            </div>
+          </div>
+          </br>
+
+          <div class="row" style="align-self: center;">
+            <div class="que-inline-block">
+              <button type="button" class="btn btn-secondary btn-circle btn-xl" onclick="renderQuestion(13)">13</button>
+              <button type="button" class="btn btn-secondary btn-circle btn-xl" onclick="renderQuestion(14)">14</button>
+              <button type="button" class="btn btn-secondary btn-circle btn-xl" onclick="renderQuestion(15)">15</button>
+            </div>
+          </div>
+          </br>
+
+          <div class="row" style="align-self: center;">
+            <div class="que-inline-block">
+              <a href="#" class="btn btn-primary">Save</a>
+              <a href="#" class="btn btn-primary">Submit Test</a>
+            </div>
+          </div>
+
+          <!-- <a href="#" class="btn btn-primary">9</a></br></br>
           <a href="#" class="btn btn-primary">8</a></br></br>
           <a href="#" class="btn btn-primary">10</a></br></br>
           <a href="#" class="btn btn-primary">11</a></br></br> -->
-        <div class="card-body">
-
-
         </div>
-
-
-        </div>
-</div>
-
-
-
-
-
-
-
+      </div>
+    </div>
 
 </body>
 </html>

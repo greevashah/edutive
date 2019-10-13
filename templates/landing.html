@@ -40,19 +40,12 @@
   Header
   ============================-->
   <header id="header">
-
-   
-
     <div class="container">
-
       <div class="logo float-left">
         <!-- Uncomment below if you prefer to use an image logo -->
         <h1 class="text-light"><a href="#intro" class="scrollto"><span>Rapid</span></a></h1>
         <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
       </div>
-
- 
-      
     </div>
   </header><!-- #header -->
 
@@ -65,7 +58,7 @@
         <div class="col-md-6 intro-info order-md-first order-last">
           <h2>Berang<br>for Your <span>Exam!</span></h2>
           <div>
-            <a href="#about" class="btn-get-started scrollto">Start Test</a>
+            <a href="{{ url_for('test') }}"" class="btn-get-started scrollto">Start Test</a>
           </div>
         </div>
   
@@ -73,9 +66,7 @@
           <img src="../static/img/intro-img.svg" alt="" class="img-fluid">
         </div>
       </div>
-
     </div>
   </section><!-- #intro -->
-
 </body>
 </html>
