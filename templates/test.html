@@ -32,6 +32,8 @@
 
   <script>
     var answers=new Array(15);
+    var timeTaken=30;
+    var timerFun;
     // Function which ensures correct question is selected
     function renderQuestion(x) {
       // alert(x);
@@ -93,6 +95,9 @@
       var a= (tim.innerText).split(':');
       //alert("a is "+ a);
       var seconds=(+a[0])*60*60 + (+a[1])*60 + (+a[2]);
+      var diff=(30*60)-seconds;
+
+      alert("Time Taken by you is "+ toTimeString(diff));
     }
 
     function toTimeString(seconds){
@@ -106,7 +111,7 @@
       //alert("a is "+ a);
       var seconds=(+a[0])*60*60 + (+a[1])*60 + (+a[2]);
 
-      var timerFun= setInterval(function(){
+      timerFun= setInterval(function(){
         seconds--;
         if(seconds>=0){
           tim.innerHTML=toTimeString(seconds);
@@ -114,6 +119,7 @@
         if (seconds === 0) {
           alert('Time Over! Test Complete');
           clearInterval(timerFun);
+          timeTaken=30;
         }
       },1000);
     }
@@ -123,7 +129,7 @@
 
 <body onload="timer()">
   <div>
-    <h3 id="test-timer">00:02:00</h3>
+    <h3 id="test-timer">00:30:00</h3>
   </div>
   <div class="row">
     <div class=col-md-8>
