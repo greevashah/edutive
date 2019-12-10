@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template,json
 import pymysql
 
 def selectquery():
@@ -35,10 +35,13 @@ def index():
 @app.route('/test')
 def test():
     rows=selectquery()
+    #print(type(rows))
     return render_template('test.html',value=rows)
 # Sends all rows as value, possible due to render template
 
 if __name__ == "__main__":
+    app.jinja_env.auto_reload = True
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.run(port=5000, debug=True)
 
 #commiting the connection then closing it. Otherwise the updated change is unsaved
