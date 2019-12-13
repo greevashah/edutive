@@ -1,4 +1,4 @@
-var questions=new Array(15); // Array of Questions
+var questions=new Array(15); // Array of Random Question number
 var answers=new Array(15);  //Array of Answers
 var timeTaken=30;
 var timerFun;
@@ -88,7 +88,7 @@ function toTimeString(seconds){
 
 function timer(){
     var tim=document.getElementById('test-timer');
-    alert("tim is "+ tim);
+    //alert("tim is "+ tim);
     var a= (tim.innerText).split(':');
     //alert("a is "+ a);
     var seconds=(+a[0])*60*60 + (+a[1])*60 + (+a[2]);
