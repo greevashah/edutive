@@ -1,5 +1,5 @@
-var questions=new Array(15); // Array of Random Question number
-var answers=new Array(15);  //Array of Answers
+var questions=new Array(15); // Array of Random Question numbers
+var answers=new Array(15);  //Array of Whether Answers marked are coorect(1) or not(0)
 var timeTaken=30;
 var timerFun;
 var row=undefined;
@@ -10,16 +10,31 @@ window.onload= timer();
 
 function initialise(x){
     row=x;
+    var last_question_no=40;
+    for(var i=0;i<15;){
+        var temp = Math.floor(Math.random()*(last_question_no-1+1)+1);      //question number between 1 to last_question_no
+        if(!questions.includes(temp)){
+            questions[i]=temp;  //To find integral random between a range, max not included, 
+                            //Math.floor(Math.random()*(max-min)+min) 
+            i++;
+        }
+        else{
+            continue;
+        }
+    }
+    alert(questions);
 }
 
-function renderQuestion(x) {
+function renderQuestion(a) {
     // alert(x);
     ques = document.getElementById("question-data");
+    var x=questions[a-1];     //get the ath random question number
     //var row = {{ value }} ;
+
     // this data is sent in flask using render template, data is sent as comma separated all values
-    // however, index 0 refers to values of all cols separated by comma, alert(row[x-1]);
+    // however, index 0 refers to values of all cols separated by comma, alert(row[x-1]); 
     // So row[x-1][1], refers to the (x-1)th row and 1st indexed column
-    ques.innerHTML = "<h5 class='card-title' id='question-num'>Question No. " + x + "</h5>";
+    ques.innerHTML = "<h5 class='card-title' id='question-num'>Question No. " + a + "</h5>";
     ques.innerHTML += "<p class='card-text' id='question-content'>" + row[x - 1][1] + "</p>";
     ques.innerHTML += "<input type='radio' name='option' value='1'>" + row[x - 1][4] + "<br><br>";
     ques.innerHTML += "<input type='radio' name='option' value='2'>" + row[x - 1][5] + "<br><br>";
@@ -34,8 +49,9 @@ function storeAnswer(){
     //var row = {{ value }};
     var qno=document.getElementById('question-num');
     //Question No. 12
-    var qnum = parseInt(qno.innerText.substring(13)); //Substring "12" converted to 12; 
+    var qnum = questions[parseInt(qno.innerText.substring(13))]; //Substring "12" converted to 12; 
     //substring(13) as from 'Question No. 3' we want from 13th char onwards
+    //then find the corresponding random question number as, questions[...the whole code to find the corresponding question...]
 
     //alert("Question No. rn is "+qnum);
     //alert(row);
