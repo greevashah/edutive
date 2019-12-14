@@ -1,5 +1,6 @@
 var questions=new Array(15); // Array of Random Question numbers
 var answers=new Array(15);  //Array of Whether Answers marked are coorect(1) or not(0)
+var elapsedtime = new Array(15);
 var timeTaken=30;
 var timerFun;
 var row=undefined;
@@ -44,8 +45,49 @@ function renderQuestion(a) {
     //document.getElementById("question-num").addEventListener("load", qtimer);
 }
 
+
+
+//    function SaveForm(){
+//     setCookie("Answer", storeAnswer(),30);
+//    }
+
+//    function SetAnsValue(ansValue) {
+//     var ansRadio = document.getElementsByName('option');
+//     for(var i = 0; i <ansRadio.length; i++){
+//         if(ansRadio[i].value == ansValue){
+//            ansRadio[i].checked = true;
+//         }
+//     }
+//   }
+
+//   function LoadForm(){
+//     SetAnsValue( getCookie("Answer") );
+//   } 
+
+//   function getCookie(name) {
+//     var nameEQ = name + "=";
+//     var ca = document.cookie.split(';');
+//     for (var i = 0; i < ca.length; i++) {
+//         var c = ca[i];
+//         while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+//         if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+//     }
+//     return null;
+// }
+
+//   function setCookie(name, value, minutes) { // from http://www.quirksmode.org/js/cookies.html
+//     if (minutes) {
+//         var date = new Date();
+//         date.setTime(date.getTime() + (minutes * 60 * 1000));
+//         var expires = "; expires=" + date.toGMTString();
+//     } else var expires = "";
+//     document.cookie = name + "=" + value + expires + "; path=/";
+// }
+ 
+
 //Function which stores answer for each question every time the answer is saved
 function storeAnswer(){
+
     //var row = {{ value }};
     var qno=document.getElementById('question-num');
     //Question No. 12
@@ -57,20 +99,26 @@ function storeAnswer(){
     //alert(row);
     var ans= row[qnum-1][8].charCodeAt()-96; //a=1,b=2.....
     //alert("Answer is "+ans);
-    var ele = document.getElementsByName('option'); 
+    var ele = document.getElementsByName('option');
+    var ansValue; 
     for(i = 0; i < ele.length; i++) { 
-        if(ele[i].checked){
-            if(ele[i].value == ans){
-            //alert("Correct Answer");
-            answers[qnum-1]=1;
-            }
-            else{
-            //alert("Wrong Answer");
-            answers[qnum-1]=0;
-            }
-        } 
+    if(ele[i].checked){
+        ansValue = ele[i].value;
+        if(ele[i].value == ans){
+        //alert("Correct Answer");
+        answers[qnum-1]=1;
+        }
+        else{
+        //alert("Wrong Answer");
+        answers[qnum-1]=0;
+        }
     }
+    }
+
+    return ansValue;
 }
+
+
 
 //Function which checks the total number of correct answers at the end of the test
 function checkAnswers(){
@@ -122,3 +170,6 @@ function timer(){
     }
     },1000);
 }
+
+
+
