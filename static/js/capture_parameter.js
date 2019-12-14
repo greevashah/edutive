@@ -55,20 +55,20 @@ function storeAnswer(){
 
     //alert("Question No. rn is "+qnum);
     //alert(row);
-    var ans= row[qnum-1][8].charCodeAt()-96; //a=1,b=2....
+    var ans= row[qnum-1][8].charCodeAt()-96; //a=1,b=2.....
     //alert("Answer is "+ans);
     var ele = document.getElementsByName('option'); 
     for(i = 0; i < ele.length; i++) { 
-    if(ele[i].checked){
-        if(ele[i].value == ans){
-        //alert("Correct Answer");
-        answers[qnum-1]=1;
-        }
-        else{
-        //alert("Wrong Answer");
-        answers[qnum-1]=0;
-        }
-    } 
+        if(ele[i].checked){
+            if(ele[i].value == ans){
+            //alert("Correct Answer");
+            answers[qnum-1]=1;
+            }
+            else{
+            //alert("Wrong Answer");
+            answers[qnum-1]=0;
+            }
+        } 
     }
 }
 
