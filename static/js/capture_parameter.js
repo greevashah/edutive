@@ -1,8 +1,10 @@
 var questions=new Array(15); // Array of Random Question numbers
 var answers=new Array(15);  //Array of Whether Answers marked are coorect(1) or not(0)
 var elapsedtime = new Array(15);    //Array to store time taken in each question
+var optionchanges=new Array(15);
 
 var Default_val=0;
+optionchanges.fill(Default_val);
 elapsedtime.fill(Default_val);
 
 var timeTaken=30;
@@ -12,6 +14,9 @@ var row=undefined;
 window.onload= timer();
 var startTime=undefined;
 var finishTime=undefined;
+var radios=undefined;
+
+var counter=0;
 
 // Function which ensures correct question is selected
 
@@ -20,6 +25,7 @@ var finishTime=undefined;
 function initialise(x){
     row=x;
     var last_question_no=40;
+    
     for(var i=0;i<15;){
         var temp = Math.floor(Math.random()*(last_question_no-1+1)+1);      //question number between 1 to last_question_no
         if(!questions.includes(temp)){
@@ -32,7 +38,7 @@ function initialise(x){
         }
     }
     alert(questions);
-    alert(elapsedtime);
+    // alert(elapsedtime);
 }
 
 //Display the question the dynamically and get cookie to mark previously marked answer
@@ -41,23 +47,32 @@ function renderQuestion(a) {
     ques = document.getElementById("question-data");
     var x=questions[a-1];     //get the ath random question number
     //var row = {{ value }} ;
-
+    counter=0;
     // this data is sent in flask using render template, data is sent as comma separated all values
     // however, index 0 refers to values of all cols separated by comma, alert(row[x-1]); 
     // So row[x-1][1], refers to the (x-1)th row and 1st indexed column
     ques.innerHTML = "<h5 class='card-title' id='question-num'>Question No. " + a + "</h5>";
     ques.innerHTML += "<p class='card-text' id='question-content'>" + row[x - 1][1] + "</p>";
     ques.innerHTML += "<input id='option1' type='radio' name='option' value='1'>" + row[x - 1][4] + "<br><br>";
-    ques.innerHTML += "<input id='option2'type='radio' name='option' value='2'>" + row[x - 1][5] + "<br><br>";
-    ques.innerHTML += "<input id='option3'type='radio' name='option' value='3'>" + row[x - 1][6] + "<br><br>";
-    ques.innerHTML += "<input id='option4'type='radio' name='option' value='4'>" + row[x - 1][7] + "<br><br>";
+    ques.innerHTML += "<input id='option2' type='radio' name='option' value='2'>" + row[x - 1][5] + "<br><br>";
+    ques.innerHTML += "<input id='option3' type='radio' name='option' value='3'>" + row[x - 1][6] + "<br><br>";
+    ques.innerHTML += "<input id='option4' type='radio' name='option' value='4'>" + row[x - 1][7] + "<br><br>";
     
     var prev_ans=getCookie("Answer"+a);
-    //alert("prev ans "+ prev_ans);
+    alert("prev ans "+ prev_ans);
     if(prev_ans){
         document.getElementById('option'+prev_ans).checked=true;
     }
-    
+
+    radios= document.getElementsByName("option");
+    for(var i=0;i<radios.length;i++){
+        radios[i].addEventListener("change", function(){
+            counter++;
+            // alert("Counter is "+counter);
+            optionchanges[a-1] ++;
+            // alert(optionchanges);
+        });
+    }
     startTime=Date.now()/1000; 
     //document.getElementById("question-num").addEventListener("load", qtimer);
 }
@@ -118,9 +133,10 @@ function storeAnswer(){
 
     finishTime=Date.now()/1000;
     elapsedtime[qnum_cur-1] += Math.floor(finishTime-startTime);
+    
     startTime=finishTime;
-    alert(answers);
-    alert(elapsedtime);
+    // alert(answers);
+    // alert(elapsedtime);
     setCookie("Answer"+qnum_cur,ansValue,30);
 }
 
@@ -157,6 +173,8 @@ function checkAnswers(){
     var diff=(30*60)-seconds;
 
     alert("Time Taken by you is "+ toTimeString(diff));
+    // alert(elapsedtime);
+    alert("Final counter is "+optionchanges);
     deleteAllCookies();
 }
 
