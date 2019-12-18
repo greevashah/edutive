@@ -1,5 +1,7 @@
+//4 parameters-> Correctness, Time of entire test, (Keep answer marked) Time per question, Number of changes of option
 var questions=new Array(15); // Array of Random Question numbers
-var answers=new Array(15);  //Array of Whether Answers marked are coorect(1) or not(0)
+// 50 question db- 35,40,2,1,10...15values 
+var answers=new Array(15);  //Array of Whether Answers marked are correct(1) or not(0) Actual answer{a,b,a,...} Marked ans{b,c,a...} {0,0,1...}
 var elapsedtime = new Array(15);    //Array to store time taken in each question
 var optionchanges=new Array(15);
 
@@ -24,6 +26,7 @@ var counter=0;
 
 function initialise(x){
     row=x;
+
     var last_question_no=40;
     
     for(var i=0;i<15;){
@@ -42,10 +45,12 @@ function initialise(x){
 }
 
 //Display the question the dynamically and get cookie to mark previously marked answer
-function renderQuestion(a) {
+
+// 1->15 buttons 1 button->questions={22,24,25....}
+function renderQuestion(a) {//a=1->15
     // alert(x);
     ques = document.getElementById("question-data");
-    var x=questions[a-1];     //get the ath random question number
+    var x=questions[a-1];     //get the ath random question number x=22
     //var row = {{ value }} ;
     counter=0;
     // this data is sent in flask using render template, data is sent as comma separated all values
@@ -77,49 +82,50 @@ function renderQuestion(a) {
     //document.getElementById("question-num").addEventListener("load", qtimer);
 }
 
-function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(' ');
+//Cookie-> Client side machine(unlike sessions), expires(unlike cache)
+// {name=value,name=value, expires=minutes, path=/}
+// {Answer1=2 Answer2=2 .......Answer15=1 expires=minutes path=/}
+function getCookie(name) {      //name="Answer1"
+    var nameEQ = name + "=";    //nameEQ= "Answer1="
+    var ca = document.cookie.split(' ');    
     //alert("Cookie is "+ca);
-
     for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);        //" Answer1"->"Answer1"
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);    
     }
     return null;
 }
 
-function setCookie(name, value, minutes) {
+function setCookie(name, value, minutes) {      //Answer1, 1, 30
     if (minutes) {
-        var date = new Date();
-        date.setTime(date.getTime() + (minutes * 60 * 1000));
-        var expires = " expires=" + date.toGMTString();
-    } else var expires = "";
+        var date = new Date();      
+        date.setTime(date.getTime() + (minutes * 60 * 1000));       //minutes-> milliseconds
+        var expires = " expires=" + date.toGMTString(); 
+    } else var expires = ""; 
     document.cookie = name + "=" + value + expires + " path=/";
 }
- 
+
 
 //Function which stores answer for each question every time the answer is saved and sets the cookie
 function storeAnswer(){
-
     //var row = {{ value }};
-    var qno=document.getElementById('question-num');
+    var qno=document.getElementById('question-num');        
     //Question No. 12
-    var qnum_cur=parseInt(qno.innerText.substring(13));
-    var qnum = questions[qnum_cur-1]; //Substring "12" converted to 12; 
+    var qnum_cur=parseInt(qno.innerText.substring(13));     //1->15
+    var qnum = questions[qnum_cur-1]; //Substring "12" converted to 12;     22
     //substring(13) as from 'Question No. 3' we want from 13th char onwards
     //then find the corresponding random question number as, questions[...the whole code to find the corresponding question...]
 
     //alert("Question No. rn is "+qnum);
     //alert(row);
-    var ans= row[qnum-1][8].charCodeAt()-96; //a=1,b=2.....
+    var ans= row[qnum-1][8].charCodeAt()-96; //a=1,b=2,c=3,d=4 
     //alert("Answer is "+ans);
     var ele = document.getElementsByName('option');
     var ansValue; 
     for(i = 0; i < ele.length; i++) { 
         if(ele[i].checked){
-            ansValue = ele[i].value;
+            ansValue = ele[i].value;        
             if(ele[i].value == ans){
             //alert("Correct Answer");
             answers[qnum-1]=1;
@@ -151,26 +157,26 @@ function deleteCookie(name){
 }
 
 //Function which checks the total number of correct answers at the end of the test
-function checkAnswers(){
+function checkAnswers(){ 
     var count=0;
     var total=0;
     //alert("ans array is "+ answers);
     for(var i=0;i<answers.length;i++){
-    if(answers[i] == 1){
-        count++;
-        total++;
-    }
-    else if(answers[i] == 0){
-        total++;
-    }  
+        if(answers[i] == 1){
+            count++;
+            total++;
+        }
+        else if(answers[i] == 0){
+            total++;
+        }  
     }
     alert("Congratulations, Test Complete!\nNumber of correct answers are "+count+"\nTotal number of questions "+total);
     clearInterval(timerFun);
-    var tim=document.getElementById('test-timer');
-    var a= (tim.innerText).split(':');
+    var tim=document.getElementById('test-timer');  //29:21
+    var a= (tim.innerText).split(':'); 
     //alert("a is "+ a);
     var seconds=(+a[0])*60*60 + (+a[1])*60 + (+a[2]);
-    var diff=(30*60)-seconds;
+    var diff=(30*60)-seconds;       //30:00 - 29:21 
 
     alert("Time Taken by you is "+ toTimeString(diff));
     // alert(elapsedtime);
@@ -178,13 +184,13 @@ function checkAnswers(){
     deleteAllCookies();
 }
 
-function toTimeString(seconds){
+function toTimeString(seconds){     //39s-> 00:00:39
     //alert("seconds is "+seconds);
     return (new Date(seconds * 1000)).toUTCString().match(/(\d\d:\d\d:\d\d)/)[0];
 }
 
 function timer(){
-    var tim=document.getElementById('test-timer');
+    var tim=document.getElementById('test-timer');  //header-> 00:30:00 
     //alert("tim is "+ tim);
     var a= (tim.innerText).split(':');
     //alert("a is "+ a);
