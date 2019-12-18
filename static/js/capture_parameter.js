@@ -56,15 +56,15 @@ function renderQuestion(a) {//a=1->15
     // this data is sent in flask using render template, data is sent as comma separated all values
     // however, index 0 refers to values of all cols separated by comma, alert(row[x-1]); 
     // So row[x-1][1], refers to the (x-1)th row and 1st indexed column
-    ques.innerHTML = "<h5 class='card-title' id='question-num'>Question No. " + a + "</h5>";        
-    ques.innerHTML += "<p class='card-text' id='question-content'>" + row[x - 1][1] + "</p>";       
-    ques.innerHTML += "<input id='option1' type='radio' name='option' value='1'>" + row[x - 1][4] + "<br><br>";     //radiobutton->value
+    ques.innerHTML = "<h5 class='card-title' id='question-num'>Question No. " + a + "</h5>";
+    ques.innerHTML += "<p class='card-text' id='question-content'>" + row[x - 1][1] + "</p>";
+    ques.innerHTML += "<input id='option1' type='radio' name='option' value='1'>" + row[x - 1][4] + "<br><br>";
     ques.innerHTML += "<input id='option2' type='radio' name='option' value='2'>" + row[x - 1][5] + "<br><br>";
     ques.innerHTML += "<input id='option3' type='radio' name='option' value='3'>" + row[x - 1][6] + "<br><br>";
     ques.innerHTML += "<input id='option4' type='radio' name='option' value='4'>" + row[x - 1][7] + "<br><br>";
-    // row[row_no][col_no]
+    
     var prev_ans=getCookie("Answer"+a);
-    // alert("prev ans "+ prev_ans);
+    alert("prev ans "+ prev_ans);
     if(prev_ans){
         document.getElementById('option'+prev_ans).checked=true;
     }
@@ -143,7 +143,7 @@ function storeAnswer(){
     startTime=finishTime;
     // alert(answers);
     // alert(elapsedtime);
-    setCookie("Answer"+qnum_cur, ansValue, 30);
+    setCookie("Answer"+qnum_cur,ansValue,30);
 }
 
 function deleteAllCookies(){
