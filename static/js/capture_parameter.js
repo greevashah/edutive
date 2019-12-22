@@ -3,7 +3,7 @@ var questions=new Array(15); // Array of Random Question numbers
 // 50 question db- 35,40,2,1,10...15values 
 var answers=new Array(15);  //Array of Whether Answers marked are correct(1) or not(0) Actual answer{a,b,a,...} Marked ans{b,c,a...} {0,0,1...}
 var elapsedtime = new Array(15);    //Array to store time taken in each question
-var optionchanges=new Array(15);
+var optionchanges=new Array(15);    
 
 var Default_val=0;
 optionchanges.fill(Default_val);
@@ -18,7 +18,7 @@ var startTime=undefined;
 var finishTime=undefined;
 var radios=undefined;
 
-var counter=0;
+// var counter=0;
 
 // Function which ensures correct question is selected
 
@@ -28,7 +28,7 @@ function initialise(x){
     row=x;
 
     var last_question_no=40;
-    
+
     for(var i=0;i<15;){
         var temp = Math.floor(Math.random()*(last_question_no-1+1)+1);      //question number between 1 to last_question_no
         if(!questions.includes(temp)){
@@ -52,7 +52,7 @@ function renderQuestion(a) {//a=1->15
     ques = document.getElementById("question-data");
     var x=questions[a-1];     //get the ath random question number x=22
     //var row = {{ value }} ;
-    counter=0;
+    // counter=0;
     // this data is sent in flask using render template, data is sent as comma separated all values
     // however, index 0 refers to values of all cols separated by comma, alert(row[x-1]); 
     // So row[x-1][1], refers to the (x-1)th row and 1st indexed column
@@ -72,13 +72,13 @@ function renderQuestion(a) {//a=1->15
     radios= document.getElementsByName("option");
     for(var i=0;i<radios.length;i++){
         radios[i].addEventListener("change", function(){
-            counter++;
+            // counter++;
             // alert("Counter is "+counter);
             optionchanges[a-1] ++;
             // alert(optionchanges);
         });
     }
-    startTime=Date.now()/1000; 
+    startTime=Date.now()/1000;
     //document.getElementById("question-num").addEventListener("load", qtimer);
 }
 
@@ -137,10 +137,10 @@ function storeAnswer(){
         }
     }
 
-    finishTime=Date.now()/1000;
-    elapsedtime[qnum_cur-1] += Math.floor(finishTime-startTime);
+    finishTime=Date.now()/1000; 
+    elapsedtime[qnum_cur-1] += Math.floor(finishTime-startTime); 
     
-    startTime=finishTime;
+    startTime=finishTime;   
     // alert(answers);
     // alert(elapsedtime);
     setCookie("Answer"+qnum_cur,ansValue,30);
@@ -179,7 +179,7 @@ function checkAnswers(){
     var diff=(30*60)-seconds;       //30:00 - 29:21 
 
     alert("Time Taken by you is "+ toTimeString(diff));
-    // alert(elapsedtime);
+    alert(elapsedtime);
     alert("Final counter is "+optionchanges);
     deleteAllCookies();
 }
