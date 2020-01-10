@@ -3,7 +3,9 @@ var questions=new Array(15); // Array of Random Question numbers
 // 50 question db- 35,40,2,1,10...15values 
 var answers=new Array(15);  //Array of Whether Answers marked are correct(1) or not(0) Actual answer{a,b,a,...} Marked ans{b,c,a...} {0,0,1...}
 var elapsedtime = new Array(15);    //Array to store time taken in each question
-var optionchanges=new Array(15);    
+var optionchanges=new Array(15);
+
+var index=0;
 
 var Default_val=0;
 optionchanges.fill(Default_val);
@@ -24,15 +26,43 @@ var radios=undefined;
 
 //row refers to the data sent by flask, in our case it is the entire question table
 
-function initialise(x){
+function initialise(x,x1,x2,x3){
+ 
     row=x;
+    row1=x1;
+    row2=x2;
+    row3=x3;
 
-    var last_question_no=40;
+    alert(row3);
 
-    for(var i=0;i<15;){
-        var temp = Math.floor(Math.random()*(last_question_no-1+1)+1);      //question number between 1 to last_question_no
-        if(!questions.includes(temp)){
-            questions[i]=temp;  //To find integral random between a range, max not included, 
+    // var last_question_no=276;
+
+    random_questions(row1,7);
+    random_questions(row2,5);
+    random_questions(row3,3);
+    // var len=row3.length();
+    // alert(len);
+    alert(questions);
+    shuffle(questions);
+    alert(questions);
+
+    // random_questions(row,15);
+  
+    // alert(elapsedtime);
+}
+
+function shuffle(array) {
+    array.sort(() => Math.random() - 0.5);
+  }
+
+function random_questions(arr, l){
+    x=arr;
+    var len=x.length;
+    alert(len);
+    for(var i=0;i<l;){
+        var temp = Math.floor(Math.random()*(len-1+1));      //question number between 1 to last_question_no
+        if(!questions.includes(arr[temp][0])){
+            questions[index++]=arr[temp][0];  //To find integral random between a range, max not included, 
                             //Math.floor(Math.random()*(max-min)+min) 
             i++;
         }
@@ -40,10 +70,8 @@ function initialise(x){
             continue;
         }
     }
-    alert(questions);
-    // alert(elapsedtime);
+   
 }
-
 //Display the question the dynamically and get cookie to mark previously marked answer
 
 // 1->15 buttons 1 button->questions={22,24,25....}
