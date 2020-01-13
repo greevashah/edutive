@@ -26,25 +26,25 @@ var radios=undefined;
 
 //row refers to the data sent by flask, in our case it is the entire question table
 
-function initialise(x,x1,x2,x3){
+function initialise(x,x1,x2,x3,x4){
  
     row=x;
     row1=x1;
     row2=x2;
     row3=x3;
+    row4=x4;
 
     alert(row3);
 
     // var last_question_no=276;
 
-    random_questions(row1,7);
-    random_questions(row2,5);
-    random_questions(row3,3);
-    // var len=row3.length();
-    // alert(len);
-    alert(questions);
-    shuffle(questions);
-    alert(questions);
+    random_questions(row1,5);    //TSD
+    random_questions(row2,4);    //TW
+    random_questions(row3,3);    //SI
+    random_questions(row4,3);    //PPL
+    // alert(questions);
+    // shuffle(questions);
+    // alert(questions);
 
     // random_questions(row,15);
   
