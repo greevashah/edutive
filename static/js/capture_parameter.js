@@ -70,7 +70,6 @@ function random_questions(arr, l){
             continue;
         }
     }
-   
 }
 //Display the question the dynamically and get cookie to mark previously marked answer
 

@@ -21,29 +21,21 @@ def selectquery():
 def selectlevel1():
     get1="Select * from `question data` where `Difficulty level`='Level 1' "
     cursor.execute(get1)
-
-    # print('SELECT')
     rows1= cursor.fetchall()
-    # print(rows[0][1])
     return rows1
 
 def selectlevel2():
     get2="Select * from `question data` where `Difficulty level`='Level 2' "
     cursor.execute(get2)
-
-    # print('SELECT')
     rows2= cursor.fetchall()
-    # print(rows[0][1])
     return rows2
 
 def selectlevel3():
     get3="Select * from `question data` where `Difficulty level`= 'Level 3' "
     cursor.execute(get3)
-
-    # print('SELECT')
     rows3= cursor.fetchall()
-    # print(rows[0][1])
     return rows3
+
 # queries
 # retrieve="Select * from `question data` where `question no`=3;"
 # selectquery()
