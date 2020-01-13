@@ -236,4 +236,6 @@ function timer(){
         timeTaken=30;
     }
     },1000);
-}
+} 
+
+// kuch bhi tp 
