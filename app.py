@@ -10,7 +10,7 @@ cursor=connection.cursor()
 def selectquery():
     retrieve="Select * from `questiondata` "
     cursor.execute(retrieve)
-
+ 
     # print('SELECT')
     rows= cursor.fetchall()
     # print(rows[0][1])
@@ -37,25 +37,25 @@ def selectlevel3():
 """
 
 def selecttopic1():
-    get1="Select * from `questiondata` where `Topic`='TSD' "
+    get1="SELECT * FROM `questiondata` WHERE `Difficulty` IN ('Level 1' , 'Level 2') AND `Topic` ='TSD' "
     cursor.execute(get1)
     rows1= cursor.fetchall()
     return rows1
 
 def selecttopic2():
-    get2="Select * from `questiondata` where `Topic`='TW' "
+    get2="SELECT * FROM `questiondata` WHERE `Difficulty` IN ('Level 1' , 'Level 2') AND `Topic` ='TW'"
     cursor.execute(get2)
     rows2= cursor.fetchall()
     return rows2
 
 def selecttopic3():
-    get3="Select * from `questiondata` where `Topic`= 'SI' "
+    get3="SELECT * FROM `questiondata` WHERE `Difficulty` IN ('Level 1' , 'Level 2') AND `Topic` ='SI' "
     cursor.execute(get3)
     rows3= cursor.fetchall()
     return rows3
 
 def selecttopic4():
-    get3="Select * from `questiondata` where `Topic`= 'PPL' "
+    get3="SELECT * FROM `questiondata` WHERE `Difficulty` IN ('Level 1' , 'Level 2') AND `Topic` ='PPL'"
     cursor.execute(get3)
     rows4= cursor.fetchall()
     return rows4
