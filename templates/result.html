@@ -17,6 +17,7 @@
     <link href="../static/css/styles2.css" rel="stylesheet">
     <link href="../static/css/coming-soon.css" rel="stylesheet">
     <!-- <link href="../static/css/coming-soon.min.css" rel="stylesheet"> -->
+
 </head>
 
 <body>
@@ -33,16 +34,6 @@
                                 <h1 class="mb-3">Test Completed Successfully!</h1>
                                 <p style="font-size: 30 px;">Here is your result -></p>
                         </div>
-                        <!-- <div class="container h-100">
-                        <div class="row h-100">
-                            <div class="col-12 my-auto">
-                            <div class="masthead-content text-white py-5 py-md-0">
-                                <h1 class="mb-3">Test Completed Successfully!</h1>
-                                <p style="font-size: 30 px;">Here is your result -></p>
-                            </div>
-                            </div>
-                        </div>
-                        </div> -->
                 </div>  <!-- column -->
                 <div class="col-8" >
                     <div class="card" style="margin-left: 30%;">
@@ -53,63 +44,26 @@
                                     <thead>
                                         <tr>
                                             <th>Question No</th>
-                                            <th>Level</th>
-                                            <th>Correctness</th>
+                                            <th>Correctness</th>    
+                                            <th>Time Taken</th>   
                                             <th>Option Changes</th>
-                                            <th>Time Taken</th>
                                             <th>Time Taken per test</th>
+                                            <th>Topic</th>
+                                            <th>Level</th> 
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Serge Baldwin</td>
-                                            <td>Data Coordinator</td>
-                                            <td>Singapore</td>
-                                            <td>64</td>
-                                            <td>2012/04/09</td>
-                                            <td>$138,575</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Zenaida Frank</td>
-                                            <td>Software Engineer</td>
-                                            <td>New York</td>
-                                            <td>63</td>
-                                            <td>2010/01/04</td>
-                                            <td>$125,250</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Zorita Serrano</td>
-                                            <td>Software Engineer</td>
-                                            <td>San Francisco</td>
-                                            <td>56</td>
-                                            <td>2012/06/01</td>
-                                            <td>$115,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jennifer Acosta</td>
-                                            <td>Junior Javascript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>43</td>
-                                            <td>2013/02/01</td>
-                                            <td>$75,650</td>
-                                        </tr>
+                                    <tbody id="qtable-body">
+                                        <!-- Getting filled from js -->
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>Question No</th>
-                                            <th>Level</th>
-                                            <th>Correctness</th>
+                                            <th>Correctness</th>    
+                                            <th>Time Taken</th>   
                                             <th>Option Changes</th>
-                                            <th>Time Taken</th>
                                             <th>Time Taken per test</th>
+                                            <th>Topic</th>
+                                            <th>Level</th> 
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -135,5 +89,11 @@
     <script src="./plugins/tables/js/jquery.dataTables.min.js"></script>
     <script src="./plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
     <script src="./plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
+    <script type="text/javascript" src="../static/js/capture_parameter.js"></script>
+    <script type="text/javascript" src="../static/js/result_table.js"></script>
+    <script>
+        displayQuestionResult();
+        alert("Here in result html");
+    </script>
 </body>
 </html>

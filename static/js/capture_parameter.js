@@ -15,10 +15,12 @@ var timeTaken=30;
 var timerFun;
 var row=undefined;
 
-window.onload= timer();
+// window.onload= timer();
 var startTime=undefined;
 var finishTime=undefined;
 var radios=undefined;
+
+var totalTimeTaken=undefined;
 
 // var counter=0;
 
@@ -27,7 +29,7 @@ var radios=undefined;
 //row refers to the data sent by flask, in our case it is the entire question table
 
 function initialise(x,x1,x2,x3,x4){
- 
+
     row=x;
     row1=x1;
     row2=x2;
@@ -147,7 +149,7 @@ function storeAnswer(){
     //alert("Question No. rn is "+qnum);
     //alert(row);
     var ans= row[qnum-1][8].charCodeAt()-96; //a=1,b=2,c=3,d=4 
-    //alert("Answer is "+ans);
+    alert("Answer is "+ans);
     var ele = document.getElementsByName('option');
     var ansValue; 
     for(i = 0; i < ele.length; i++) { 
@@ -155,11 +157,11 @@ function storeAnswer(){
             ansValue = ele[i].value;        
             if(ele[i].value == ans){
             //alert("Correct Answer");
-            answers[qnum-1]=1;
+            answers[qnum_cur-1]=1;
             }
             else{
             //alert("Wrong Answer");
-            answers[qnum-1]=0;
+            answers[qnum_cur-1]=0;
             }
         }
     }
@@ -168,7 +170,7 @@ function storeAnswer(){
     elapsedtime[qnum_cur-1] += Math.floor(finishTime-startTime); 
     
     startTime=finishTime;   
-    // alert(answers);
+    alert(answers);
     // alert(elapsedtime);
     setCookie("Answer"+qnum_cur,ansValue,30);
 }
@@ -187,7 +189,7 @@ function deleteCookie(name){
 function checkAnswers(){ 
     var count=0;
     var total=0;
-    //alert("ans array is "+ answers);
+    alert("ans array is "+ answers);
     for(var i=0;i<answers.length;i++){
         if(answers[i] == 1){
             count++;
@@ -205,6 +207,7 @@ function checkAnswers(){
     var seconds=(+a[0])*60*60 + (+a[1])*60 + (+a[2]);
     var diff=(30*60)-seconds;       //30:00 - 29:21 
 
+    totalTimeTaken=toTimeString(diff);
     alert("Time Taken by you is "+ toTimeString(diff));
     alert(elapsedtime);
     alert("Final counter is "+optionchanges);
@@ -236,5 +239,17 @@ function timer(){
     }
     },1000);
 } 
+// function displayQuestionResult(){
+//     qtable= document.getElementById("qtable-body");
+//     for(var i=1;i<=15;i++){
+//         qtable.innerHTML="<tr><td>"+i+"</td><td>"+answers[i-1]+"</td><td>"+elapsedtime[i-1]+"</td><td>"+optionchanges[i-1]+"</td><td>"+totalTimeTaken+"</td><td>"+row[questions[i]-1][10]+"</td><td>"+row[questions[i]-1][9]+"</td></tr>";
+//     }
+// }
 
-// kuch bhi tp 
+/* <th>Question No</th>
+<th>Correctness</th>    answers
+<th>Time Taken</th> elapsedTime  
+<th>Option Changes</th> optionchanges
+<th>Time Taken per test</th>    totalTimeTaken
+<th>Topic</th>
+<th>Level</th> */
