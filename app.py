@@ -76,6 +76,10 @@ app=Flask(__name__)
 def index():
     return render_template('landing.html')
 
+@app.route('/result')
+def result():
+    return render_template('result.html')
+
 @app.route('/test')
 def test():
     rows=selectquery()
