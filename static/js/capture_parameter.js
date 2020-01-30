@@ -15,7 +15,7 @@ var timeTaken=30;
 var timerFun;
 var row=undefined;
 
-// window.onload= timer();
+window.onload= timer();
 var startTime=undefined;
 var finishTime=undefined;
 var radios=undefined;
@@ -36,8 +36,6 @@ function initialise(x,x1,x2,x3,x4){
     row3=x3;
     row4=x4;
 
-    alert(row3);
-
     // var last_question_no=276;
 
     random_questions(row1,5);    //TSD
@@ -45,8 +43,8 @@ function initialise(x,x1,x2,x3,x4){
     random_questions(row3,3);    //SI
     random_questions(row4,3);    //PPL
     // alert(questions);
-    // shuffle(questions);
-    // alert(questions);
+    shuffle(questions);
+    alert(questions);
 
     // random_questions(row,15);
   
@@ -60,7 +58,7 @@ function shuffle(array) {
 function random_questions(arr, l){
     x=arr;
     var len=x.length;
-    alert(len);
+    // alert(len);
     for(var i=0;i<l;){
         var temp = Math.floor(Math.random()*(len-1+1));      //question number between 1 to last_question_no
         if(!questions.includes(arr[temp][0])){
@@ -93,7 +91,7 @@ function renderQuestion(a) {//a=1->15
     ques.innerHTML += "<input id='option4' type='radio' name='option' value='4'>" + row[x - 1][7] + "<br><br>";
     
     var prev_ans=getCookie("Answer"+a);
-    alert("prev ans "+ prev_ans);
+    // alert("prev ans "+ prev_ans);
     if(prev_ans){
         document.getElementById('option'+prev_ans).checked=true;
     }
@@ -149,7 +147,7 @@ function storeAnswer(){
     //alert("Question No. rn is "+qnum);
     //alert(row);
     var ans= row[qnum-1][8].charCodeAt()-96; //a=1,b=2,c=3,d=4 
-    alert("Answer is "+ans);
+    // alert("Answer is "+ans);
     var ele = document.getElementsByName('option');
     var ansValue; 
     for(i = 0; i < ele.length; i++) { 
@@ -170,7 +168,7 @@ function storeAnswer(){
     elapsedtime[qnum_cur-1] += Math.floor(finishTime-startTime); 
     
     startTime=finishTime;   
-    alert(answers);
+    // alert(answers);
     // alert(elapsedtime);
     setCookie("Answer"+qnum_cur,ansValue,30);
 }
@@ -189,7 +187,7 @@ function deleteCookie(name){
 function checkAnswers(){ 
     var count=0;
     var total=0;
-    alert("ans array is "+ answers);
+    // alert("ans array is "+ answers);
     for(var i=0;i<answers.length;i++){
         if(answers[i] == 1){
             count++;
@@ -208,10 +206,19 @@ function checkAnswers(){
     var diff=(30*60)-seconds;       //30:00 - 29:21 
 
     totalTimeTaken=toTimeString(diff);
-    alert("Time Taken by you is "+ toTimeString(diff));
-    alert(elapsedtime);
-    alert("Final counter is "+optionchanges);
+    // alert("Time Taken by you is "+ toTimeString(diff));
+    // alert(elapsedtime);
+    // alert("Final counter is "+optionchanges);
     deleteAllCookies();
+    $.post( '/sendparameters', {
+        questions: JSON.stringify(questions), 
+        answers: JSON.stringify(answers),
+        optionchanges: JSON.stringify(optionchanges),
+        elapsedtime: JSON.stringify(elapsedtime),
+        totalTimeTaken: totalTimeTaken
+    },function(status){
+        alert("\nStatus: " + status);
+    });
 }
 
 function toTimeString(seconds){     //39s-> 00:00:39
