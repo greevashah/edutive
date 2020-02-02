@@ -171,6 +171,21 @@ function storeAnswer(){
     // alert(answers);
     // alert(elapsedtime);
     setCookie("Answer"+qnum_cur,ansValue,30);
+var j=2;
+// while(j<16){
+//     alert(j);
+    document.getElementById('primaryButton'+ j).click();
+    // j+=1;
+      
+    
+//   }
+
+ 
+
+   
+  
+  
+
 }
 
 function deleteAllCookies(){
