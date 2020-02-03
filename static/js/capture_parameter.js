@@ -15,7 +15,11 @@ var timeTaken=30;
 var timerFun;
 var row=undefined;
 
-window.onload= timer();
+window.onload= function(){
+    timer();
+    this.renderQuestion(1)
+};
+
 var startTime=undefined;
 var finishTime=undefined;
 var radios=undefined;
@@ -171,7 +175,7 @@ function storeAnswer(){
     // alert(answers);
     // alert(elapsedtime);
     setCookie("Answer"+qnum_cur,ansValue,30);
-var j=2;
+var j=qnum_cur+1;
 // while(j<16){
 //     alert(j);
     document.getElementById('primaryButton'+ j).click();
@@ -231,8 +235,11 @@ function checkAnswers(){
         optionchanges: JSON.stringify(optionchanges),
         elapsedtime: JSON.stringify(elapsedtime),
         totalTimeTaken: totalTimeTaken
-    },function(status){
-        alert("\nStatus: " + status);
+    },function(res){
+        console.log(res)
+        // alert("\nStatus: " + res.status);
+        alert("Reached here from sendparameters");
+        location.href = '/result';
     });
 }
 

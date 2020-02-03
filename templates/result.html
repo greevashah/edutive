@@ -74,7 +74,7 @@
             </div>  <!-- row-->
         </div>  <!-- container-fluid -->
     </div>
-    
+    <div style="display:none;" id="hidden">{{data}}</div>
 
 
     <!--**********************************
@@ -92,8 +92,10 @@
     <!-- <script type="text/javascript" src="../static/js/capture_parameter.js"></script> -->
     <script type="text/javascript" src="../static/js/result_table.js"></script>
     <script>
-        displayQuestionResult();
-        alert("Here in result html");
+        initialise({{ value|tojson}}, {{ value1|tojson}})
+        // alert({{ value|tojson}});
+        // alert({{ value1|tojson}});
+        // alert("Here in result html");
     </script>
 </body>
 </html>

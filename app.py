@@ -11,8 +11,8 @@ app=Flask(__name__)
 
 # FUNCTIONS 
 # Query functions
-def selectquery():
-    retrieve="Select * from `questiondata` "
+def selectquery(tablename):
+    retrieve="Select * from `"+tablename+"` "
     cursor.execute(retrieve)
  
     # print('SELECT')
@@ -179,12 +179,15 @@ def index():
 
 @app.route('/result')
 def result():
-    return render_template('result.html')
+    print("Here in result")
+    ds= selectquery("dataset")
+    topicds=selectquery("topicdataset")
+    return render_template('result.html', value=str(ds), value1=str(topicds) )
 
 @app.route('/test')
 def test():
     global rows,rows1,rows2,rows3,rows4
-    rows=selectquery()
+    rows=selectquery("questiondata")
     rows1=selecttopic1()
     rows2=selecttopic2()
     rows3=selecttopic3()
@@ -209,7 +212,8 @@ def get_data():
     insertDataset()
     computeTopicwise()
     insertTopicDataset()
-    return 200
+    print("Leaving sendparameters")
+    return "lol"
 
 if __name__ == "__main__":
     app.jinja_env.auto_reload = True
