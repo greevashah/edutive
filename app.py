@@ -50,7 +50,7 @@ def insertDataset():
         insert="INSERT INTO `dataset`(qno, correctness, tpque, optionchanges, tptopic, tptest, topic, difficulty) VALUES("+str(qnum[i])+","+str(ans[i])+","+str(elapt[i])+","+str(optch[i])+","+str(timept[topic[i]])+",'"+str(totaltime)+"','"+topic[i]+"','"+difficulty[i]+"')"
         # insert="INSERT INTO `dataset`(qno, correctness, tpque, optionchanges, tptopic, tptest, topic, difficulty) VALUES(%d,%d,%d,%d,%d,%s,%s,%s)"
         cursor.execute(insert)
-        connection.commit()
+        # connection.commit()
         # print(str(insert))
 
 def insertTopicDataset():
@@ -58,7 +58,7 @@ def insertTopicDataset():
         insert="INSERT INTO `topicdataset`(topic, correctness, tpque, optionchanges, tptopic, tptest) VALUES('"+i+"','"+str(topicwise[i][0])+"','"+str(topicwise[i][1])+"','"+str(topicwise[i][2])+"','"+str(timept[i])+"','"+str(totaltime)+"')"
         # insert="INSERT INTO `topicdataset`(qno, correctness, tpque, optionchanges, tptopic, tptest, topic, difficulty) VALUES(%d,%d,%d,%d,%d,%s,%s,%s)"
         cursor.execute(insert) 
-        connection.commit()
+        # connection.commit()
         print(str(insert))
 
 # Computation functions
@@ -177,6 +177,11 @@ def convertToIntList(arr):
 def index():
     return render_template('landing.html')
 
+@app.route('/thanking')
+def thanking():
+    return render_template('thanking.html')
+
+    
 @app.route('/result')
 def result():
     print("Here in result")
