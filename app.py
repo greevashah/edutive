@@ -57,9 +57,10 @@ def insertTopicDataset():
     for i in topicwise.keys():
         insert="INSERT INTO `topicdataset`(topic, correctness, tpque, optionchanges, tptopic, tptest) VALUES('"+i+"','"+str(topicwise[i][0])+"','"+str(topicwise[i][1])+"','"+str(topicwise[i][2])+"','"+str(timept[i])+"','"+str(totaltime)+"')"
         # insert="INSERT INTO `topicdataset`(qno, correctness, tpque, optionchanges, tptopic, tptest, topic, difficulty) VALUES(%d,%d,%d,%d,%d,%s,%s,%s)"
-        cursor.execute(insert) 
+        # cursor.execute(insert)
+        print(cursor.execute(insert))
         # connection.commit()
-        print(str(insert))
+        # print(str(insert))
 
 # Computation functions
 def computeRows():
