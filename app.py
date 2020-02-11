@@ -1,5 +1,5 @@
 from flask import Flask, render_template,json,request
-import pymysql
+import pymysql,os
 
 
 # database connection
@@ -223,7 +223,8 @@ def get_data():
 if __name__ == "__main__":
     app.jinja_env.auto_reload = True
     app.config['TEMPLATES_AUTO_RELOAD'] = True
-    app.run(port=5000, debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
 
 #commiting the connection then closing it. Otherwise the updated change is unsaved
 connection.commit()
