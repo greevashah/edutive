@@ -48,7 +48,7 @@ function initialise(x,x1,x2,x3,x4){
     random_questions(row4,3);    //PPL
     // alert(questions);
     shuffle(questions);
-    alert(questions);
+    // alert(questions);
 
     // random_questions(row,15);
   
@@ -180,16 +180,7 @@ var j=qnum_cur+1;
 //     alert(j);
     document.getElementById('primaryButton'+ j).click();
     // j+=1;
-      
-    
 //   }
-
- 
-
-   
-  
-  
-
 }
 
 function deleteAllCookies(){
