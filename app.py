@@ -50,7 +50,7 @@ def insertDataset():
         insert="INSERT INTO `dataset`(qno, correctness, tpque, optionchanges, tptopic, tptest, topic, difficulty) VALUES("+str(qnum[i])+","+str(ans[i])+","+str(elapt[i])+","+str(optch[i])+","+str(timept[topic[i]])+",'"+str(totaltime)+"','"+topic[i]+"','"+difficulty[i]+"')"
         # insert="INSERT INTO `dataset`(qno, correctness, tpque, optionchanges, tptopic, tptest, topic, difficulty) VALUES(%d,%d,%d,%d,%d,%s,%s,%s)"
         cursor.execute(insert)
-        # connection.commit()
+        connection.commit()
         # print(str(insert))
 
 def insertTopicDataset():
@@ -59,7 +59,7 @@ def insertTopicDataset():
         # insert="INSERT INTO `topicdataset`(qno, correctness, tpque, optionchanges, tptopic, tptest, topic, difficulty) VALUES(%d,%d,%d,%d,%d,%s,%s,%s)"
         # cursor.execute(insert)
         print(cursor.execute(insert))
-        # connection.commit()
+        connection.commit()
         # print(str(insert))
 
 # Computation functions
