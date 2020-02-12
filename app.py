@@ -3,7 +3,7 @@ import pymysql,os
 
 
 # database connection
-connection= pymysql.connect(host="sql12.freemysqlhosting.net",user="sql12322245",passwd="PfmNYfbQGj",database="sql12322245")
+connection= pymysql.connect(host="remotemysql.com",user="tthTEMzAku",passwd="VDy1GLuLuT",database="tthTEMzAku")
 cursor=connection.cursor() 
 
 
