@@ -64,7 +64,7 @@ function random_questions(arr, l){
     var len=x.length;
     // alert(len);
     for(var i=0;i<l;){
-        var temp = Math.floor(Math.random()*(len-1+1));      //question number between 1 to last_question_no
+        var temp = Math.floor(Math.random()*(len-1)+1);      //question number between 1 to last_question_no
         if(!questions.includes(arr[temp][0])){
             questions[index++]=arr[temp][0];  //To find integral random between a range, max not included, 
                             //Math.floor(Math.random()*(max-min)+min) 

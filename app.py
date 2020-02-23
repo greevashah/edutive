@@ -1,9 +1,9 @@
 from flask import Flask, render_template,json,request
-import pymysql,os
-
+import pymysql,os,random
 
 # database connection
-connection= pymysql.connect(host="sql12.freemysqlhosting.net",user="sql12322245",passwd="PfmNYfbQGj",database="sql12322245")
+# connection= pymysql.connect(host="sql12.freemysqlhosting.net",user="sql12322245",passwd="PfmNYfbQGj",database="sql12322245")
+connection= pymysql.connect(host="remotemysql.com",user="tthTEMzAku",passwd="VDy1GLuLuT",database="tthTEMzAku")
 cursor=connection.cursor() 
 
 
@@ -14,36 +14,29 @@ app=Flask(__name__)
 def selectquery(tablename):
     retrieve="Select * from `"+tablename+"` "
     cursor.execute(retrieve)
- 
     # print('SELECT')
     rows= cursor.fetchall()
     # print(rows[0][1])
     return rows
-    #     print(row)
+    # print(row)
 
-def selecttopic1():
-    get1="SELECT * FROM `questiondata` WHERE `Difficulty` IN ('Level 1' , 'Level 2') AND `Topic` ='TSD' "
+def selectTopicLevelTable(tableName, topicName, level):
+    get1="SELECT * FROM `"+tableName+"` WHERE `Difficulty` = '"+level+"' AND `Topic` ='"+topicName+"' "
     cursor.execute(get1)
-    rows1= cursor.fetchall()
-    return rows1
+    rows= cursor.fetchall()
+    return rows
 
-def selecttopic2():
-    get2="SELECT * FROM `questiondata` WHERE `Difficulty` IN ('Level 1' , 'Level 2') AND `Topic` ='TW'"
-    cursor.execute(get2)
-    rows2= cursor.fetchall()
-    return rows2
+def selectTopicTable(tableName, topicName):
+    get1="SELECT * FROM `"+tableName+"` WHERE `Topic` ='"+topicName+"' "
+    cursor.execute(get1)
+    rows= cursor.fetchall()
+    return rows
 
-def selecttopic3():
-    get3="SELECT * FROM `questiondata` WHERE `Difficulty` IN ('Level 1' , 'Level 2') AND `Topic` ='SI' "
-    cursor.execute(get3)
-    rows3= cursor.fetchall()
-    return rows3
-
-def selecttopic4():
-    get3="SELECT * FROM `questiondata` WHERE `Difficulty` IN ('Level 1' , 'Level 2') AND `Topic` ='PPL'"
-    cursor.execute(get3)
-    rows4= cursor.fetchall()
-    return rows4
+# def selecttopic1():
+#     get1="SELECT * FROM `questiondata` WHERE `Difficulty` IN ('Level 1' , 'Level 2') AND `Topic` ='TSD' "
+#     cursor.execute(get1)
+#     rows1= cursor.fetchall()
+#     return rows1
 
 def insertDataset():
     for i in range(len(qnum)):
@@ -62,7 +55,7 @@ def insertTopicDataset():
         connection.commit()
         # print(str(insert))
 
-# Computation functions
+# COMPUTATION FUNCTIONS
 def computeRows():
     # print(type(qnum))
     # print(type(rows))
@@ -173,6 +166,18 @@ def convertToIntList(arr):
     # ques[len(ques)-1]=ques[len(ques)-1][0:-1]
     return result
 
+def randomQuestion(num,topicName,level):
+    allques=selectTopicLevelTable("questiondata",topicName,level)
+    l= len(allques)
+    questions=[]
+    for i in range(num):
+        temp= random.choice(allques)
+        if(temp not in questions):
+            questions.append(temp[0])
+            i+=1
+    # print(questions)
+    return questions
+
 # ROUTING
 @app.route('/')
 def index():
@@ -181,7 +186,6 @@ def index():
 @app.route('/thanking')
 def thanking():
     return render_template('thanking.html')
-
     
 @app.route('/result')
 def result():
@@ -193,12 +197,14 @@ def result():
 @app.route('/test')
 def test():
     global rows,rows1,rows2,rows3,rows4
+    # print(selectTopicTable("questiondata","TSD"))
+    print(randomQuestion(5,"SI","Level 2"))
     rows=selectquery("questiondata")
-    rows1=selecttopic1()
-    rows2=selecttopic2()
-    rows3=selecttopic3()
-    rows4=selecttopic4()
-    #print(type(rows))
+    rows1=selectTopicTable("questiondata","TSD")
+    rows2=selectTopicTable("questiondata","TW")
+    rows3=selectTopicTable("questiondata","SI")
+    rows4=selectTopicTable("questiondata","PPL")
+    # print(type(rows))
     return render_template('test.html',value=rows,value1=rows1,value2=rows2,value3=rows3,value4=rows4)
 # Sends all rows as value, possible due to render template
 
