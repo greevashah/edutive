@@ -1,5 +1,6 @@
 from flask import Flask, render_template,json,request
-import pymysql,os,random
+import pymysql,os,random,calendar,time
+from decimal import *
 
 # database connection
 # connection= pymysql.connect(host="sql12.freemysqlhosting.net",user="sql12322245",passwd="PfmNYfbQGj",database="sql12322245")
@@ -19,6 +20,13 @@ def selectquery(tablename):
     # print(rows[0][1])
     return rows
     # print(row)
+
+#One condition
+def selectWhereTable(tableName, columnname, columnvalue):       
+    get1="SELECT * FROM `"+tableName+"` WHERE `"+columnname+"` = '"+columnvalue+"' "
+    cursor.execute(get1)
+    rows= cursor.fetchall()
+    return rows
 
 def selectTopicLevelTable(tableName, topicName, level):
     get1="SELECT * FROM `"+tableName+"` WHERE `Difficulty` = '"+level+"' AND `Topic` ='"+topicName+"' "
@@ -40,7 +48,7 @@ def selectTopicTable(tableName, topicName):
 
 def insertDataset():
     for i in range(len(qnum)):
-        insert="INSERT INTO `dataset`(qno, correctness, tpque, optionchanges, tptopic, tptest, topic, difficulty) VALUES("+str(qnum[i])+","+str(ans[i])+","+str(elapt[i])+","+str(optch[i])+","+str(timept[topic[i]])+",'"+str(totaltime)+"','"+topic[i]+"','"+difficulty[i]+"')"
+        insert="INSERT INTO `dataset`(testId,qno, correctness, tpque, optionchanges, tptopic, tptest, topic, difficulty) VALUES('"+testId+"',"+str(qnum[i])+","+str(ans[i])+","+str(elapt[i])+","+str(optch[i])+","+str(timept[topic[i]])+",'"+str(totaltime)+"','"+topic[i]+"','"+difficulty[i]+"')"
         # insert="INSERT INTO `dataset`(qno, correctness, tpque, optionchanges, tptopic, tptest, topic, difficulty) VALUES(%d,%d,%d,%d,%d,%s,%s,%s)"
         cursor.execute(insert)
         connection.commit()
@@ -48,10 +56,10 @@ def insertDataset():
 
 def insertTopicDataset():
     for i in topicwise.keys():
-        insert="INSERT INTO `topicdataset`(topic, correctness, tpque, optionchanges, tptopic, tptest) VALUES('"+i+"','"+str(topicwise[i][0])+"','"+str(topicwise[i][1])+"','"+str(topicwise[i][2])+"','"+str(timept[i])+"','"+str(totaltime)+"')"
+        insert="INSERT INTO `topicdataset`(testId,topic, correctness, tpque, optionchanges, tptopic, tptest) VALUES('"+testId+"','"+i+"','"+str(topicwise[i][0])+"','"+str(topicwise[i][1])+"','"+str(topicwise[i][2])+"','"+str(timept[i])+"','"+str(totaltime)+"')"
         # insert="INSERT INTO `topicdataset`(qno, correctness, tpque, optionchanges, tptopic, tptest, topic, difficulty) VALUES(%d,%d,%d,%d,%d,%s,%s,%s)"
-        # cursor.execute(insert)
-        print(cursor.execute(insert))
+        cursor.execute(insert)
+        # print(cursor.execute(insert))
         connection.commit()
         # print(str(insert))
 
@@ -90,10 +98,10 @@ def computeRows():
             topicQ['PPL'].append(q)
             timept['PPL'] += elapt[c]
         c= c+1
-    print(topic)
-    print(difficulty)
-    print(topicQ)
-    print(timept)
+    # print(topic)
+    # print(difficulty)
+    # print(topicQ)
+    # print(timept)
 
 def computeTopicwise():
     global topicwise
@@ -152,7 +160,7 @@ def computeTopicwise():
     topicwise['TW'][2] /= qattempt[1] if qattempt[1] > 0 else 1
     topicwise['SI'][2] /= qattempt[2] if qattempt[2] > 0 else 1
     topicwise['PPL'][2] /= qattempt[3] if qattempt[3] > 0 else 1
-    print(topicwise)
+    # print(topicwise)
 
 def convertToIntList(arr):
     result=[]
@@ -190,13 +198,28 @@ def thanking():
 @app.route('/result')
 def result():
     print("Here in result")
-    ds= selectquery("dataset")
-    topicds=selectquery("topicdataset")
-    return render_template('result.html', value=str(ds), value1=str(topicds) )
+    ds= selectWhereTable("dataset","testId",testId)
+    topicds=selectWhereTable("topicdataset","testId",testId)
+    newRow=[]
+    for i in topicds:
+        temp=[]
+        for j in i:
+            if type(j)==type(Decimal('0.001')):
+                temp.append(float(j))
+            else:
+                temp.append(j)
+        newRow.append(temp)
+    print(newRow)
+    print(type(newRow[0][3]),newRow[0][3] )
+    return render_template('result.html', value=ds, value1=newRow, value2= testId)
 
 @app.route('/test')
 def test():
     global rows,rows1,rows2,rows3,rows4
+    global ts,testId
+    ts=calendar.timegm(time.gmtime())
+    testId=str(ts)
+    # print("Time stamp is "+str(ts))
     # print(selectTopicTable("questiondata","TSD"))
     # print(randomQuestion(5,"SI","Level 2"))
     rows=selectquery("questiondata")
