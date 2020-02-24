@@ -3,9 +3,9 @@ import pymysql,os,random
 
 # database connection
 # connection= pymysql.connect(host="sql12.freemysqlhosting.net",user="sql12322245",passwd="PfmNYfbQGj",database="sql12322245")
-connection= pymysql.connect(host="remotemysql.com",user="tthTEMzAku",passwd="VDy1GLuLuT",database="tthTEMzAku")
+connection= pymysql.connect(host="remotemysql.com",user="tthTEMzAku",passwd="VDy1GLuLuT",database="tthTEMzAku", connection_timeout= 180)
 cursor=connection.cursor() 
-global_connect_timeout = 'SET GLOBAL connect_timeout=180'
+connect_timeout = 'SET GLOBAL connect_timeout=180'
 global_wait_timeout = 'SET GLOBAL connect_timeout=180'
 global_interactive_timeout = 'SET GLOBAL connect_timeout=180'
 cursor.execute(global_connect_timeout)
