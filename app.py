@@ -5,7 +5,13 @@ import pymysql,os,random
 # connection= pymysql.connect(host="sql12.freemysqlhosting.net",user="sql12322245",passwd="PfmNYfbQGj",database="sql12322245")
 connection= pymysql.connect(host="remotemysql.com",user="tthTEMzAku",passwd="VDy1GLuLuT",database="tthTEMzAku")
 cursor=connection.cursor() 
-connection.query('SET GLOBAL connect_timeout=6000')
+global_connect_timeout = 'SET GLOBAL connect_timeout=180'
+global_wait_timeout = 'SET GLOBAL connect_timeout=180'
+global_interactive_timeout = 'SET GLOBAL connect_timeout=180'
+cursor.execute(global_connect_timeout)
+cursor.execute(global_wait_timeout)
+cursor.execute(global_interactive_timeout)
+
 
 
 app=Flask(__name__)
