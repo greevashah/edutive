@@ -28,13 +28,14 @@ h6 {
 
 .masthead {
   position: relative;
-  overflow: hidden;
+  overflow: scroll;
   padding-bottom: 3rem;
   z-index: 2
 }
 
 .masthead .masthead-bg {
-  position: absolute;
+  position: fixed;
+  max-width: 45%;
   top: 0;
   bottom: 0;
   right: 0;
@@ -81,13 +82,15 @@ h6 {
       padding-bottom: 0
   }
   .masthead .masthead-bg {
+      position: fixed;
       min-height: 0;
-      max-width: 50%;
+      max-width: 45%;
       transform: skewX(-8deg);
       transform-origin: top right
   }
   .masthead .masthead-content {
-    position: relative;
+    position: fixed;
+    max-width: 35%;
     margin-left: 3rem;
     margin-top: 8rem;  
     /* padding-left: 3rem;

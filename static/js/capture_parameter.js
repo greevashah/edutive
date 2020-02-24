@@ -79,7 +79,6 @@ function random_questions(arr, l){
 
 // 1->15 buttons 1 button->questions={22,24,25....}
 function renderQuestion(a) {//a=1->15
-    // alert(x);
     ques = document.getElementById("question-data");
     var x=questions[a-1];     //get the ath random question number x=22
     //var row = {{ value }} ;
@@ -230,7 +229,7 @@ function checkAnswers(){
         console.log(res)
         // alert("\nStatus: " + res.status);
         alert("Reached here from sendparameters");
-        location.href = '/thanking';
+        location.href = '/result';
     });
 }
 

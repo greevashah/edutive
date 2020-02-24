@@ -47,7 +47,7 @@
                                             <th>Correctness</th>    
                                             <th>Time Taken</th>   
                                             <th>Option Changes</th>
-                                            <th>Time Taken per test</th>
+                                            <th>Time Taken per topic</th>
                                             <th>Topic</th>
                                             <th>Level</th> 
                                         </tr>
@@ -61,7 +61,7 @@
                                             <th>Correctness</th>    
                                             <th>Time Taken</th>   
                                             <th>Option Changes</th>
-                                            <th>Time Taken per test</th>
+                                            <th>Time Taken per topic</th>
                                             <th>Topic</th>
                                             <th>Level</th> 
                                         </tr>
@@ -92,8 +92,9 @@
     <!-- <script type="text/javascript" src="../static/js/capture_parameter.js"></script> -->
     <script type="text/javascript" src="../static/js/result_table.js"></script>
     <script>
-        initialise({{ value|tojson}}, {{ value1|tojson}})
+        initialise({{ value|tojson}}, {{ value1|tojson}}, {{ value2|tojson}});
         // alert({{ value|tojson}});
+        // alert(typeof({{ value|tojson}}));
         // alert({{ value1|tojson}});
         // alert("Here in result html");
     </script>
