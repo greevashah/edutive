@@ -5,6 +5,7 @@ import pymysql,os,random
 # connection= pymysql.connect(host="sql12.freemysqlhosting.net",user="sql12322245",passwd="PfmNYfbQGj",database="sql12322245")
 connection= pymysql.connect(host="remotemysql.com",user="tthTEMzAku",passwd="VDy1GLuLuT",database="tthTEMzAku")
 cursor=connection.cursor() 
+connection.query('SET GLOBAL connect_timeout=6000')
 
 
 app=Flask(__name__)
