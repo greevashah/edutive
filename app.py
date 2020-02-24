@@ -172,7 +172,7 @@ def randomQuestion(num,topicName,level):
     questions=[]
     for i in range(num):
         temp= random.choice(allques)
-        if(temp not in questions):
+        if(temp[0] not in questions):
             questions.append(temp[0])
             i+=1
     # print(questions)
@@ -198,7 +198,7 @@ def result():
 def test():
     global rows,rows1,rows2,rows3,rows4
     # print(selectTopicTable("questiondata","TSD"))
-    print(randomQuestion(5,"SI","Level 2"))
+    # print(randomQuestion(5,"SI","Level 2"))
     rows=selectquery("questiondata")
     rows1=selectTopicTable("questiondata","TSD")
     rows2=selectTopicTable("questiondata","TW")
