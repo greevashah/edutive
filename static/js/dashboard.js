@@ -113,27 +113,31 @@ function explodePie (e) {
 
 var dataset=undefined;
 var topicdataset=undefined;
+var testdataset= undefined;
 
-function initialise(x, x1, x2){
+function initialise(x, x1, x2, x3){
     dataset= x;
     topicdataset=x1;
-    testId= x2;
+    testdataset=x2;
+    testId= x3;
     // alert(typeof(dataset));
     // alert(ds)
-    displayQuestionResult()
+    displayQuestionResult();
     displayTopicResult();
+    displayStatistics();
 }
 
 function displayQuestionResult(){
     // alert("Dataset is: ",dataset);
     // alert(dataset[0]);
-    // alert(dataset[0][7]);
+    // alert(dataset[0][2]);
     qtable= document.getElementById("qtable-body");
     for(var i=1;i<=15;i++){
         qtable.innerHTML +="<tr><td>"+i+"</td><td>"+dataset[i-1][3]+"</td><td>"+dataset[i-1][4]+"</td><td>"+dataset[i-1][5]+"</td><td>"+dataset[i-1][6]+"</td><td>"+dataset[i-1][8]+"</td><td>"+dataset[i-1][9]+"</td></tr>";
     }
 }
-/* <th>Question No</th>
+/* 
+<th>Question No</th>
 <th>Correctness</th>    answers
 <th>Time Taken</th> elapsedTime  
 <th>Option Changes</th> optionchanges
@@ -143,7 +147,23 @@ function displayQuestionResult(){
 
 function displayTopicResult(){
     ttable= document.getElementById("ttable-body");
-    for(var i=1;i<=15;i++){
+    // alert(topicdataset[1][2]);
+    for(var i=1;i<=4;i++){
         ttable.innerHTML +="<tr><td>"+i+"</td><td>"+topicdataset[i-1][2]+"</td><td>"+topicdataset[i-1][3]+"</td><td>"+topicdataset[i-1][4]+"</td><td>"+topicdataset[i-1][5]+"</td><td>"+topicdataset[i-1][6]+"</td><td>"+topicdataset[i-1][7]+"</td></tr>";
     }
+}
+
+function displayStatistics(){
+    alert("In display stats");
+    // alert(testdataset);
+    // alert(typeof(testdataset[0][2])); OP-> Number
+    // alert(testdataset[2]); OP-> Undefined
+    var tc= document.getElementById("totalcorrect");
+    tc.innerHTML = testdataset[0][2];
+    var tic= document.getElementById("totalincorrect");
+    tic.innerHTML = testdataset[0][3];
+    var ua= document.getElementById("unattempted");
+    ua.innerHTML = 15 - (testdataset[0][2] + testdataset[0][3]);
+    // alert(tc);
+    // alert(tic);
 }

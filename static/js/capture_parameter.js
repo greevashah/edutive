@@ -213,7 +213,7 @@ function checkAnswers(){
     //alert("a is "+ a);
     var seconds=(+a[0])*60*60 + (+a[1])*60 + (+a[2]);
     var diff=(30*60)-seconds;       //30:00 - 29:21 
-
+    var incorrect=total-count;
     totalTimeTaken=toTimeString(diff);
     // alert("Time Taken by you is "+ toTimeString(diff));
     // alert(elapsedtime);
@@ -224,7 +224,9 @@ function checkAnswers(){
         answers: JSON.stringify(answers),
         optionchanges: JSON.stringify(optionchanges),
         elapsedtime: JSON.stringify(elapsedtime),
-        totalTimeTaken: totalTimeTaken
+        totalTimeTaken: totalTimeTaken,
+        totalcorrect: count,
+        totalincorrect: incorrect
     },function(res){
         console.log(res)
         // alert("\nStatus: " + res.status);

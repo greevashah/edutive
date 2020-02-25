@@ -56,7 +56,7 @@
                                 <i class="fa fa-tasks fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">12</div>
+                                <div class="huge" id="totalcorrect"></div>
                                 <div>Correct</div>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                                 <i class="fa fa-shopping-cart fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">124</div>
+                                <div class="huge" id="unattempted"></div>
                                 <div>Unattempted</div>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                                 <i class="fa fa-support fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">13</div>
+                                <div class="huge" id="totalincorrect"></div>
                                 <div>Incorrect</div>
                             </div>
                         </div>
@@ -247,7 +247,7 @@
     <!-- Custom Theme JavaScript -->
     <script src="../static/js/dashboard.js"></script>
     <script>
-        initialise({{ value|tojson}}, {{ value1|tojson}}, {{ value2|tojson}});
+        initialise({{ value|tojson}}, {{ value1|tojson}}, {{ value2|tojson}}, {{ value3|tojson}});
     </script>
     <script src="../static/canvasJS/canvasjs.min.js"> </script>
 </body>

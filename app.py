@@ -63,6 +63,11 @@ def insertTopicDataset():
         connection.commit()
         # print(str(insert))
 
+def insertTestDataset():
+    insert="INSERT INTO `testdataset`(`testId`, `tptest`, `totalcorrect`, `totalincorrect`) VALUES ('"+testId+"','"+str(totaltime)+"',"+str(totalcorrect)+","+str(totalincorrect)+")"
+    cursor.execute(insert)
+    connection.commit()
+
 # COMPUTATION FUNCTIONS
 def computeRows():
     # print(type(qnum))
@@ -199,6 +204,7 @@ def thanking():
 def dashboard():
     ds= selectWhereTable("dataset","testId",testId)
     topicds=selectWhereTable("topicdataset","testId",testId)
+    testds=selectWhereTable("testdataset","testId",testId)
     newRow=[]
     for i in topicds:
         temp=[]
@@ -208,7 +214,7 @@ def dashboard():
             else:
                 temp.append(j)
         newRow.append(temp)
-    return render_template('dashboard.html', value=ds, value1=newRow, value2= testId)
+    return render_template('dashboard.html', value=ds, value1=newRow, value2=testds, value3= testId)
     
 @app.route('/result')
 def result():
@@ -248,7 +254,7 @@ def test():
 
 @app.route('/sendparameters',methods=['POST'])
 def get_data():
-    global qnum,ans,optch,elapt,totaltime
+    global qnum,ans,optch,elapt,totaltime,totalcorrect,totalincorrect
     qnum=convertToIntList(request.form['questions'])
     ans=convertToIntList(request.form['answers'])
     # print(type(arr1))
@@ -258,10 +264,13 @@ def get_data():
     # print(arr3)
     totaltime=request.form['totalTimeTaken']
     # print(type(arr4))
+    totalcorrect=request.form['totalcorrect']
+    totalincorrect=request.form['totalincorrect']
     computeRows()
     insertDataset()
     computeTopicwise()
     insertTopicDataset()
+    insertTestDataset()
     print("Leaving sendparameters")
     return "lol"
 
