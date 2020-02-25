@@ -1,3 +1,8 @@
+var donutchart=undefined;
+var dataset=undefined;
+var topicdataset=undefined;
+var testdataset= undefined;
+
 window.onload = function () {
     var linechart = new CanvasJS.Chart("linechartContainer", {
         animationEnabled: true,
@@ -72,12 +77,16 @@ window.onload = function () {
         }
         ]
     });
+    // for(const i=0;i<4;i++){
+    //     barchart.data[0].dataPoints[0].y
+    // }
     barchart.render();
+
     var donutchart = new CanvasJS.Chart("donutchartContainer", {
         exportEnabled: true,
         animationEnabled: true,
         title:{
-            text: "State Operating Funds"
+            text: "Time of Entire Test"
         },
         legend:{
             cursor: "pointer",
@@ -86,19 +95,20 @@ window.onload = function () {
         data: [{
             type: "pie",
             showInLegend: true,
-            toolTipContent: "{name}: <strong>{y}%</strong>",
-            indexLabel: "{name} - {y}%",
+            toolTipContent: "{name}: <strong>{y}secs</strong>",
+            indexLabel: "{name} - {y}secs",
             dataPoints: [
-                { y: 26, name: "School Aid", exploded: true },
-                { y: 20, name: "Medical Aid" },
-                { y: 5, name: "Debt/Capital" },
-                { y: 3, name: "Elected Officials" },
-                { y: 7, name: "University" },
-                { y: 17, name: "Executive" },
-                { y: 22, name: "Other Local Assistance"}
+                { y:0 , name: "TSD", exploded: true },
+                { y:0 , name: "TW" },
+                { y:0 , name: "SI" },
+                { y:0, name: "PPL" }
             ]
         }]
     });
+    donutchart.options.data[0].dataPoints[0].y=topicdataset[0][6];
+    donutchart.options.data[0].dataPoints[1].y=topicdataset[1][6];
+    donutchart.options.data[0].dataPoints[2].y=topicdataset[2][6];
+    donutchart.options.data[0].dataPoints[3].y=topicdataset[3][6];
     donutchart.render();
 }
 
@@ -110,10 +120,6 @@ function explodePie (e) {
 	}
 	e.donutchart.render();
 }
-
-var dataset=undefined;
-var topicdataset=undefined;
-var testdataset= undefined;
 
 function initialise(x, x1, x2, x3){
     dataset= x;
