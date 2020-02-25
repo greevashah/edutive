@@ -8,21 +8,17 @@ function initialise(x, x1, x2){
     testId= x2;
     // alert(typeof(dataset));
     // alert(ds)
-    displayQuestionResult()
+    displayQuestionResult();
 }
 function displayQuestionResult(){
-    // alert("Dataset is: ");
-    // alert(dataset);
+    // alert("Dataset is: ", dataset);
     // alert(dataset[0]);
     // alert(dataset[0][7]);
-    // alert("Topic Dataset is: ");
-    alert(topicdataset);
     qtable= document.getElementById("qtable-body");
     for(var i=1;i<=15;i++){
         qtable.innerHTML +="<tr><td>"+i+"</td><td>"+dataset[i-1][3]+"</td><td>"+dataset[i-1][4]+"</td><td>"+dataset[i-1][5]+"</td><td>"+dataset[i-1][6]+"</td><td>"+dataset[i-1][8]+"</td><td>"+dataset[i-1][9]+"</td></tr>";
     }
 }
-
 /* <th>Question No</th>
 <th>Correctness</th>    answers
 <th>Time Taken</th> elapsedTime  

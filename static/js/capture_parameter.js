@@ -229,7 +229,7 @@ function checkAnswers(){
         console.log(res)
         // alert("\nStatus: " + res.status);
         alert("Reached here from sendparameters");
-        location.href = '/result';
+        location.href = '/dashboard';
     });
 }
 
