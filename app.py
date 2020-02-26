@@ -65,6 +65,11 @@ def insertTopicDataset():
         connection.commit()
         # print(str(insert))
 
+def insertTestDataset():
+    insert="INSERT INTO `testdataset`(`testId`, `tptest`, `totalcorrect`, `totalincorrect`) VALUES ('"+testId+"','"+str(totaltime)+"',"+str(totalcorrect)+","+str(totalincorrect)+")"
+    cursor.execute(insert)
+    connection.commit()
+
 # COMPUTATION FUNCTIONS
 def computeRows():
     # print(type(qnum))
@@ -196,10 +201,26 @@ def index():
 @app.route('/thanking')
 def thanking():
     return render_template('thanking.html')
+
+@app.route('/dashboard')
+def dashboard():
+    ds= selectWhereTable("dataset","testId",testId)
+    topicds=selectWhereTable("topicdataset","testId",testId)
+    testds=selectWhereTable("testdataset","testId",testId)
+    newRow=[]
+    for i in topicds:
+        temp=[]
+        for j in i:
+            if type(j)==type(Decimal('0.001')):
+                temp.append(float(j))
+            else:
+                temp.append(j)
+        newRow.append(temp)
+    return render_template('dashboard.html', value=ds, value1=newRow, value2=testds, value3= testId)
     
 @app.route('/result')
 def result():
-    print("Here in result")
+    # print("Here in result")
     ds= selectWhereTable("dataset","testId",testId)
     topicds=selectWhereTable("topicdataset","testId",testId)
     newRow=[]
@@ -211,8 +232,8 @@ def result():
             else:
                 temp.append(j)
         newRow.append(temp)
-    print(newRow)
-    print(type(newRow[0][3]),newRow[0][3] )
+    # print(newRow)
+    # print(type(newRow[0][3]),newRow[0][3] )
     return render_template('result.html', value=ds, value1=newRow, value2= testId)
 
 @app.route('/test')
@@ -235,7 +256,7 @@ def test():
 
 @app.route('/sendparameters',methods=['POST'])
 def get_data():
-    global qnum,ans,optch,elapt,totaltime
+    global qnum,ans,optch,elapt,totaltime,totalcorrect,totalincorrect
     qnum=convertToIntList(request.form['questions'])
     ans=convertToIntList(request.form['answers'])
     # print(type(arr1))
@@ -245,10 +266,13 @@ def get_data():
     # print(arr3)
     totaltime=request.form['totalTimeTaken']
     # print(type(arr4))
+    totalcorrect=request.form['totalcorrect']
+    totalincorrect=request.form['totalincorrect']
     computeRows()
     insertDataset()
     computeTopicwise()
     insertTopicDataset()
+    insertTestDataset()
     print("Leaving sendparameters")
     return "lol"
 
