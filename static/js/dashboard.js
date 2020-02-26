@@ -8,7 +8,7 @@ window.onload = function () {
         animationEnabled: true,
         theme: "light2",
         title:{
-            text: "Simple Line Chart"
+            text: "Test Score"
         },
         axisY:{
             includeZero: false

@@ -206,6 +206,8 @@ function checkAnswers(){
             total++;
         }  
     }
+    alert(""+count);
+    
     alert("Congratulations, Test Complete!\nNumber of correct answers are "+count+"\nTotal number of questions "+total);
     clearInterval(timerFun);
     var tim=document.getElementById('test-timer');  //29:21
@@ -214,6 +216,10 @@ function checkAnswers(){
     var seconds=(+a[0])*60*60 + (+a[1])*60 + (+a[2]);
     var diff=(30*60)-seconds;       //30:00 - 29:21 
     var incorrect=total-count;
+    alert(""+incorrect);
+    // alert(typeof(incorrect))
+    var testscore=(3*(count)-(incorrect));
+    alert("testscore is" +testscore);
     totalTimeTaken=toTimeString(diff);
     // alert("Time Taken by you is "+ toTimeString(diff));
     // alert(elapsedtime);
@@ -226,10 +232,12 @@ function checkAnswers(){
         elapsedtime: JSON.stringify(elapsedtime),
         totalTimeTaken: totalTimeTaken,
         totalcorrect: count,
-        totalincorrect: incorrect
+        totalincorrect: incorrect,
+        testscore: testscore
     },function(res){
         console.log(res)
         // alert("\nStatus: " + res.status);
+        
         alert("Reached here from sendparameters");
         location.href = '/dashboard';
     });

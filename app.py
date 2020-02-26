@@ -4,7 +4,7 @@ from decimal import *
 
 # database connection
 # connection= pymysql.connect(host="sql12.freemysqlhosting.net",user="sql12322245",passwd="PfmNYfbQGj",database="sql12322245")
-connection= pymysql.connect(host="remotemysql.com",user="tthTEMzAku",passwd="VDy1GLuLuT",database="tthTEMzAku", connect_timeout= 31536000)
+connection= pymysql.connect(host="remotemysql.com",user="tthTEMzAku",passwd="VDy1GLuLuT",database="tthTEMzAku",connect_timeout=6000)
 cursor=connection.cursor() 
 
 
@@ -66,7 +66,7 @@ def insertTopicDataset():
         # print(str(insert))
 
 def insertTestDataset():
-    insert="INSERT INTO `testdataset`(`testId`, `tptest`, `totalcorrect`, `totalincorrect`) VALUES ('"+testId+"','"+str(totaltime)+"',"+str(totalcorrect)+","+str(totalincorrect)+")"
+    insert="INSERT INTO `testdataset`(`testId`, `tptest`, `totalcorrect`, `totalincorrect` , `testscore`) VALUES ('"+testId+"','"+str(totaltime)+"',"+str(totalcorrect)+","+str(totalincorrect)+","+str(testscore)+")"
     cursor.execute(insert)
     connection.commit()
 
@@ -256,7 +256,7 @@ def test():
 
 @app.route('/sendparameters',methods=['POST'])
 def get_data():
-    global qnum,ans,optch,elapt,totaltime,totalcorrect,totalincorrect
+    global qnum,ans,optch,elapt,totaltime,totalcorrect,totalincorrect,testscore
     qnum=convertToIntList(request.form['questions'])
     ans=convertToIntList(request.form['answers'])
     # print(type(arr1))
@@ -268,6 +268,7 @@ def get_data():
     # print(type(arr4))
     totalcorrect=request.form['totalcorrect']
     totalincorrect=request.form['totalincorrect']
+    testscore=request.form['testscore']
     computeRows()
     insertDataset()
     computeTopicwise()
