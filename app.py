@@ -8,8 +8,6 @@ connection= pymysql.connect(host="remotemysql.com",user="tthTEMzAku",passwd="VDy
 cursor=connection.cursor() 
 
 
-
-
 app=Flask(__name__)
 
 # FUNCTIONS 
@@ -58,7 +56,7 @@ def insertDataset():
 
 def insertTopicDataset():
     for i in topicwise.keys():
-        insert="INSERT INTO `topicdataset`(testId,topic, correctness, tpque, optionchanges, tptopic, tptest) VALUES('"+testId+"','"+i+"','"+str(topicwise[i][0])+"','"+str(topicwise[i][1])+"','"+str(topicwise[i][2])+"','"+str(timept[i])+"','"+str(totaltime)+"')"
+        insert="INSERT INTO `topicdataset`(testId,topic, correctness, tpque, optionchanges, tptopic,correct, incorrect, topicscore, tptest) VALUES('"+testId+"','"+i+"','"+str(topicwise[i][0])+"','"+str(topicwise[i][1])+"','"+str(topicwise[i][2])+"','"+str(timept[i])+"','"+str(topicCorrect[i])+"','"+str(topicIncorrect[i])+"','"+str(topicScore[i])+"','"+str(totaltime)+"')"
         # insert="INSERT INTO `topicdataset`(qno, correctness, tpque, optionchanges, tptopic, tptest, topic, difficulty) VALUES(%d,%d,%d,%d,%d,%s,%s,%s)"
         cursor.execute(insert)
         # print(cursor.execute(insert))
@@ -71,6 +69,8 @@ def insertTestDataset():
     connection.commit()
 
 # COMPUTATION FUNCTIONS
+
+# Computing topicQ and timept dictionaries
 def computeRows():
     # print(type(qnum))
     # print(type(rows))
@@ -111,7 +111,26 @@ def computeRows():
     # print(timept)
 
 def computeTopicwise():
-    global topicwise
+    global topicwise,topicIncorrect,topicCorrect,topicScore
+    topicCorrect=dict()
+    topicIncorrect=dict()
+    topicScore= dict()
+
+    topicCorrect['TSD']=0
+    topicCorrect['TW']=0
+    topicCorrect['SI']=0
+    topicCorrect['PPL']=0
+
+    topicIncorrect['TSD']=0
+    topicIncorrect['TW']=0
+    topicIncorrect['SI']=0
+    topicIncorrect['PPL']=0
+    
+    topicScore['TSD']=0
+    topicScore['TW']=0
+    topicScore['SI']=0
+    topicScore['PPL']=0
+
     topicwise=dict()
     topicwise['TSD']=[0]*3
     topicwise['TW']=[0]*3
@@ -129,6 +148,12 @@ def computeTopicwise():
         tmp=rows[q-1][10]
         if(tmp=='TSD'):
             if(ans[c] != -1):
+                if(ans[c]>0):
+                    topicCorrect['TSD'] +=1
+                    topicScore['TSD'] +=3
+                else:
+                    topicIncorrect['TSD'] +=1
+                    topicScore['TSD'] -=1
                 topicwise['TSD'][0] += ans[c]/l1
                 qattempt[0]+=1
             else:
@@ -138,6 +163,12 @@ def computeTopicwise():
 
         elif(tmp =='TW'):
             if(ans[c] != -1):
+                if(ans[c]>0):
+                    topicCorrect['TW'] +=1
+                    topicScore['TW'] +=3
+                else:
+                    topicIncorrect['TW'] +=1
+                    topicScore['TW'] -=1
                 topicwise['TW'][0] += ans[c]/l2
                 qattempt[1]+=1
             else:
@@ -147,6 +178,12 @@ def computeTopicwise():
 
         elif(tmp=='SI'):
             if(ans[c] != -1):
+                if(ans[c]>0):
+                    topicCorrect['SI'] +=1
+                    topicScore['SI'] +=3
+                else:
+                    topicIncorrect['SI'] +=1
+                    topicScore['SI'] -=1
                 topicwise['SI'][0] += ans[c]/l3
                 qattempt[2]+=1
             else:
@@ -156,6 +193,12 @@ def computeTopicwise():
 
         elif(tmp=='PPL'):
             if(ans[c] != -1):
+                if(ans[c]>0):
+                    topicCorrect['PPL'] +=1
+                    topicScore['PPL'] +=3
+                else:
+                    topicIncorrect['PPL'] +=1
+                    topicScore['PPL'] -=1
                 topicwise['PPL'][0] += ans[c]/l4
                 qattempt[3]+=1
             else:
@@ -168,6 +211,10 @@ def computeTopicwise():
     topicwise['SI'][2] /= qattempt[2] if qattempt[2] > 0 else 1
     topicwise['PPL'][2] /= qattempt[3] if qattempt[3] > 0 else 1
     # print(topicwise)
+    print("Topicwise")
+    print(topicCorrect)
+    print(topicIncorrect)
+    print(topicScore)
 
 def convertToIntList(arr):
     result=[]
