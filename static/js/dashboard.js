@@ -18,19 +18,16 @@ window.onload = function () {
             dataPoints: [
                 { y: 450 },
                 { y: 414},
-                { y: 520, indexLabel: "highest",markerColor: "red", markerType: "triangle" },
+                { y: 520},
                 { y: 460 },
                 { y: 450 },
-                { y: 500 },
-                { y: 480 },
-                { y: 480 },
-                { y: 410 , indexLabel: "lowest",markerColor: "DarkSlateGrey", markerType: "cross" },
-                { y: 500 },
-                { y: 480 },
-                { y: 510 }
+                { y: 410 , indexLabel: "Latest",markerColor: "red", markerType: "triangle" },
             ]
         }]
     });
+    for(var i=0;i<6;i++){
+        linechart.options.data[0].dataPoints[i].y=testdataset[6-i-1][4];
+    }
     linechart.render();
     
     var barchart = new CanvasJS.Chart("barchartContainer", {
@@ -56,10 +53,10 @@ window.onload = function () {
               showInLegend: true,
               color: "#3d8b3d",
             dataPoints: [
-                { label: "TSD",  y: 10  },
-                { label: "TW", y: 15  },
-                { label: "SI", y: 25  },
-                { label: "PPL",  y: 30  },
+                { label: "TSD",  y: 0  },
+                { label: "TW", y: 0  },
+                { label: "SI", y: 0  },
+                { label: "PPL",  y: 0  },
             ]
         },
          {
@@ -69,17 +66,18 @@ window.onload = function () {
                showInLegend: true,
                color: "#b52b27",
             dataPoints: [
-                { label: "TSD",  y: 4  },
-                { label: "TW", y: 10  },
-                { label: "SI", y: 25  },
-                { label: "PPL",  y: 30  },
+                { label: "TSD",  y: 0  },
+                { label: "TW", y: 0  },
+                { label: "SI", y: 0  },
+                { label: "PPL",  y: 0  },
             ]
         }
         ]
     });
-    // for(const i=0;i<4;i++){
-    //     barchart.data[0].dataPoints[0].y
-    // }
+    for(var i=0;i<4;i++){
+        barchart.options.data[0].dataPoints[i].y=topicdataset[i][7];
+        barchart.options.data[1].dataPoints[i].y=topicdataset[i][8];
+    }
     barchart.render();
 
     var donutchart = new CanvasJS.Chart("donutchartContainer", {
@@ -105,10 +103,9 @@ window.onload = function () {
             ]
         }]
     });
-    donutchart.options.data[0].dataPoints[0].y=topicdataset[0][6];
-    donutchart.options.data[0].dataPoints[1].y=topicdataset[1][6];
-    donutchart.options.data[0].dataPoints[2].y=topicdataset[2][6];
-    donutchart.options.data[0].dataPoints[3].y=topicdataset[3][6];
+    for(var i=0;i<4;i++){
+        donutchart.options.data[0].dataPoints[i].y=topicdataset[i][6];
+    }
     donutchart.render();
 }
 
@@ -124,10 +121,10 @@ function explodePie (e) {
 function initialise(x, x1, x2, x3){
     dataset= x;
     topicdataset=x1;
-    testdataset=x2;
+    testdataset=x2;     //testdataset
     testId= x3;
     // alert(typeof(dataset));
-    // alert(ds)
+    alert(testdataset)
     displayQuestionResult();
     displayTopicResult();
     displayStatistics();
@@ -155,15 +152,28 @@ function displayTopicResult(){
     ttable= document.getElementById("ttable-body");
     // alert(topicdataset[1][2]);
     for(var i=1;i<=4;i++){
-        ttable.innerHTML +="<tr><td>"+i+"</td><td>"+topicdataset[i-1][2]+"</td><td>"+topicdataset[i-1][3]+"</td><td>"+topicdataset[i-1][4]+"</td><td>"+topicdataset[i-1][5]+"</td><td>"+topicdataset[i-1][6]+"</td><td>"+topicdataset[i-1][7]+"</td></tr>";
+        ttable.innerHTML +="<tr><td>"+i+"</td><td>"+topicdataset[i-1][2]+"</td><td>"+topicdataset[i-1][3]+"</td><td>"+topicdataset[i-1][4]+"</td><td>"+topicdataset[i-1][5]+"</td><td>"+topicdataset[i-1][6]+"</td><td>"+topicdataset[i-1][7]+"</td><td>"+topicdataset[i-1][8]+"</td><td>"+topicdataset[i-1][9]+"</td><td>"+topicdataset[i-1][10]+"</td></tr>";
     }
 }
+/*
+<th>Id</th>
+<th>Topic</th>    
+<th>Correctness</th>   
+<th>Time Taken per Question</th>
+<th>Option Changes</th>
+<th>Time Taken per Topic</th>
+<th>Correct Questions</th>
+<th>Incorrect Questions</th>
+<th>Topic Score</th>
+<th>Time Taken per Test</th> 
+*/
 
 function displayStatistics(){
-    alert("In display stats");
+    // alert("In display stats");
     // alert(testdataset);
     // alert(typeof(testdataset[0][2])); OP-> Number
     // alert(testdataset[2]); OP-> Undefined
+    l=testdataset.length;
     var tc= document.getElementById("totalcorrect");
     tc.innerHTML = testdataset[0][2];
     var tic= document.getElementById("totalincorrect");

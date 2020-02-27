@@ -40,6 +40,12 @@ def selectTopicTable(tableName, topicName):
     rows= cursor.fetchall()
     return rows
 
+def selectTestScore():
+    get1="SELECT * FROM `testdataset` ORDER BY `testId` desc limit 6"
+    cursor.execute(get1)
+    rows= cursor.fetchall()
+    return rows
+
 # def selecttopic1():
 #     get1="SELECT * FROM `questiondata` WHERE `Difficulty` IN ('Level 1' , 'Level 2') AND `Topic` ='TSD' "
 #     cursor.execute(get1)
@@ -253,7 +259,8 @@ def thanking():
 def dashboard():
     ds= selectWhereTable("dataset","testId",testId)
     topicds=selectWhereTable("topicdataset","testId",testId)
-    testds=selectWhereTable("testdataset","testId",testId)
+    # testds=selectWhereTable("testdataset","testId",testId)
+    testds=selectTestScore()
     newRow=[]
     for i in topicds:
         temp=[]
