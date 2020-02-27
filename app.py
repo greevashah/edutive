@@ -120,7 +120,7 @@ def computeRows():
     # print(timept)
 
 def computeTopicwise():
-    global topicwise,topicIncorrect,topicCorrect,topicScore
+    global topicwise,topicIncorrect,topicCorrect,topicScore,l1,l2,l3,l4
     topicCorrect=dict()
     topicIncorrect=dict()
     topicScore= dict()
@@ -249,6 +249,116 @@ def randomQuestion(num,topicName,level):
     # print(questions)
     return questions
 
+def findRatioLevel(a,b,c,totalq):
+  lt=[]
+  den=a+b+c
+  if den==0:
+    return [0,0,0]
+  lt.append(a/den*totalq)
+  lt.append(b/den*totalq)
+  lt.append(c/den*totalq)
+  return lt
+
+def findRatioTopic(a,b,c,d,totalq):
+  lt=[]
+  den=((b*c*d)+(a*c*d)+(a*b*c)+(a*b*d))/(a*b*c*d)
+  if den==0:
+    return [0,0,0,0]
+  lt.append((1/(a*den))*totalq)
+  lt.append((1/(b*den))*totalq)
+  lt.append((1/(c*den))*totalq)
+  lt.append((1/(d*den))*totalq)
+#   den=a+b+c+d
+#   lt.append(a/den*totalq)
+  return lt
+
+def findIntRatio(lt, totalq):
+  lt_int=[] 
+  lt_ftp=dict()
+  result=dict()
+  sum_int=0
+  for i in range(len(lt)):
+    lt_int.append(int(lt[i]))
+    result[i]=lt_int[i]
+    lt_ftp[i]=lt[i] - lt_int[i]
+  sum_int=sum(lt_int)
+  while(sum_int < totalq):
+    all=lt_ftp.values()
+    k= getkey(lt_ftp, max(all))
+    result[k] +=1
+    lt_ftp.pop(k)
+    sum_int+=1
+  return result
+
+def inferenceEngine(p, totalq):
+  levelRt=dict()
+  # Ratio of levels for a particular topic
+  if p<=0.09 :
+    a=15
+    b=0
+    c=0
+  elif(p<=0.19):
+    a=13
+    b=2
+    c=0
+  elif(p<=0.29):
+    a=10
+    b=5
+    c=0
+  elif(p<=0.39):
+    a=7
+    b=7
+    c=1
+  elif(p<=0.49):
+    a=5
+    b=8
+    c=2
+  elif(p<=0.59):
+    a=3
+    b=10
+    c=2
+  elif(p<=0.69):
+    a=2
+    b=8
+    c=5
+  elif(p<=0.79):
+    a=2
+    b=5
+    c=8
+  elif(p<=0.89):
+    a=1
+    b=3
+    c=11
+  elif(p<=1):
+    a=0
+    b=0
+    c=15
+  else:
+    a=1
+    b=1
+    c=1
+  tmp=findRatioLevel(a,b,c,totalq)
+  levelRt=findIntRatio(tmp, totalq)
+  # levelRt[0]=tmp[0]
+  # levelRt[1]=tmp[1]
+  # levelRt[2]=tmp[2]
+  return(levelRt)
+
+def getkey(lt_ftp, val):
+   for key, value in lt_ftp.items(): 
+     if val == value: 
+       return key 
+
+def topicRatio(pt1,pt2,pt3,pt4,totalq):
+  # a:b:c:d -> 0.5:0.75:0.3:0.1
+  # den= a+b+c+d
+  # a/den*15:b/den*15 ...
+  topicRt= dict()
+  tmp=findRatioTopic(pt1,pt2,pt3,pt4,totalq)
+  topicRt= findIntRatio(tmp,totalq)
+  return topicRt
+
+
 # ROUTING
 @app.route('/')
 def index():
@@ -292,19 +402,40 @@ def thanking():
                 timeclass[count]=1
         
         if questiondataset[i][2]>=2:
-            optionclass[count]=3
-        elif(questiondataset[i][2]==1):
             optionclass[count]=2
-        elif(questiondataset[i][2]==0):
+        elif(questiondataset[i][2]==1):
             optionclass[count]=1
+        elif(questiondataset[i][2]==0):
+            optionclass[count]=0
         count +=1
-
     x = np.array((ans,optionclass,timeclass)).T
     y=linearreg(x)
     print(y)
+    pq=dict()
+    pq['TSD']=0
+    pq['TW']=0
+    pq['SI']=0
+    pq['PPL']=0
 
-    
+    for i in range(15):
+        pq[topic[i]] += y[i]
+    pq['TSD'] /=l1
+    pq['TW'] /=l2
+    pq['SI'] /=l3
+    pq['PPL'] /=l4
+    print("PQ is ", pq)
 
+    topicP= dict()
+    topicLevelRt=dict()
+    print("No of questions per topic")
+    topicRt= topicRatio(pq['TSD'],pq['TW'],pq['SI'],pq['PPL'],15)
+    print(topicRt)
+    topicname=['TSD','TW','SI','PPL']
+    for i in range(4):
+        topicLevelRt[i]=inferenceEngine(pq[topicname[i]], topicRt[i])
+
+    print("No of ques of each Level in each topic")
+    print(topicLevelRt) 
     return render_template('thanking.html')
 
 
@@ -352,6 +483,9 @@ def test():
     # print("Time stamp is "+str(ts))
     # print(selectTopicTable("questiondata","TSD"))
     # print(randomQuestion(5,"SI","Level 2"))
+    
+    # Fetch topic-level ratio from db and then using randomQuestion() we will setch random questions acc to that ratio and then pass only
+    # those selected questions
     rows=selectquery("questiondata")
     rows1=selectTopicTable("questiondata","TSD")
     rows2=selectTopicTable("questiondata","TW")
