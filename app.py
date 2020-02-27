@@ -1,5 +1,7 @@
 from flask import Flask, render_template,json,request
 import pymysql,os,random,calendar,time
+import numpy as np
+from linreg import linearreg
 from decimal import *
 
 # database connection
@@ -9,6 +11,7 @@ cursor=connection.cursor()
 
 
 app=Flask(__name__)
+
 
 # FUNCTIONS 
 # Query functions
@@ -253,7 +256,57 @@ def index():
 
 @app.route('/thanking')
 def thanking():
+    questiondataset=dict()
+    for i in range(15):
+        questiondataset[i]=[]
+        questiondataset[i].append(ans[i])
+        questiondataset[i].append(elapt[i])
+        questiondataset[i].append(optch[i])
+        questiondataset[i].append(topic[i])
+        questiondataset[i].append(difficulty[i])
+        
+    timeclass=[0]*15
+    optionclass=[0]*15
+    count=0
+    for i in questiondataset:
+        if questiondataset[i][4]=="level1":
+            if questiondataset[i][1]>40:
+                timeclass[count]=3
+            elif(20<questiondataset[i][1]<=40):
+                timeclass[count]=2
+            elif(questiondataset[i][1]<=20):
+                timeclass[count]=1
+        elif(questiondataset[i][4]=="level2"):
+            if questiondataset[i][1]>80:
+                timeclass[count]=3
+            elif(40<questiondataset[i][1]<=80):
+                timeclass[count]=2
+            elif(questiondataset[i][1]<=40):
+                timeclass[count]=1
+        else:
+            if questiondataset[i][1]>210:
+                timeclass[count]=3
+            elif(120<questiondataset[i][1]<=210):
+                timeclass[count]=2
+            elif(questiondataset[i][1]<=120):
+                timeclass[count]=1
+        
+        if questiondataset[i][2]>=2:
+            optionclass[count]=3
+        elif(questiondataset[i][2]==1):
+            optionclass[count]=2
+        elif(questiondataset[i][2]==0):
+            optionclass[count]=1
+        count +=1
+
+    x = np.array((ans,optionclass,timeclass)).T
+    y=linearreg(x)
+    print(y)
+
+    
+
     return render_template('thanking.html')
+
 
 @app.route('/dashboard')
 def dashboard():
