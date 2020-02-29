@@ -22,7 +22,6 @@ def selectquery(tablename):
     rows= cursor.fetchall()
     # print(rows[0][1])
     return rows
-    # print(row)
 
 #One condition
 def selectWhereTable(tableName, columnname, columnvalue):       
@@ -32,6 +31,8 @@ def selectWhereTable(tableName, columnname, columnvalue):
     return rows
 
 def selectTopicLevelTable(tableName, topicName, level):
+    # print(topicName)
+    # print(level)
     get1="SELECT * FROM `"+tableName+"` WHERE `Difficulty` = '"+level+"' AND `Topic` ='"+topicName+"' "
     cursor.execute(get1)
     rows= cursor.fetchall()
@@ -45,6 +46,12 @@ def selectTopicTable(tableName, topicName):
 
 def selectTestScore():
     get1="SELECT * FROM `testdataset` ORDER BY `testId` desc limit 6"
+    cursor.execute(get1)
+    rows= cursor.fetchall()
+    return rows
+
+def selectTopiclevelratio():
+    get1="SELECT * FROM `topiclevelratio` ORDER BY `id` desc limit 4"
     cursor.execute(get1)
     rows= cursor.fetchall()
     return rows
@@ -76,6 +83,17 @@ def insertTestDataset():
     insert="INSERT INTO `testdataset`(`testId`, `tptest`, `totalcorrect`, `totalincorrect` , `testscore`) VALUES ('"+testId+"','"+str(totaltime)+"',"+str(totalcorrect)+","+str(totalincorrect)+","+str(testscore)+")"
     cursor.execute(insert)
     connection.commit()
+
+def insertPerformance():
+    insert="INSERT INTO `performance`(`testId`, `TSD`, `TW`, `SI`, `PPL`) VALUES ('"+testId+"',"+str(pq['TSD'])+","+str(pq['TW'])+","+str(pq['SI'])+","+str(pq['PPL'])+")"
+    cursor.execute(insert)
+    connection.commit()
+
+def insertTopiclevelratio():
+    for k in topicLevelRt.keys():
+        insert="INSERT INTO `topiclevelratio`(`Topic`, `Level 1`, `Level 2`, `Level 3`) VALUES ('"+k+"',"+str(topicLevelRt[k][0])+","+str(topicLevelRt[k][1])+","+str(topicLevelRt[k][2])+")"
+        cursor.execute(insert)
+        connection.commit()
 
 # COMPUTATION FUNCTIONS
 
@@ -220,10 +238,10 @@ def computeTopicwise():
     topicwise['SI'][2] /= qattempt[2] if qattempt[2] > 0 else 1
     topicwise['PPL'][2] /= qattempt[3] if qattempt[3] > 0 else 1
     # print(topicwise)
-    print("Topicwise")
-    print(topicCorrect)
-    print(topicIncorrect)
-    print(topicScore)
+    # print("Topicwise")
+    # print(topicCorrect)
+    # print(topicIncorrect)
+    # print(topicScore)
 
 def convertToIntList(arr):
     result=[]
@@ -237,17 +255,33 @@ def convertToIntList(arr):
     # ques[len(ques)-1]=ques[len(ques)-1][0:-1]
     return result
 
-def randomQuestion(num,topicName,level):
+def randomQuestion(num, topicName, level):
     allques=selectTopicLevelTable("questiondata",topicName,level)
+    # print("All questions are ", allques)
     l= len(allques)
     questions=[]
-    for i in range(num):
+    questionsRow=[]
+    if l == 0:      #when there aren't any questions of a particular type
+        lev=int(level[5:])
+        alt=selectTopicLevelTable("questiondata",topicName,"Level "+str(lev-1))
+        # print("level is ",str(lev))
+        if(len(alt)==0):
+            alt=selectTopicLevelTable("questiondata",topicName,"Level "+str(lev-2))
+        allques=alt
+    i=0
+    while(i<num):
         temp= random.choice(allques)
         if(temp[0] not in questions):
             questions.append(temp[0])
+            # print("type of temp is ",type(temp))
+            questionsRow.append(temp)
             i+=1
+            
     # print(questions)
-    return questions
+    result=[]
+    result.append(questions)
+    result.append(questionsRow)
+    return result
 
 def findRatioLevel(a,b,c,totalq):
   lt=[]
@@ -366,6 +400,7 @@ def index():
 
 @app.route('/thanking')
 def thanking():
+    global pq,topicLevelRt
     questiondataset=dict()
     for i in range(15):
         questiondataset[i]=[]
@@ -379,14 +414,14 @@ def thanking():
     optionclass=[0]*15
     count=0
     for i in questiondataset:
-        if questiondataset[i][4]=="level1":
+        if questiondataset[i][4]=="Level 1":
             if questiondataset[i][1]>40:
                 timeclass[count]=3
             elif(20<questiondataset[i][1]<=40):
                 timeclass[count]=2
             elif(questiondataset[i][1]<=20):
                 timeclass[count]=1
-        elif(questiondataset[i][4]=="level2"):
+        elif(questiondataset[i][4]=="Level 2"):
             if questiondataset[i][1]>80:
                 timeclass[count]=3
             elif(40<questiondataset[i][1]<=80):
@@ -410,32 +445,33 @@ def thanking():
         count +=1
     x = np.array((ans,optionclass,timeclass)).T
     y=linearreg(x)
-    print(y)
+    # print(y)
     pq=dict()
-    pq['TSD']=0
-    pq['TW']=0
-    pq['SI']=0
-    pq['PPL']=0
-
+    pq['TSD']=0.0
+    pq['TW']=0.0
+    pq['SI']=0.0
+    pq['PPL']=0.0
+    # y-> 15 p
     for i in range(15):
         pq[topic[i]] += y[i]
     pq['TSD'] /=l1
     pq['TW'] /=l2
     pq['SI'] /=l3
     pq['PPL'] /=l4
-    print("PQ is ", pq)
-
+    # print("PQ is ", pq)
+    insertPerformance()
     topicP= dict()
     topicLevelRt=dict()
-    print("No of questions per topic")
+    # print("No of questions per topic")
     topicRt= topicRatio(pq['TSD'],pq['TW'],pq['SI'],pq['PPL'],15)
-    print(topicRt)
+    # print(topicRt)
     topicname=['TSD','TW','SI','PPL']
     for i in range(4):
-        topicLevelRt[i]=inferenceEngine(pq[topicname[i]], topicRt[i])
+        topicLevelRt[topicname[i]]=inferenceEngine(pq[topicname[i]], topicRt[i])
 
     print("No of ques of each Level in each topic")
     print(topicLevelRt) 
+    insertTopiclevelratio()
     return render_template('thanking.html')
 
 
@@ -482,17 +518,30 @@ def test():
     testId=str(ts)
     # print("Time stamp is "+str(ts))
     # print(selectTopicTable("questiondata","TSD"))
-    # print(randomQuestion(5,"SI","Level 2"))
     
+    # print(randomQuestion(5,"SI","Level 2"))
     # Fetch topic-level ratio from db and then using randomQuestion() we will setch random questions acc to that ratio and then pass only
     # those selected questions
     rows=selectquery("questiondata")
-    rows1=selectTopicTable("questiondata","TSD")
-    rows2=selectTopicTable("questiondata","TW")
-    rows3=selectTopicTable("questiondata","SI")
-    rows4=selectTopicTable("questiondata","PPL")
+    # rows1=selectTopicTable("questiondata","TSD")
+    # rows2=selectTopicTable("questiondata","TW")
+    # rows3=selectTopicTable("questiondata","SI")
+    # rows4=selectTopicTable("questiondata","PPL")
+    questionNumbers=[]
+    quesRows=[]
+    value=selectTopiclevelratio()
+    # print(value)
+    for i in range(4):
+        for l in range(3):
+            result= randomQuestion(value[i][l+2], value[i][1],"Level "+str(l+1))
+            questionNumbers += result[0]
+            quesRows += result[1]
+    print(questionNumbers)
+    # print(len(questionNumbers))
+    print(tuple(quesRows))
+    return render_template('test.html',value=tuple(quesRows), value1=questionNumbers)
     # print(type(rows))
-    return render_template('test.html',value=rows,value1=rows1,value2=rows2,value3=rows3,value4=rows4)
+    # return render_template('test.html',value=rows,value1=rows1,value2=rows2,value3=rows3,value4=rows4)
 # Sends all rows as value, possible due to render template
 
 @app.route('/sendparameters',methods=['POST'])

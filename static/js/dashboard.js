@@ -6,6 +6,7 @@ var testdataset= undefined;
 window.onload = function () {
     var linechart = new CanvasJS.Chart("linechartContainer", {
         animationEnabled: true,
+        exportEnabled: true,
         theme: "light2",
         title:{
             text: "Test Score"
@@ -33,6 +34,7 @@ window.onload = function () {
     var barchart = new CanvasJS.Chart("barchartContainer", {
         theme: "light1", // "light2", "dark1", "dark2"
         animationEnabled: true, // change to true		
+        exportEnabled: true,
         title:{
             text: "Correctness"
         },
@@ -124,7 +126,7 @@ function initialise(x, x1, x2, x3){
     testdataset=x2;     //testdataset
     testId= x3;
     // alert(typeof(dataset));
-    alert(testdataset)
+    // alert(testdataset)
     displayQuestionResult();
     displayTopicResult();
     displayStatistics();
