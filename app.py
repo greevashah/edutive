@@ -536,9 +536,9 @@ def test():
             result= randomQuestion(value[i][l+2], value[i][1],"Level "+str(l+1))
             questionNumbers += result[0]
             quesRows += result[1]
-    print(questionNumbers)
+    # print(questionNumbers)
     # print(len(questionNumbers))
-    print(tuple(quesRows))
+    # print(tuple(quesRows))
     return render_template('test.html',value=tuple(quesRows), value1=questionNumbers)
     # print(type(rows))
     # return render_template('test.html',value=rows,value1=rows1,value2=rows2,value3=rows3,value4=rows4)

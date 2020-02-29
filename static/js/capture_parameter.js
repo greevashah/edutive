@@ -196,6 +196,18 @@ var j=qnum_cur+1;
 //   }
 }
 
+
+function clearAnswer(){
+    var qno=document.getElementById('question-num');        
+    var qnum_cur=parseInt(qno.innerText.substring(13));     //1->15
+    var ele=document.getElementsByName("option");
+    for(var i=0;i<ele.length;i++)
+    ele[i].checked = false;
+    answers[qnum_cur-1]=-1;
+    deleteCookie("Answer"+qnum_cur);
+}
+
+
 function deleteAllCookies(){
     var cookies = document.cookie.split(";");
     for (var i = 0; i < cookies.length; i++)
