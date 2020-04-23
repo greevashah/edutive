@@ -42,6 +42,9 @@
             <div class="save">
                 <a href="#" id="save-button" class="btn btn-primary" style="position: absolute;right: 2px;bottom: 2px; " onclick="storeAnswer()">Save</a>
             </div>
+            <div class="clear">
+              <a href="#" id="clear-button" class="btn btn-primary" style="position: absolute;right: 70px;bottom: 2px; " onclick="clearAnswer()">Clear</a>
+          </div>
         </div>
       </div>
     </div>
@@ -108,7 +111,7 @@
 
           <div class="row" style="align-self: center;">
             <div class="que-inline-block">
-              <!-- <a href="{{ url_for('result') }}" class="btn btn-primary">Save</a> -->
+              <!-- <a href="{{ url_for('thanking') }}" class="btn btn-primary">Save</a> -->
               <a class="btn btn-primary" onclick="checkAnswers()">Submit Test</a>
             </div>
           </div>
@@ -124,7 +127,10 @@
     <!-- Including External JS files -->
     <script type="text/javascript" src="../static/js/capture_parameter.js"></script>
     <script>
-      initialise({{ value|tojson }},{{ value1|tojson }},{{ value2|tojson }},{{ value3|tojson }},{{ value4|tojson }}); //Have to place it here as {{value}} is Jinja2- -templating lang, only accessed in html
+      //Have to place it here as {{value}} is Jinja2- -templating lang, only accessed in html
+      initialise({{ value|tojson }},{{ value1|tojson|safe }})
+      // console.log({{ value|tojson }})
+      // console.log({{ value1|tojson }})
     </script>
   </body>
 </html>

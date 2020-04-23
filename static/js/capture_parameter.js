@@ -32,24 +32,26 @@ var totalTimeTaken=undefined;
 
 //row refers to the data sent by flask, in our case it is the entire question table
 
-function initialise(x,x1,x2,x3,x4){
-
+// function initialise(x,x1,x2,x3,x4){
+function initialise(x,x1){
     row=x;
-    row1=x1;
-    row2=x2;
-    row3=x3;
-    row4=x4;
+    // console.log(x1)
+    // console.log(typeof(x1))
+    questions=x1;
+    // row1=x1;
+    // row2=x2;
+    // row3=x3;
+    // row4=x4;
 
     // var last_question_no=276;
 
-    random_questions(row1,5);    //TSD
-    random_questions(row2,4);    //TW
-    random_questions(row3,3);    //SI
-    random_questions(row4,3);    //PPL
-    // alert(questions);
+    // random_questions(row1,5);    //TSD
+    // random_questions(row2,4);    //TW
+    // random_questions(row3,3);    //SI
+    // random_questions(row4,3);    //PPL
     shuffle(questions);
-    alert(questions);
-
+    console.log(questions);
+    
     // random_questions(row,15);
   
     // alert(elapsedtime);
@@ -58,13 +60,13 @@ function initialise(x,x1,x2,x3,x4){
 function shuffle(array) {
     array.sort(() => Math.random() - 0.5);
   }
-
+/*
 function random_questions(arr, l){
     x=arr;
     var len=x.length;
     // alert(len);
     for(var i=0;i<l;){
-        var temp = Math.floor(Math.random()*(len-1+1));      //question number between 1 to last_question_no
+        var temp = Math.floor(Math.random()*(len-1)+1);      //question number between 1 to last_question_no
         if(!questions.includes(arr[temp][0])){
             questions[index++]=arr[temp][0];  //To find integral random between a range, max not included, 
                             //Math.floor(Math.random()*(max-min)+min) 
@@ -75,13 +77,23 @@ function random_questions(arr, l){
         }
     }
 }
+*/
 //Display the question the dynamically and get cookie to mark previously marked answer
+function getIndex(row,x){
+    for(var i=0;i<row.length;i++){
+        if(x == row[i][0]){
+            return i+1;
+        }
+        else
+            continue;
+    }
+}
 
 // 1->15 buttons 1 button->questions={22,24,25....}
 function renderQuestion(a) {//a=1->15
-    // alert(x);
     ques = document.getElementById("question-data");
-    var x=questions[a-1];     //get the ath random question number x=22
+    var qn=parseInt(questions[a-1]);     //get the ath random question number x=22
+    var x= getIndex(row,qn)
     //var row = {{ value }} ;
     // counter=0;
     // this data is sent in flask using render template, data is sent as comma separated all values
@@ -144,13 +156,14 @@ function storeAnswer(){
     var qno=document.getElementById('question-num');        
     //Question No. 12
     var qnum_cur=parseInt(qno.innerText.substring(13));     //1->15
-    var qnum = questions[qnum_cur-1]; //Substring "12" converted to 12;     22
+    var qnum = parseInt(questions[qnum_cur-1]); //Substring "12" converted to 12;     22
     //substring(13) as from 'Question No. 3' we want from 13th char onwards
     //then find the corresponding random question number as, questions[...the whole code to find the corresponding question...]
 
     //alert("Question No. rn is "+qnum);
     //alert(row);
-    var ans= row[qnum-1][8].charCodeAt()-96; //a=1,b=2,c=3,d=4 
+    var ind= getIndex(row,qnum)
+    var ans= row[ind-1][8].charCodeAt()-96; //a=1,b=2,c=3,d=4 
     // alert("Answer is "+ans);
     var ele = document.getElementsByName('option');
     var ansValue; 
@@ -180,17 +193,20 @@ var j=qnum_cur+1;
 //     alert(j);
     document.getElementById('primaryButton'+ j).click();
     // j+=1;
-      
-    
 //   }
-
- 
-
-   
-  
-  
-
 }
+
+
+function clearAnswer(){
+    var qno=document.getElementById('question-num');        
+    var qnum_cur=parseInt(qno.innerText.substring(13));     //1->15
+    var ele=document.getElementsByName("option");
+    for(var i=0;i<ele.length;i++)
+    ele[i].checked = false;
+    answers[qnum_cur-1]=-1;
+    deleteCookie("Answer"+qnum_cur);
+}
+
 
 function deleteAllCookies(){
     var cookies = document.cookie.split(";");
@@ -223,7 +239,10 @@ function checkAnswers(){
     //alert("a is "+ a);
     var seconds=(+a[0])*60*60 + (+a[1])*60 + (+a[2]);
     var diff=(30*60)-seconds;       //30:00 - 29:21 
-
+    var incorrect=total-count;
+    // alert(typeof(incorrect))
+    var testscore=(3*(count)-(incorrect));
+    // alert("testscore is" +testscore);
     totalTimeTaken=toTimeString(diff);
     // alert("Time Taken by you is "+ toTimeString(diff));
     // alert(elapsedtime);
@@ -234,12 +253,16 @@ function checkAnswers(){
         answers: JSON.stringify(answers),
         optionchanges: JSON.stringify(optionchanges),
         elapsedtime: JSON.stringify(elapsedtime),
-        totalTimeTaken: totalTimeTaken
+        totalTimeTaken: totalTimeTaken,
+        totalcorrect: count,
+        totalincorrect: incorrect,
+        testscore: testscore
     },function(res){
         console.log(res)
         // alert("\nStatus: " + res.status);
+        
         alert("Reached here from sendparameters");
-        location.href = '/result';
+        location.href = '/dashboard';
     });
 }
 

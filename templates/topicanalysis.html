@@ -32,7 +32,7 @@
                 <div class="col-4">
                         <div class="masthead-content text-white py-5 py-md-0">
                                 <h1 class="mb-3">Test Completed Successfully!</h1>
-                                <p style="font-size: 30 px;">Here is your result -></p>
+                                <p style="font-size: 30 px;">Here is your Topicwise Analysis -></p>
                         </div>
                 </div>  <!-- column -->
                 <div class="col-8" >
@@ -43,13 +43,13 @@
                                 <table class="table table-striped table-bordered zero-configuration">
                                     <thead>
                                         <tr>
-                                            <th>Question No</th>
-                                            <th>Correctness</th>    
-                                            <th>Time Taken</th>   
+                                            <th>Id</th>
+                                            <th>Topic</th>    
+                                            <th>Correctness</th>   
+                                            <th>Time Taken per Question</th>
                                             <th>Option Changes</th>
-                                            <th>Time Taken per topic</th>
-                                            <th>Topic</th>
-                                            <th>Level</th> 
+                                            <th>Time Taken per Topic</th>
+                                            <th>Time Taken per Test</th> 
                                         </tr>
                                     </thead>
                                     <tbody id="qtable-body">
@@ -57,13 +57,13 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th>Question No</th>
-                                            <th>Correctness</th>    
-                                            <th>Time Taken</th>   
+                                            <th>Id</th>
+                                            <th>Topic</th>    
+                                            <th>Correctness</th>   
+                                            <th>Time Taken per Question</th>
                                             <th>Option Changes</th>
-                                            <th>Time Taken per topic</th>
-                                            <th>Topic</th>
-                                            <th>Level</th> 
+                                            <th>Time Taken per Topic</th>
+                                            <th>Time Taken per Test</th> 
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -80,21 +80,22 @@
     <!--**********************************
         Scripts
     ***********************************-->
-    <!-- <script src="plugins/common/common.min.js"></script>
+    <script src="plugins/common/common.min.js"></script>
     <script src="js/custom.min.js"></script>
     <script src="js/settings.js"></script>
     <script src="js/gleek.js"></script>
-    <script src="js/styleSwitcher.js"></script> -->
+    <script src="js/styleSwitcher.js"></script>
 
-    <!-- <script src="./plugins/tables/js/jquery.dataTables.min.js"></script>
+    <script src="./plugins/tables/js/jquery.dataTables.min.js"></script>
     <script src="./plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
-    <script src="./plugins/tables/js/datatable-init/datatable-basic.min.js"></script> -->
+    <script src="./plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
     <!-- <script type="text/javascript" src="../static/js/capture_parameter.js"></script> -->
-    <script type="text/javascript" src="../static/js/result_table.js"></script>
+    <script type="text/javascript" src="../static/js/topicanalysis.js"></script>
     <script>
-        initialise({{ value|tojson}}, {{ value1|tojson}}, {{ value2|tojson}});
+        initialise({{ value|tojson}}, {{ value1|tojson}});
         // alert({{ value|tojson}});
         // alert(typeof({{ value|tojson}}));
+        // alert({{ value1|tojson}});
         // alert("Here in result html");
     </script>
 </body>
