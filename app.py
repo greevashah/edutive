@@ -3,9 +3,9 @@ import pymysql
 
 
 # database connection
-connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")
+connection= pymysql.connect(host="eu-cdbr-west-03.cleardb.net",user="b72668611cc1ee",passwd="822351e1",database="heroku_279e13e2a650fcd")
+# connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")
 cursor=connection.cursor() 
-
 
 app=Flask(__name__)
 
