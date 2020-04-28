@@ -1,61 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <title>Login</title>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="" name="keywords">
-  <meta content="" name="description">
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet"> 
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script> 
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link  rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" id="bootstrap-css">
-    
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
-
-  <!-- Main Stylesheet File -->
-  <link href="../static/styles.css" rel="stylesheet">
-
-  <!-- Google Fonts -->
-  <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,600,700,700i|Montserrat:300,400,500,600,700" rel="stylesheet"> -->
-
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
-
-  <!-- <link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
-  <!-- <link href="../static/bootstrap/js/bootstrap.min.js" rel="stylesheet"> -->
-
-  <!-- <script src="../static/js/lib/jquery-3.4.1.min.js"></script> -->
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> -->
+<link rel="stylesheet" href="../static/styles.css" type="text/css">
+ <title>Login</title>
 </head>
-
 <body>
-   <!-- Modal -->
+  <!-- Modal -->
+  <div class="text-center">
+    <a href="" class="btn blue-gradient btn-default btn-rounded" data-toggle="modal" data-target="#elegantModalForm">Launch
+      modal Login Form
+    </a>
+  </div>
+
 <div class="modal fade" id="elegantModalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 aria-hidden="true">
 <div class="modal-dialog" role="document">
   <!--Content-->
   <div class="modal-content form-elegant">
     <!--Header-->
-    <div class="modal-header text-center">
-      <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel"><strong>Sign in</strong></h3>
+     <div class="modal-header blue-gradient text-center">
+      <h4 class="modal-title white-text w-100 font-weight-bold py-2">Login</h4>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
+        <span aria-hidden="true" class="white-text">&times;</span>
       </button>
     </div>
     <!--Body-->
     <div class="modal-body mx-4">
       <!--Body-->
-      <div class="md-form mb-5">
-        <input type="email" id="Form-email1" class="form-control validate">
-        <label data-error="wrong" data-success="right" for="Form-email1">Your email</label>
+        
+      <div class="md-form mb-3">
+        <input type="text" id="Form-username" class="form-control validate">
+        <label data-error="wrong" data-success="right" for="Form-username">Enter Username</label>
       </div>
 
-      <div class="md-form pb-3">
+      <div class="md-form mb-3">
         <input type="password" id="Form-pass1" class="form-control validate">
-        <label data-error="wrong" data-success="right" for="Form-pass1">Your password</label>
+        <label data-error="wrong" data-success="right" for="Form-pass1">Enter Password</label>
         <p class="font-small blue-text d-flex justify-content-end">Forgot <a href="#" class="blue-text ml-1">
             Password?</a></p>
       </div>
@@ -63,18 +63,7 @@ aria-hidden="true">
       <div class="text-center mb-3">
         <button type="button" class="btn blue-gradient btn-block btn-rounded z-depth-1a">Sign in</button>
       </div>
-      <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> or Sign in
-        with:</p>
-
-      <div class="row my-3 d-flex justify-content-center">
-        <!--Facebook-->
-        <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a"><i class="fab fa-facebook-f text-center"></i></button>
-        <!--Twitter-->
-        <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a"><i class="fab fa-twitter"></i></button>
-        <!--Google +-->
-        <button type="button" class="btn btn-white btn-rounded z-depth-1a"><i class="fab fa-google-plus-g"></i></button>
-      </div>
-    </div>
+     </div>
     <!--Footer-->
     <div class="modal-footer mx-5 pt-3 mb-1">
       <p class="font-small grey-text d-flex justify-content-end">Not a member? <a href="#" class="blue-text ml-1">
@@ -84,11 +73,6 @@ aria-hidden="true">
   <!--/.Content-->
 </div>
 </div>
-<!-- Modal -->
-<!-- 
-<div class="text-center">
-<a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#elegantModalForm">Launch
-  modal Login Form</a>
-</div> -->
+
 </body>
 </html>
