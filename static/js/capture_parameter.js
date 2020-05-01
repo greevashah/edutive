@@ -15,6 +15,7 @@ var timeTaken=30;
 var timerFun;
 var row=undefined;
 
+var testId=undefined;
 window.onload= function(){
     timer();
     this.renderQuestion(1)
@@ -33,11 +34,12 @@ var totalTimeTaken=undefined;
 //row refers to the data sent by flask, in our case it is the entire question table
 
 // function initialise(x,x1,x2,x3,x4){
-function initialise(x,x1){
+function initialise(x,x1,x2){
     row=x;
     // console.log(x1)
     // console.log(typeof(x1))
     questions=x1;
+    testId= x2;
     // row1=x1;
     // row2=x2;
     // row3=x3;
@@ -256,13 +258,14 @@ function checkAnswers(){
         totalTimeTaken: totalTimeTaken,
         totalcorrect: count,
         totalincorrect: incorrect,
-        testscore: testscore
+        testscore: testscore,
+        testId: testId
     },function(res){
         console.log(res)
         // alert("\nStatus: " + res.status);
         
         alert("Reached here from sendparameters");
-        location.href = '/dashboard';
+        location.href = '/dashboard/'+testId;
     });
 }
 

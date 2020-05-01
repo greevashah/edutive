@@ -1,15 +1,17 @@
 from flask import Flask,Blueprint, render_template
-from models import query
+# from models import query
+from decimal import *
+import pymysql
  
 resdis=Blueprint('resdis',__name__)
 
-
-@resdis.route('/dashboard') #selectWhereTable selectTestScore
-def dashboard():
-    ds= query.selectWhereTable("dataset","testId",testId)
-    topicds=query.selectWhereTable("topicdataset","testId",testId)
+# TestID
+@resdis.route('/dashboard/<testId>') #selectWhereTable selectTestScore
+def dashboard(testId):
+    ds= selectWhereTable("dataset","testId",testId)
+    topicds=selectWhereTable("topicdataset","testId",testId)
     # testds=selectWhereTable("testdataset","testId",testId)
-    testds=query.selectTestScore()
+    testds=selectTestScore()
     newRow=[]
     for i in topicds:
         temp=[]
@@ -21,12 +23,29 @@ def dashboard():
         newRow.append(temp)
     return render_template('dashboard.html', value=ds, value1=newRow, value2=testds, value3= testId)
 
+#One condition
+def selectWhereTable(tableName, columnname, columnvalue):
+    connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")  
+    cursor=connection.cursor()      
+    get1="SELECT * FROM `"+tableName+"` WHERE `"+columnname+"` = '"+columnvalue+"' "
+    cursor.execute(get1)
+    rows= cursor.fetchall()
+    return rows
+
+def selectTestScore():
+    connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")
+    cursor=connection.cursor() 
+    get1="SELECT * FROM `testdataset` ORDER BY `testId` desc limit 6"
+    cursor.execute(get1)
+    rows= cursor.fetchall()
+    return rows
+
 
 @resdis.route('/result') #selectWhereTable
 def result():
     # print("Here in result")
-    ds= query.selectWhereTable("dataset","testId",testId)
-    topicds=query.selectWhereTable("topicdataset","testId",testId)
+    ds= selectWhereTable("dataset","testId",testId)
+    topicds=selectWhereTable("topicdataset","testId",testId)
     newRow=[]
     for i in topicds:
         temp=[]

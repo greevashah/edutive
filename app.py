@@ -1,14 +1,11 @@
 from flask import Flask,Blueprint,render_template,json,request
 import os
-import numpy as np
-from linreg import linearreg
-from decimal import *
 from models.query import connectionF
 
 app=Flask(__name__)
 
- # database connection
- # connection= pymysql.connect(host="eu-cdbr-west-03.cleardb.net",user="b72668611cc1ee",passwd="822351e1",database="heroku_279e13e2a650fcd" , connect_timeout=60000)
+# database connection
+# connection= pymysql.connect(host="eu-cdbr-west-03.cleardb.net",user="b72668611cc1ee",passwd="822351e1",database="heroku_279e13e2a650fcd" , connect_timeout=60000)
 # connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")
 
 
@@ -35,7 +32,7 @@ if __name__ == "__main__":
     app.config['TEMPLATES_AUTO_RELOAD'] = True
     port = int(os.environ.get('PORT', 5000))
     # app.run(host='0.0.0.0', port=port)
-    app.run(host='127.0.0.1', port=port)
+    app.run(host='127.0.0.1', port=port, debug= True)
 
 #commiting the connection then closing it. Otherwise the updated change is unsaved
 connection.commit()

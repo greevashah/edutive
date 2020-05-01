@@ -1,13 +1,24 @@
 from flask import Flask,Blueprint, render_template
-from models.query import insertTopiclevelratio, insertPerformance
-from models.computation import topicRatio , inferenceEngine
+# from models.query import insertTopiclevelratio, insertPerformance
+# from models.computation import topicRatio , inferenceEngine
+import numpy as np
+from linreg import linearreg
+import pymysql
+from pythonBlueprint.sendparam import initialise_thanking
+# ans,elapt,optch, topic,difficulty
 
 thankingB=Blueprint('thankingB',__name__)
 
-@thankingB.route('/thanking') # insertPerformance() topicRatio inferenceEngine insertTopiclevelratio()
-def thanking():
-    global pq,topicLevelRt
+# TestID
+@thankingB.route('/thanking/<testId>') # insertPerformance() topicRatio inferenceEngine insertTopiclevelratio()
+def thanking(testId):
+    global pq,topicLevelRt,topicP,questiondataset
+    ans, elapt, optch, topic, difficulty, l1,l2,l3,l4 = initialise_thanking()
+    pq=dict()
     questiondataset=dict()
+    topicP= dict()
+    topicLevelRt=dict()
+
     for i in range(15):
         questiondataset[i]=[]
         questiondataset[i].append(ans[i])
@@ -52,7 +63,6 @@ def thanking():
     x = np.array((ans,optionclass,timeclass)).T
     y=linearreg(x)
     # print(y)
-    pq=dict()
     pq['TSD']=0.0
     pq['TW']=0.0
     pq['SI']=0.0
@@ -65,9 +75,8 @@ def thanking():
     pq['SI'] /=l3
     pq['PPL'] /=l4
     # print("PQ is ", pq)
-    insertPerformance()
-    topicP= dict()
-    topicLevelRt=dict()
+    insertPerformance(testId)
+    
     # print("No of questions per topic")
     topicRt= topicRatio(pq['TSD'],pq['TW'],pq['SI'],pq['PPL'],15)
     # print(topicRt)
@@ -79,3 +88,132 @@ def thanking():
     print(topicLevelRt) 
     insertTopiclevelratio()
     return render_template('thanking.html')
+
+# Query
+
+def insertPerformance(testId):
+    connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")
+    cursor=connection.cursor() 
+    insert="INSERT INTO `performance`(`testId`, `TSD`, `TW`, `SI`, `PPL`) VALUES ('"+testId+"',"+str(pq['TSD'])+","+str(pq['TW'])+","+str(pq['SI'])+","+str(pq['PPL'])+")"
+    cursor.execute(insert)
+    connection.commit()
+
+def insertTopiclevelratio():
+    connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")
+    cursor=connection.cursor() 
+    for k in topicLevelRt.keys():
+        insert="INSERT INTO `topiclevelratio`(`Topic`, `Level 1`, `Level 2`, `Level 3`) VALUES ('"+k+"',"+str(topicLevelRt[k][0])+","+str(topicLevelRt[k][1])+","+str(topicLevelRt[k][2])+")"
+        cursor.execute(insert)
+        connection.commit()
+
+
+# Compute
+def findRatioLevel(a,b,c,totalq):
+  lt=[]
+  den=a+b+c
+  if den==0:
+    return [0,0,0]
+  lt.append(a/den*totalq)
+  lt.append(b/den*totalq)
+  lt.append(c/den*totalq)
+  return lt
+
+def findRatioTopic(a,b,c,d,totalq):
+  lt=[]
+  den=((b*c*d)+(a*c*d)+(a*b*c)+(a*b*d))/(a*b*c*d)
+  if den==0:
+    return [0,0,0,0]
+  lt.append((1/(a*den))*totalq)
+  lt.append((1/(b*den))*totalq)
+  lt.append((1/(c*den))*totalq)
+  lt.append((1/(d*den))*totalq)
+#   den=a+b+c+d
+#   lt.append(a/den*totalq)
+  return lt
+
+def findIntRatio(lt, totalq):
+  lt_int=[] 
+  lt_ftp=dict()
+  result=dict()
+  sum_int=0
+  for i in range(len(lt)):
+    lt_int.append(int(lt[i]))
+    result[i]=lt_int[i]
+    lt_ftp[i]=lt[i] - lt_int[i]
+  sum_int=sum(lt_int)
+  while(sum_int < totalq):
+    all=lt_ftp.values()
+    k= getkey(lt_ftp, max(all))
+    result[k] +=1
+    lt_ftp.pop(k)
+    sum_int+=1
+  return result
+
+def getkey(lt_ftp, val):
+   for key, value in lt_ftp.items(): 
+     if val == value: 
+       return key 
+
+def inferenceEngine(p, totalq):
+  levelRt=dict()
+  # Ratio of levels for a particular topic
+  if p<=0.09 :
+    a=15
+    b=0
+    c=0
+  elif(p<=0.19):
+    a=13
+    b=2
+    c=0
+  elif(p<=0.29):
+    a=10
+    b=5
+    c=0
+  elif(p<=0.39):
+    a=7
+    b=7
+    c=1
+  elif(p<=0.49):
+    a=5
+    b=8
+    c=2
+  elif(p<=0.59):
+    a=3
+    b=10
+    c=2
+  elif(p<=0.69):
+    a=2
+    b=8
+    c=5
+  elif(p<=0.79):
+    a=2
+    b=5
+    c=8
+  elif(p<=0.89):
+    a=1
+    b=3
+    c=11
+  elif(p<=1):
+    a=0
+    b=0
+    c=15
+  else:
+    a=1
+    b=1
+    c=1
+  tmp=findRatioLevel(a,b,c,totalq)
+  levelRt=findIntRatio(tmp, totalq)
+  # levelRt[0]=tmp[0]
+  # levelRt[1]=tmp[1]
+  # levelRt[2]=tmp[2]
+  return levelRt
+
+
+def topicRatio(pt1,pt2,pt3,pt4,totalq):
+  # a:b:c:d -> 0.5:0.75:0.3:0.1
+  # den= a+b+c+d
+  # a/den*15:b/den*15 ...
+  topicRt= dict()
+  tmp=findRatioTopic(pt1,pt2,pt3,pt4,totalq)
+  topicRt= findIntRatio(tmp,totalq)
+  return topicRt
