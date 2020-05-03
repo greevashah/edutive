@@ -1,13 +1,17 @@
-from flask import Flask,Blueprint, render_template
+from flask import Flask,Blueprint, render_template, request
 # from models import query
+# import requests
 from decimal import *
 import pymysql
  
 resdis=Blueprint('resdis',__name__)
 
 # TestID
+
 @resdis.route('/dashboard/<testId>') #selectWhereTable selectTestScore
 def dashboard(testId):
+    username= request.args.get('username')
+    # print("Name is "+ )
     ds= selectWhereTable("dataset","testId",testId)
     topicds=selectWhereTable("topicdataset","testId",testId)
     # testds=selectWhereTable("testdataset","testId",testId)
@@ -21,7 +25,7 @@ def dashboard(testId):
             else:
                 temp.append(j)
         newRow.append(temp)
-    return render_template('dashboard.html', value=ds, value1=newRow, value2=testds, value3= testId)
+    return render_template('dashboard.html', value=ds, value1=newRow, value2=testds, value3= testId, name= username)
 
 #One condition
 def selectWhereTable(tableName, columnname, columnvalue):

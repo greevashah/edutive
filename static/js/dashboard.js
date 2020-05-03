@@ -2,6 +2,7 @@ var donutchart=undefined;
 var dataset=undefined;
 var topicdataset=undefined;
 var testdataset= undefined;
+var username=undefined;
 
 window.onload = function () {
     var linechart = new CanvasJS.Chart("linechartContainer", {
@@ -120,11 +121,12 @@ function explodePie (e) {
 	e.donutchart.render();
 }
 
-function initialise(x, x1, x2, x3){
+function initialise(x, x1, x2, x3, x4){
     dataset= x;
     topicdataset=x1;
     testdataset=x2;     //testdataset
     testId= x3;
+    username=x4;
     // alert(typeof(dataset));
     // alert(testdataset)
     displayQuestionResult();

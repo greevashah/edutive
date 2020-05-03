@@ -62,8 +62,6 @@
             Register
             </a>
           </li>
-
-          
           <!-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
@@ -82,93 +80,102 @@
  
 </div>
 
-<div class="modal fade" id="elegantModalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-aria-hidden="true">
-<div class="modal-dialog" role="document">
-<!--Content-->
-<div class="modal-content form-elegant">
-  <!--Header-->
-   <div class="modal-header blue-gradient text-center">
-    <h4 class="modal-title white-text w-100 font-weight-bold py-2">Login</h4>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true" class="white-text">&times;</span>
-    </button>
+<!-- LOGIN FORM -->
+<div class="modal fade" id="elegantModalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+  <!--Content-->
+    <form method="POST" action="{{ url_for('user.login') }}">
+      <div class="modal-content form-elegant">
+        <!--Header-->
+        <div class="modal-header blue-gradient text-center">
+          <h4 class="modal-title white-text w-100 font-weight-bold py-2">Login</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="white-text">&times;</span>
+          </button>
+        </div>
+        <!--Body-->     
+        <div class="modal-body mx-4">
+          <!--Body-->
+          <div class="md-form mb-3">
+            <input type="text" id="Form-username" class="form-control validate" name="username">
+            <label data-error="wrong" data-success="right" for="Form-username">Enter Username</label>
+          </div>
+
+          <div class="md-form mb-3">
+            <input type="password" id="Form-pass1" class="form-control validate" name="password">
+            <label data-error="wrong" data-success="right" for="Form-pass1">Enter Password</label>
+            <p class="font-small blue-text d-flex justify-content-end">Forgot <a href="#" class="blue-text ml-1">
+                Password?</a></p>
+          </div>
+
+          <div class="text-center mb-3">
+            <button type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a">Sign in</button>
+          </div>
+        </div>
+        <!--Footer-->
+        <div class="modal-footer mx-5 pt-3 mb-1">
+          <p class="font-small grey-text d-flex justify-content-end">Not a member? <a class="blue-text ml-1" href="" data-toggle="modal" data-target="#elegantRegisterForm">
+              Sign Up</a></p>
+        </div>
+      </div>
+    </form>
+    <!--/.Content-->
   </div>
-  <!--Body-->
-  <div class="modal-body mx-4">
-    <!--Body-->
-      
-    <div class="md-form mb-3">
-      <input type="text" id="Form-username" class="form-control validate">
-      <label data-error="wrong" data-success="right" for="Form-username">Enter Username</label>
-    </div>
-
-    <div class="md-form mb-3">
-      <input type="password" id="Form-pass1" class="form-control validate">
-      <label data-error="wrong" data-success="right" for="Form-pass1">Enter Password</label>
-      <p class="font-small blue-text d-flex justify-content-end">Forgot <a href="#" class="blue-text ml-1">
-          Password?</a></p>
-    </div>
-
-    <div class="text-center mb-3">
-      <button type="button" class="btn blue-gradient btn-block btn-rounded z-depth-1a">Sign in</button>
-    </div>
-   </div>
-  <!--Footer-->
-  <div class="modal-footer mx-5 pt-3 mb-1">
-    <p class="font-small grey-text d-flex justify-content-end">Not a member? <a href="#" class="blue-text ml-1">
-        Sign Up</a></p>
-  </div>
-</div>
-<!--/.Content-->
-</div>
 </div>
 
+<!-- REGISTER FORM -->
 <div class="modal fade" id="elegantRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 aria-hidden="true">
 <div class="modal-dialog" role="document">
   <!--Content-->
-  <div class="modal-content form-elegant">
-    <!--Header-->
-     <div class="modal-header blue-gradient text-center">
-      <h4 class="modal-title white-text w-100 font-weight-bold py-2">Register</h4>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true" class="white-text">&times;</span>
-      </button>
-    </div>
-    <!--Body-->
-    <div class="modal-body mx-4">
+  <form action="{{ url_for('user.register') }}" method="POST">
+    <div class="modal-content form-elegant">
+      <!--Header-->
+      <div class="modal-header blue-gradient text-center">
+        <h4 class="modal-title white-text w-100 font-weight-bold py-2">Register</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
       <!--Body-->
-          <div class="md-form mb-2">
-        <input type="text" id="Form-name" class="form-control validate">
-        <label data-error="wrong" data-success="right" for="Form-name">Enter Name</label>
-      </div>
+      <div class="modal-body mx-4">
+        <!--Body-->
+            <div class="md-form mb-2">
+          <input type="text" id="Form-name" class="form-control validate" name="name" required>
+          <label data-error="wrong" data-success="right" for="Form-name">Enter Name</label>
+        </div>
 
-      <div class="md-form mb-2">
-        <input type="text" id="Form-username" class="form-control validate">
-        <label data-error="wrong" data-success="right" for="Form-username">Enter Username</label>
-      </div>
+        <div class="md-form mb-2">
+          <input type="text" id="Form-username" class="form-control validate" name="username" required>
+          <label data-error="wrong" data-success="right" for="Form-username">Enter Username</label>
+        </div>
 
-      <div class="md-form mb-2">
-        <input type="email" id="Form-email1" class="form-control validate">
-        <label data-error="wrong" data-success="right" for="Form-email1">Enter Email</label>
-      </div>
+        <div class="md-form mb-2">
+          <input type="email" id="Form-email1" class="form-control validate" name="email" required>
+          <label data-error="wrong" data-success="right" for="Form-email1">Enter Email</label>
+        </div>
 
-      <div class="md-form mb-2">
-        <input type="password" id="Form-pass1" class="form-control validate">
-        <label data-error="wrong" data-success="right" for="Form-pass1">Enter Password</label>
-      </div>
+        <div class="md-form mb-2">
+          <input type="password" id="Form-pass1" class="form-control validate" name="password" required>
+          <label data-error="wrong" data-success="right" for="Form-pass1">Enter Password</label>
+        </div>
 
-      <div class="md-form mb-2">
-        <input type="password" id="Form-pass2" class="form-control validate">
-        <label data-error="wrong" data-success="right" for="Form-pass2">Confirm Password</label>
-      </div>
+        <div class="md-form mb-2">
+          <input type="password" id="Form-pass2" class="form-control validate" name="password2" required>
+          <label data-error="wrong" data-success="right" for="Form-pass2">Confirm Password</label>
+        </div>
 
-      <div class="text-center mb-2">
-        <button type="button" class="btn blue-gradient btn-block btn-rounded z-depth-1a">Sign Up</button>
+        <div class="text-center mb-2">
+          <button type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a">Sign Up</button>
+        </div>
       </div>
-     </div>
-  </div>
+      <!--Footer-->
+      <div class="modal-footer mx-5 pt-3 mb-1">
+        <p class="font-small grey-text d-flex justify-content-end">Already a member? <a class="blue-text ml-1" href="" data-toggle="modal" data-target="#elegantModalForm">
+            Sign Up</a></p>
+      </div>
+    </div>
+  </form>
   <!--/.Content-->
 </div>
 </div>
@@ -182,9 +189,6 @@ aria-hidden="true">
       <div class="row justify-content-center align-self-center">
         <div class="col-md-6 intro-info order-md-first order-last">
           <h2>Personal Tutor<br>for Your <span>Exam!</span></h2>
-          <div>
-            <a href="{{ url_for('testB.test') }}" class="btn-get-started  blue-gradient scrollto">Start Test</a>
-          </div>
         </div>
   
         <div class="col-md-6 intro-img order-md-last order-first">

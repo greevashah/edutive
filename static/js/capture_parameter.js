@@ -265,7 +265,8 @@ function checkAnswers(){
         // alert("\nStatus: " + res.status);
         
         alert("Reached here from sendparameters");
-        location.href = '/dashboard/'+testId;
+        location.href= '/tp/'+testId;
+        // location.href = '/dashboard/'+testId;
     });
 }
 

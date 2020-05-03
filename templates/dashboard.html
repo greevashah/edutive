@@ -9,14 +9,59 @@
     <meta name="author" content="">
 
     <title>Dashboard Page</title>
-    <!-- Bootstrap Core CSS -->
-    <!-- <link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
-    <link href="../static/bootstrap/css/bootstrap1.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,600,700,700i|Montserrat:300,400,500,600,700" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet"> 
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script> 
+
+
+    <link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/bootstrap/css/bootstrap1.min.css" rel="stylesheet">    
+   
     <link href="../static/css/dashboard.css" rel="stylesheet">
 </head>
 
 <body>
+    <header id="header">
+        <!--Navbar -->
+        <nav class="mb-1 blue-gradient navbar navbar-expand-lg navbar-dark info-color">
+          <a class="navbar-brand" href="#">EDUTIVE</a>
+          <!-- <h1 class="text-light"><a href="#intro" class="scrollto"><span>EDUTIVE</span></a></h1> -->
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+            aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-user"></i> Hello {{name}}</a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                  <a class="dropdown-item" href="#">My account</a>
+                  <a class="dropdown-item" href="{{ url_for('user.logout') }}" >Log out</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>    
+      </header><!-- #header -->
+
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
@@ -257,7 +302,7 @@
     <!-- Custom Theme JavaScript -->
     <script src="../static/js/dashboard.js"></script>
     <script>
-        initialise({{ value|tojson}}, {{ value1|tojson}}, {{ value2|tojson}}, {{ value3|tojson}});
+        initialise({{ value|tojson}}, {{ value1|tojson}}, {{ value2|tojson}}, {{ value3|tojson}}, {{ name|tojson}});
     </script>
     <script src="../static/canvasJS/canvasjs.js"> </script>
 </body>
