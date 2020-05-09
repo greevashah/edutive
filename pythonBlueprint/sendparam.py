@@ -25,7 +25,9 @@ def get_data():
     totalincorrect=request.form['totalincorrect']
     testscore=request.form['testscore']
     testId=request.form['testId']
-
+    
+    print("Reached here")
+    print(elapt)
     computeRows()
     insertDataset()
     computeTopicwise()
