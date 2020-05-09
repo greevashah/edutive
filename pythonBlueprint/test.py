@@ -1,4 +1,4 @@
-from flask import Flask,Blueprint, render_template
+from flask import Flask,Blueprint, render_template ,  session
 # from models.query import selectquery , selectTopiclevelratio
 # from models.computation import randomQuestion
 import pymysql
@@ -10,8 +10,9 @@ testB=Blueprint('testB',__name__)
 # Getting Rows, TestID
 @testB.route('/test') #selectquery selectTopiclevelratio randomQuestion
 def test():
-    global rows,rows1,rows2,rows3,rows4
-    global ts,testId
+    global rows
+    global ts,testId,username
+    username= session['username']
     ts=calendar.timegm(time.gmtime())
     testId=str(ts)
     # print("Time stamp is "+str(ts))
@@ -21,14 +22,10 @@ def test():
     # Fetch topic-level ratio from db and then using randomQuestion() we will setch random questions acc to that ratio and then pass only
     # those selected questions
     rows=selectquery("questiondata")
-    # rows1=selectTopicTable("questiondata","TSD")
-    # rows2=selectTopicTable("questiondata","TW")
-    # rows3=selectTopicTable("questiondata","SI")
-    # rows4=selectTopicTable("questiondata","PPL")
     questionNumbers=[]
     quesRows=[]
     value=selectTopiclevelratio()
-    # print(value)
+    print("stating with value " ,value)
     for i in range(4):
         for l in range(3):
             result= randomQuestion(value[i][l+2], value[i][1],"Level "+str(l+1))
@@ -56,7 +53,7 @@ def selectquery(tablename):
 def selectTopiclevelratio():
     connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")
     cursor=connection.cursor() 
-    get1="SELECT * FROM `topiclevelratio` ORDER BY `id` desc limit 4"
+    get1="SELECT * FROM `topiclevelratio` WHERE `Username`='"+username+"' ORDER BY `id` desc limit 4"
     cursor.execute(get1)
     rows= cursor.fetchall()
     return rows
