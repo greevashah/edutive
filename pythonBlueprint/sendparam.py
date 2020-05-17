@@ -13,6 +13,7 @@ def get_data():
     rows=selectquery("questiondata")
 
     qnum=convertToIntList(request.form['questions'])
+    print ("qnum is" , qnum) 
     ans=convertToIntList(request.form['answers'])
     # print(type(arr1))
     optch=convertToIntList(request.form['optionchanges'])
@@ -25,9 +26,7 @@ def get_data():
     totalincorrect=request.form['totalincorrect']
     testscore=request.form['testscore']
     testId=request.form['testId']
-    
-    print("Reached here")
-    print(elapt)
+    print("reached compute" , elapt)
     computeRows()
     insertDataset()
     computeTopicwise()
@@ -101,6 +100,8 @@ def computeRows():
         difficulty.append(rows[q-1][9])     #list of string
         tmp=rows[q-1][10]
         topic.append(tmp)
+        print(q)
+        print(timept)
         if(tmp =='TW'):
             topicQ['TW'].append(q)
             timept['TW'] +=elapt[c]
@@ -117,7 +118,7 @@ def computeRows():
     # print(topic)
     # print(difficulty)
     # print(topicQ)
-    # print(timept)
+    
 
 def computeTopicwise():
     global topicwise,topicIncorrect,topicCorrect,topicScore,l1,l2,l3,l4

@@ -1,4 +1,4 @@
-from flask import Flask,Blueprint, render_template
+from flask import Flask,Blueprint, render_template, request , session
 # from models.query import insertTopiclevelratio, insertPerformance
 # from models.computation import topicRatio , inferenceEngine
 import numpy as np
@@ -12,8 +12,9 @@ thankingB=Blueprint('thankingB',__name__)
 # TestID
 @thankingB.route('/thanking/<testId>') # insertPerformance() topicRatio inferenceEngine insertTopiclevelratio()
 def thanking(testId):
-    global pq,topicLevelRt,topicP,questiondataset
+    global pq,topicLevelRt,topicP,questiondataset ,username
     ans, elapt, optch, topic, difficulty, l1,l2,l3,l4 = initialise_thanking()
+    username= session['username']
     pq=dict()
     questiondataset=dict()
     topicP= dict()
@@ -85,11 +86,23 @@ def thanking(testId):
         topicLevelRt[topicname[i]]=inferenceEngine(pq[topicname[i]], topicRt[i])
 
     print("No of ques of each Level in each topic")
-    print(topicLevelRt) 
-    insertTopiclevelratio()
+    print(topicLevelRt)
+    if(selectWhereTable1('topiclevelratio','Username',username)): 
+      updateTopiclevelratio()
+    else:
+      insertTopiclevelratio()  
+
     return render_template('thanking.html')
 
 # Query
+
+def selectWhereTable1(tableName, columnname1, columnvalue1):
+    connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")  
+    cursor=connection.cursor()      
+    get="SELECT * FROM `"+tableName+"` WHERE `"+columnname1+"` = '"+columnvalue1+"'"
+    cursor.execute(get)
+    account= cursor.fetchone()
+    return account
 
 def insertPerformance(testId):
     connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")
@@ -102,11 +115,19 @@ def insertTopiclevelratio():
     connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")
     cursor=connection.cursor() 
     for k in topicLevelRt.keys():
-        insert="INSERT INTO `topiclevelratio`(`Topic`, `Level 1`, `Level 2`, `Level 3`) VALUES ('"+k+"',"+str(topicLevelRt[k][0])+","+str(topicLevelRt[k][1])+","+str(topicLevelRt[k][2])+")"
+        insert="INSERT INTO `topiclevelratio`(`Topic`, `Level 1`, `Level 2`, `Level 3`,`Username`) VALUES ('"+k+"',"+str(topicLevelRt[k][0])+","+str(topicLevelRt[k][1])+","+str(topicLevelRt[k][2])+", '"+username+"')"
         cursor.execute(insert)
         connection.commit()
 
+def updateTopiclevelratio():
+    connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")
+    cursor=connection.cursor() 
+    for k in topicLevelRt.keys():
+        update="UPDATE `topiclevelratio` SET `Level 1`="+str(topicLevelRt[k][0])+",`Level 2`="+str(topicLevelRt[k][1])+",`Level 3`="+str(topicLevelRt[k][2])+" WHERE `Username`='"+username+"' AND `Topic`= '"+k+"'"
+        cursor.execute(update)
+        connection.commit()
 
+#UPDATE `topiclevelratio` SET `Topic`=[value-3],`Level 1`=[value-4],`Level 2`=[value-5],`Level 3`=[value-6] WHERE `Username`=[value-2]
 # Compute
 def findRatioLevel(a,b,c,totalq):
   lt=[]
