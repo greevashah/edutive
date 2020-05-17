@@ -1,4 +1,4 @@
-from flask import Flask,Blueprint, render_template, request
+from flask import Flask,Blueprint, render_template, request,session
 # from models.query import insertTopicDataset , insertDataset , insertTestDataset
 # from models.computation import convertToIntList , computeRows, computeTopicwise
 import pymysql
@@ -8,10 +8,9 @@ send=Blueprint('send',__name__)
 # TestID
 @send.route('/sendparameters',methods=['POST']) #convertToIntList computeRows() insertDataset() computeTopicwise() insertTopicDataset() insertTestDataset()
 def get_data():
-    global qnum,ans,optch,elapt,totaltime,totalcorrect,totalincorrect,testscore,testId,rows
-
+    global qnum,ans,optch,elapt,totaltime,totalcorrect,totalincorrect,testscore,testId,rows,username
+    username= session['username']
     rows=selectquery("questiondata")
-
     qnum=convertToIntList(request.form['questions'])
     print ("qnum is" , qnum) 
     ans=convertToIntList(request.form['answers'])
@@ -73,7 +72,7 @@ def insertTopicDataset():
 def insertTestDataset():
     connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")
     cursor=connection.cursor() 
-    insert="INSERT INTO `testdataset`(`testId`, `tptest`, `totalcorrect`, `totalincorrect` , `testscore`) VALUES ('"+testId+"','"+str(totaltime)+"',"+str(totalcorrect)+","+str(totalincorrect)+","+str(testscore)+")"
+    insert="INSERT INTO `testdataset`(`testId`, `tptest`, `totalcorrect`, `totalincorrect` , `testscore` , `Username`) VALUES ('"+testId+"','"+str(totaltime)+"',"+str(totalcorrect)+","+str(totalincorrect)+","+str(testscore)+" , '"+username+"' )"
     cursor.execute(insert)
     connection.commit()
 
