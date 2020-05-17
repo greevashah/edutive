@@ -4,34 +4,7 @@ var topicdataset=undefined;
 var testdataset= undefined;
 var username=undefined;
 
-window.onload = function () {
-    var linechart = new CanvasJS.Chart("linechartContainer", {
-        animationEnabled: true,
-        exportEnabled: true,
-        theme: "light2",
-        title:{
-            text: "Test Score"
-        },
-        axisY:{
-            includeZero: false
-        },
-        data: [{        
-            type: "line",       
-            dataPoints: [
-                { y: 450 },
-                { y: 414},
-                { y: 520},
-                { y: 460 },
-                { y: 450 },
-                { y: 410 , indexLabel: "Latest",markerColor: "red", markerType: "triangle" },
-            ]
-        }]
-    });
-    for(var i=0;i<6;i++){
-        linechart.options.data[0].dataPoints[i].y=testdataset[6-i-1][4];
-    }
-    linechart.render();
-    
+window.onload = function () {   
     var barchart = new CanvasJS.Chart("barchartContainer", {
         theme: "light1", // "light2", "dark1", "dark2"
         animationEnabled: true, // change to true		
