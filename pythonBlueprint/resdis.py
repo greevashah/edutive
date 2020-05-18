@@ -15,7 +15,8 @@ def dashboard(testId):
     ds= selectWhereTable("dataset","testId",testId)
     topicds=selectWhereTable("topicdataset","testId",testId)
     # testds=selectWhereTable("testdataset","testId",testId)
-    testds=selectTestScore()
+    testds=selectWhereTableOrder('testdataset', 'Username',username)
+    print("resdis.py ",testds)
     newRow=[]
     for i in topicds:
         temp=[]
@@ -25,7 +26,7 @@ def dashboard(testId):
             else:
                 temp.append(j)
         newRow.append(temp)
-    return render_template('dashboard.html', value=ds, value1=newRow, value2=testds, value3= testId, name= username)
+    return render_template('dashboard.html', value=ds, value1=newRow, value2=testds, value3= testId,name= username)
 
 #One condition
 def selectWhereTable(tableName, columnname, columnvalue):
@@ -36,10 +37,18 @@ def selectWhereTable(tableName, columnname, columnvalue):
     rows= cursor.fetchall()
     return rows
 
-def selectTestScore():
-    connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")
-    cursor=connection.cursor() 
-    get1="SELECT * FROM `testdataset` ORDER BY `testId` desc limit 6"
+# def selectTestScore():
+#     connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")
+#     cursor=connection.cursor() 
+#     get1="SELECT * FROM `testdataset` Where ORDER BY `testId` desc limit 6"
+#     cursor.execute(get1)
+#     rows= cursor.fetchall()
+#     return rows
+
+def selectWhereTableOrder(tableName, columnname, columnvalue):
+    connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")  
+    cursor=connection.cursor()      
+    get1="SELECT * FROM `"+tableName+"` WHERE `"+columnname+"` = '"+columnvalue+"' ORDER BY `testId` desc "
     cursor.execute(get1)
     rows= cursor.fetchall()
     return rows

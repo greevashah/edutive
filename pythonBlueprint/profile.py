@@ -8,10 +8,9 @@ profileB=Blueprint('profileB',__name__)
 # TestID
 @profileB.route('/profile') 
 def profile():
-    s= session['name']
     u= session['username']
     values= selectWhereTableOrder('testdataset', 'Username',u)
-    return render_template('profile.html', name= s , value=values) 
+    return render_template('profile.html', name= u , value=values) 
 
 def selectWhereTableOrder(tableName, columnname, columnvalue):
     connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")  
@@ -26,7 +25,7 @@ def selectWhereTableOrder(tableName, columnname, columnvalue):
 def tp(testID):
     # return requests.post(url_for('resdis.dashboard'), testId=testID, Username= session['name'])
     # requests.post('http://localhost:5000/dashboard', data= { 'testId': testID, 'Username': session['name'] } , allow_redirects= True)
-    s=session['name']
+    s=session['username']
     return redirect(url_for('resdis.dashboard', testId=testID, username=s)) 
 
 @profileB.app_template_filter('ctime')

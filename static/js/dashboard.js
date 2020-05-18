@@ -101,10 +101,11 @@ function initialise(x, x1, x2, x3, x4){
     testId= x3;
     username=x4;
     // alert(typeof(dataset));
-    // alert(testdataset)
+    console.log(testdataset);
+    displayStatistics();
     displayQuestionResult();
     displayTopicResult();
-    displayStatistics();
+ 
 }
 
 function displayQuestionResult(){
@@ -147,14 +148,16 @@ function displayTopicResult(){
 
 function displayStatistics(){
     // alert("In display stats");
-    // alert(testdataset);
     // alert(typeof(testdataset[0][2])); OP-> Number
     // alert(testdataset[2]); OP-> Undefined
     l=testdataset.length;
+
+    var ts= document.getElementById("totalscore");
+    ts.innerHTML = testdataset[][4];
     var tc= document.getElementById("totalcorrect");
-    tc.innerHTML = testdataset[0][2];
+    tc.innerHTML = testdataset[][2];
     var tic= document.getElementById("totalincorrect");
-    tic.innerHTML = testdataset[0][3];
+    tic.innerHTML = testdataset[][3];
     var ua= document.getElementById("unattempted");
     ua.innerHTML = 15 - (testdataset[0][2] + testdataset[0][3]);
     // alert(tc);
