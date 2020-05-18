@@ -1,6 +1,7 @@
 var testdataset= undefined;
+var len=undefined;
+
 window.onload = function () {
-    console.log('hello from profile side :P');
     var linechart = new CanvasJS.Chart("linechartContainer", {
         animationEnabled: true,
         exportEnabled: true,
@@ -14,24 +15,29 @@ window.onload = function () {
         data: [{        
             type: "line",       
             dataPoints: [
-                { y: 450 },
-                { y: 414},
-                { y: 520},
-                { y: 460 },
-                { y: 450 },
-                { y: 410 , indexLabel: "Latest",markerColor: "red", markerType: "triangle" },
+                { y: null},
+                { y: null},
+                { y: null},
+                { y: null},
+                { y: null},
+                { y: null }
             ]
         }]
     });
-    for(var i=0;i<6;i++){
-        linechart.options.data[0].dataPoints[i].y=testdataset[6-i-1][4];
-    }
-    linechart.render();
 
+    for(var i=0 ; i < len;i++){
+        linechart.options.data[0].dataPoints[i].y = testdataset[len-i-1][4];
+    }
+    // indexLabel: "Latest",markerColor: "red", markerType: "triangle"
+    linechart.options.data[0].dataPoints[len-1].indexLabel = "Latest";
+    linechart.options.data[0].dataPoints[len-1].markerColor = "red";
+    linechart.options.data[0].dataPoints[len-1].markerType = "triangle";
+    linechart.render();
 }
 
 function initialise(x){
     testdataset=x; 
-
-       
+    len= testdataset.length;
+    if(len > 6)
+        len = 6;
 }

@@ -10,6 +10,7 @@ bcrypt = Bcrypt()
 @user.route('/login', methods=['GET','POST'])
 def login():
 # Output message if something goes wrong...
+    global uname
     msg = ''
     # Check if "username" and "password" POST requests exist (user submitted form)
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
@@ -25,7 +26,13 @@ def login():
                 session['loggedin'] = True
                 session['name']= account[0]
                 session['username'] = account[3]
-                return redirect(url_for('profileB.profile'))
+                uname= session['username']
+                values= selectWhereTable1('testdataset', 'Username', uname)
+                if values is None:
+                    # New Joinee
+                    return redirect(url_for('user.beginner'))
+                else:
+                    return redirect(url_for('profileB.profile'))
                 # Redirect to home page
             else:
                 print("Password didnt match")
@@ -123,3 +130,18 @@ def logout():
         print(session['loggedIn'])
         print("LOGGED OUT!")
         return redirect('/')
+
+@user.route('/beginner', methods=['GET','POST'])
+def beginner():
+    # username= session['username']
+    insertTopiclevelratio()
+    return render_template('new-joinee.html', name=uname)
+
+def insertTopiclevelratio():
+    connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")
+    cursor=connection.cursor() 
+    topicLevelRt={"TSD": [2,2,1], "TW":[2,1,1], "SI":[2,1,0], "PPl":[2,1,0]}
+    for k in topicLevelRt.keys():
+        insert="INSERT INTO `topiclevelratio`(`Topic`, `Level 1`, `Level 2`, `Level 3`,`Username`) VALUES ('"+k+"',"+str(topicLevelRt[k][0])+","+str(topicLevelRt[k][1])+","+str(topicLevelRt[k][2])+", '"+uname+"')"
+        cursor.execute(insert)
+        connection.commit()

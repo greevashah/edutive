@@ -26,6 +26,10 @@ def tp(testID):
     # return requests.post(url_for('resdis.dashboard'), testId=testID, Username= session['name'])
     # requests.post('http://localhost:5000/dashboard', data= { 'testId': testID, 'Username': session['name'] } , allow_redirects= True)
     s=session['username']
+    # if analysis == True:
+    #     # View details, only for analysis purpose
+    # else:
+    #     # Show finish button
     return redirect(url_for('resdis.dashboard', testId=testID, username=s)) 
 
 @profileB.app_template_filter('ctime')

@@ -87,10 +87,11 @@ def thanking(testId):
 
     print("No of ques of each Level in each topic")
     print(topicLevelRt)
-    if(selectWhereTable1('topiclevelratio','Username',username)): 
-      updateTopiclevelratio()
-    else:
-      insertTopiclevelratio()  
+    updateTopiclevelratio()
+    # if(selectWhereTable1('topiclevelratio','Username',username)): 
+    #   updateTopiclevelratio()
+    # else:
+    #   insertTopiclevelratio()  
 
     return render_template('thanking.html')
 
