@@ -9,59 +9,76 @@
     <meta name="author" content="">
 
     <title>Dashboard Page</title>
+    
+     
+  <!-- Custom styles for this template-->
+  <!-- <link href="../static/css/sb-admin-2.css" rel="stylesheet"> -->
+  
+   <!-- Custom styles for this page -->
+   <link href="../static/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+    <!-- OLD -->
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,600,700,700i|Montserrat:300,400,500,600,700" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <!-- Google Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-    <!-- Bootstrap core CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet"> 
-    <!-- JQuery -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script> 
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,600,700,700i|Montserrat:300,400,500,600,700" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+  <!--MD Bootstrap-->
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet"> 
+  <!-- JQuery -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script> 
+ <!--jqurey-->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!-- Main Stylesheet File -->
+  <link href="../static/styles.css" rel="stylesheet">
 
+  <!--old ends-->
 
-    <link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../static/bootstrap/css/bootstrap1.min.css" rel="stylesheet">    
-   
-    <link href="../static/css/dashboard.css" rel="stylesheet">
+  <!-- Custom fonts for this template
+  <link href="../static/css/all.min.css" rel="stylesheet" type="text/css">  -->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"> -->
+
+  
+
+  <link href="../static/bootstrap/css/bootstrap1.min.css" rel="stylesheet">    <!--Cards CSS-->
+  <link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="../static/css/dashboard.css" rel="stylesheet">
+    <!-- OLD ENDS -->
 </head>
 
 <body>
-    <header id="header">
-        <!--Navbar -->
-        <nav class="mb-1 blue-gradient navbar navbar-expand-lg navbar-dark info-color">
-          <a class="navbar-brand" href="#">EDUTIVE</a>
-          <!-- <h1 class="text-light"><a href="#intro" class="scrollto"><span>EDUTIVE</span></a></h1> -->
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
-            aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-user"></i> Hello {{name}}</a>
-                <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
-                  <a class="dropdown-item" href="{{ url_for('profileB.profile') }}">My account</a>
-                  <a class="dropdown-item" href="{{ url_for('user.logout') }}" >Log out</a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </nav>    
-      </header><!-- #header -->
-
+    <nav class="mb-1 blue-gradient navbar navbar-expand-lg navbar-dark info-color">
+        <a class="navbar-brand edutive-name" href="#">EDUTIVE</a>
+        <!-- <h1 class="text-light"><a href="#intro" class="scrollto"><span>EDUTIVE</span></a></h1> -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+        aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user"></i> Hello {{name}}</a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                <a class="dropdown-item" href="{{ url_for('profileB.profile') }}">My account</a>
+                <a class="dropdown-item" href="{{ url_for('user.logout') }}" >Log out</a>
+            </div>
+            </li>
+        </ul>
+        </div>
+    </nav>    
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
@@ -147,7 +164,7 @@
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade" id="question" role="tabpanel" aria-labelledby="question-tab">
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered zero-configuration">
+                            <table class="table table-striped table-bordered zero-configuration analysis-table">
                                 <thead>
                                     <tr>
                                         <th>Question No</th>
@@ -159,7 +176,7 @@
                                         <th>Level</th> 
                                     </tr>
                                 </thead>
-                                <tbody id="qtable-body">
+                                <tbody id="qtable-body" class="table-size">
                                     <!-- Getting filled from js -->
                                 </tbody>
                                 <tfoot>
@@ -193,7 +210,7 @@
                                             <th>Time Taken per Test</th> 
                                         </tr>    
                                     </thead>
-                                    <tbody id="ttable-body">
+                                    <tbody id="ttable-body" class="table-size">
                                         <!-- Getting filled from js -->
                                     </tbody>
                                     <tfoot>
