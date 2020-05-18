@@ -153,11 +153,11 @@ function displayStatistics(){
     l=testdataset.length;
 
     var ts= document.getElementById("totalscore");
-    ts.innerHTML = testdataset[][4];
+    ts.innerHTML = testdataset[0][4];
     var tc= document.getElementById("totalcorrect");
-    tc.innerHTML = testdataset[][2];
+    tc.innerHTML = testdataset[0][2];
     var tic= document.getElementById("totalincorrect");
-    tic.innerHTML = testdataset[][3];
+    tic.innerHTML = testdataset[0][3];
     var ua= document.getElementById("unattempted");
     ua.innerHTML = 15 - (testdataset[0][2] + testdataset[0][3]);
     // alert(tc);
