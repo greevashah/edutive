@@ -156,7 +156,7 @@ aria-hidden="true">
         </div>
 
         <div class="md-form mb-2">
-          <input type="password" id="Form-pass1" class="form-control validate" name="password" required>
+          <input type="password" id="Form-pass1" class="form-control validate" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
           <label data-error="wrong" data-success="right" for="Form-pass1">Enter Password</label>
         </div>
 
@@ -166,13 +166,13 @@ aria-hidden="true">
         </div>
 
         <div class="text-center mb-2">
-          <button type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a">Sign Up</button>
+          <button type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a" onclick="return Validate()">Sign Up</button>
         </div>
       </div>
       <!--Footer-->
       <div class="modal-footer mx-5 pt-3 mb-1">
         <p class="font-small grey-text d-flex justify-content-end">Already a member? <a class="blue-text ml-1" href="" data-toggle="modal" data-target="#elegantModalForm">
-            Sign Up</a></p>
+            Sign In</a></p>
       </div>
     </div>
   </form>
@@ -197,5 +197,6 @@ aria-hidden="true">
       </div>
     </div>
   </section><!-- #intro -->
+  <script type= "text/javascript" src="../static/js/landing.js"></script>
 </body>
 </html>
