@@ -4,12 +4,16 @@ var questions=new Array(15); // Array of Random Question numbers
 var answers=new Array(15);  //Array of Whether Answers marked are correct(1) or not(0) Actual answer{a,b,a,...} Marked ans{b,c,a...} {0,0,1...}
 var elapsedtime = new Array(15);    //Array to store time taken in each question
 var optionchanges=new Array(15);
+var visitedarray=new Array(15);
 
 var index=0;
 
 var Default_val=0;
 optionchanges.fill(Default_val);
 elapsedtime.fill(Default_val);
+var Default=-1;
+visitedarray.fill(Default_val);
+answers.fill(Default);
 
 var timeTaken=30;
 var timerFun;
@@ -93,6 +97,16 @@ function getIndex(row,x){
 
 // 1->15 buttons 1 button->questions={22,24,25....}
 function renderQuestion(a) {//a=1->15
+    for(var i=0;i<15;i++)
+    {
+        if(visitedarray[i]==1 && answers[i]== -1){
+            //this is the case where visited and answer is not  marked, red color
+            var buttoncolor = document.getElementById("primaryButton"+ (i+1));
+            buttoncolor.style.backgroundColor = "red";
+
+        }
+    }
+    visitedarray[a-1]=1;
     ques = document.getElementById("question-data");
     var qn=parseInt(questions[a-1]);     //get the ath random question number x=22
     var x= getIndex(row,qn)
@@ -155,14 +169,16 @@ function setCookie(name, value, minutes) {      //Answer1, 1, 30
 //Function which stores answer for each question every time the answer is saved and sets the cookie
 function storeAnswer(){
     //var row = {{ value }};
-    var qno=document.getElementById('question-num');        
+    var qno=document.getElementById('question-num');   
+        
     //Question No. 12
     var qnum_cur=parseInt(qno.innerText.substring(13));     //1->15
     var qnum = parseInt(questions[qnum_cur-1]); //Substring "12" converted to 12;     22
     //substring(13) as from 'Question No. 3' we want from 13th char onwards
     //then find the corresponding random question number as, questions[...the whole code to find the corresponding question...]
-
-    //alert("Question No. rn is "+qnum);
+    //alert("Question No. rn is "+qnum_cur);
+    var buttoncolor = document.getElementById("primaryButton"+ qnum_cur);
+    buttoncolor.style.backgroundColor = "green";
     //alert(row);
     var ind= getIndex(row,qnum)
     var ans= row[ind-1][8].charCodeAt()-96; //a=1,b=2,c=3,d=4 
@@ -185,9 +201,8 @@ function storeAnswer(){
 
     finishTime=Date.now()/1000; 
     elapsedtime[qnum_cur-1] += Math.floor(finishTime-startTime); 
-    
     startTime=finishTime;   
-    // alert(answers);
+    alert(answers);
     // alert(elapsedtime);
     setCookie("Answer"+qnum_cur,ansValue,30);
 var j=qnum_cur+1;
