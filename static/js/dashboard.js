@@ -95,12 +95,16 @@ function explodePie (e) {
 	e.donutchart.render();
 }
 
-function initialise(x, x1, x2, x3, x4){
+function initialise(x, x1, x2, x3, x4, x5 , x6 ,x7 , x8){
     dataset= x;
     topicdataset=x1;
     testdataset=x2;     //testdataset
     testId= x3;
     username=x4;
+    questions= x5;
+    qnum=x6;
+    ans=x7;
+    markedans=x8;
     // alert(typeof(dataset));
     console.log(testdataset);
     // var given_row= testdataset.find(el=> el[0]==testId);
@@ -108,6 +112,8 @@ function initialise(x, x1, x2, x3, x4){
     displayStatistics();
     displayQuestionResult();
     displayTopicResult();
+    displaySolution()
+
  
 }
 
@@ -135,7 +141,7 @@ function displayTopicResult(){
     for(var i=1;i<=4;i++){
         ttable.innerHTML +="<tr><td>"+i+"</td><td>"+topicdataset[i-1][2]+"</td><td>"+topicdataset[i-1][3]+"</td><td>"+topicdataset[i-1][4]+"</td><td>"+topicdataset[i-1][5]+"</td><td>"+topicdataset[i-1][6]+"</td><td>"+topicdataset[i-1][7]+"</td><td>"+topicdataset[i-1][8]+"</td><td>"+topicdataset[i-1][9]+"</td><td>"+topicdataset[i-1][10]+"</td></tr>";
     }
-}
+} 
 /*
 <th>Id</th>
 <th>Topic</th>    
@@ -148,6 +154,15 @@ function displayTopicResult(){
 <th>Topic Score</th>
 <th>Time Taken per Test</th> 
 */
+
+function displaySolution(){
+    stable= document.getElementById("stable-body");
+    for(var i=1;i<=15;i++){
+        optstring ="a)" + questions[qnum[i-1]][4]+"<br>"+"b)"+ questions[qnum[i-1]][5] + "<br>"+ "c)"+ questions[qnum[i-1]][6] +"<br>"+ "d)" + questions[qnum[i-1]][7];
+        stable.innerHTML +="<tr><td>"+i+"</td><td>"+questions[qnum[i-1]][1]+"</td><td>"+optstring+"</td><td>"+questions[qnum[i-1]][markedans[i-1]+3]+"</td><td>"+questions[qnum[i-1]][8]+"</td>";
+    }
+}
+//  <th>Question No</th> th>Question</th>    th>Options</th>   >Your Answer</th> th>Correct Answer</th>
 
 function displayStatistics(){
     // alert("In display stats");

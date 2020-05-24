@@ -8,7 +8,7 @@ send=Blueprint('send',__name__)
 # TestID
 @send.route('/sendparameters',methods=['POST']) #convertToIntList computeRows() insertDataset() computeTopicwise() insertTopicDataset() insertTestDataset()
 def get_data():
-    global qnum,ans,optch,elapt,totaltime,totalcorrect,totalincorrect,testscore,testId,rows,username
+    global qnum,ans,optch,elapt,totaltime,totalcorrect,totalincorrect,testscore,testId,rows,username,markedans
     username= session['username']
     rows=selectquery("questiondata")
     qnum=convertToIntList(request.form['questions'])
@@ -25,6 +25,7 @@ def get_data():
     totalincorrect=request.form['totalincorrect']
     testscore=request.form['testscore']
     testId=request.form['testId']
+    markedans=convertToIntList(request.form['markedans'])
     print("reached compute" , elapt)
     computeRows()
     insertDataset()
@@ -37,6 +38,10 @@ def get_data():
 
 def initialise_thanking():
     return ans, elapt, optch, topic, difficulty,l1,l2,l3,l4
+
+def initialise_dashboard():
+    return qnum,ans,markedans
+
 # Query
 def selectquery(tablename):
     connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")

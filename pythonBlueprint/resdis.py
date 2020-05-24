@@ -3,6 +3,7 @@ from flask import Flask,Blueprint, render_template, request
 # import requests
 from decimal import *
 import pymysql
+from pythonBlueprint.sendparam import initialise_dashboard
  
 resdis=Blueprint('resdis',__name__)
 
@@ -10,6 +11,8 @@ resdis=Blueprint('resdis',__name__)
 
 @resdis.route('/dashboard/<testId>') #selectWhereTable selectTestScore
 def dashboard(testId):
+    rows=selectquery("questiondata")
+    qnum , ans , markedans = initialise_dashboard()
     username= request.args.get('username')
     # print("Name is "+ )
     ds= selectWhereTable("dataset","testId",testId)
@@ -26,7 +29,7 @@ def dashboard(testId):
             else:
                 temp.append(j)
         newRow.append(temp)
-    return render_template('dashboard.html', value=ds, value1=newRow, value2=testds, value3= testId,name= username)
+    return render_template('dashboard.html', value=ds, value1=newRow, value2=testds, value3= testId,name= username ,questions= rows , qnum = qnum , ans=ans , markedans=markedans)
 
 #One condition
 def selectWhereTable(tableName, columnname, columnvalue):
@@ -36,6 +39,17 @@ def selectWhereTable(tableName, columnname, columnvalue):
     cursor.execute(get1)
     rows= cursor.fetchall()
     return rows
+
+def selectquery(tablename):
+    connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")
+    cursor=connection.cursor() 
+    retrieve="Select * from `"+tablename+"` "
+    cursor.execute(retrieve)
+    # print('SELECT')
+    rows= cursor.fetchall()
+    # print(rows[0][1])
+    return rows
+
 
 # def selectTestScore():
 #     connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")

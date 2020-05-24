@@ -5,12 +5,13 @@ var answers=new Array(15);  //Array of Whether Answers marked are correct(1) or 
 var elapsedtime = new Array(15);    //Array to store time taken in each question
 var optionchanges=new Array(15);
 var visitedarray=new Array(15);
-
+var markedans=new Array(15);
 var index=0;
 
 var Default_val=0;
 optionchanges.fill(Default_val);
 elapsedtime.fill(Default_val);
+markedans.fill(Default_val);
 var Default=-1;
 visitedarray.fill(Default_val);
 answers.fill(Default);
@@ -187,7 +188,8 @@ function storeAnswer(){
     var ansValue; 
     for(i = 0; i < ele.length; i++) { 
         if(ele[i].checked){
-            ansValue = ele[i].value;        
+            ansValue = ele[i].value;
+            markedans[qnum_cur-1] =parseInt(ansValue);         
             if(ele[i].value == ans){
             //alert("Correct Answer");
             answers[qnum_cur-1]=1;
@@ -202,8 +204,8 @@ function storeAnswer(){
     finishTime=Date.now()/1000; 
     elapsedtime[qnum_cur-1] += Math.floor(finishTime-startTime); 
     startTime=finishTime;   
-    alert(answers);
-    // alert(elapsedtime);
+    // alert(answers);
+    alert(markedans);
     setCookie("Answer"+qnum_cur,ansValue,30);
 var j=qnum_cur+1;
 // while(j<16){
@@ -274,7 +276,8 @@ function checkAnswers(){
         totalcorrect: count,
         totalincorrect: incorrect,
         testscore: testscore,
-        testId: testId
+        testId: testId,
+        markedans:JSON.stringify(markedans)
     },function(res){
         console.log(res)
         // alert("\nStatus: " + res.status);
