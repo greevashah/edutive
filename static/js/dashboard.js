@@ -4,6 +4,7 @@ var topicdataset=undefined;
 var testdataset= undefined;
 var username=undefined;
 var ind=undefined;
+var showProfile=undefined;
 
 window.onload = function () {   
     var barchart = new CanvasJS.Chart("barchartContainer", {
@@ -95,7 +96,7 @@ function explodePie (e) {
 	e.donutchart.render();
 }
 
-function initialise(x, x1, x2, x3, x4, x5 , x6 ,x7 , x8){
+function initialise(x, x1, x2, x3, x4, x5 , x6 ,x7 , x8, x9){
     dataset= x;
     topicdataset=x1;
     testdataset=x2;     //testdataset
@@ -105,6 +106,9 @@ function initialise(x, x1, x2, x3, x4, x5 , x6 ,x7 , x8){
     qnum=x6;
     ans=x7;
     markedans=x8;
+    showProfile=x9;
+    console.log("In dashboard.js");
+    console.log(showProfile);
     // alert(typeof(dataset));
     console.log(testdataset);
     // var given_row= testdataset.find(el=> el[0]==testId);

@@ -1,4 +1,4 @@
-from flask import Flask,Blueprint, render_template, request , session
+from flask import Flask,Blueprint, render_template, request , session, redirect, url_for
 # from models.query import insertTopiclevelratio, insertPerformance
 # from models.computation import topicRatio , inferenceEngine
 import numpy as np
@@ -93,7 +93,7 @@ def thanking(testId):
     # else:
     #   insertTopiclevelratio()  
 
-    return render_template('thanking.html')
+    return redirect(url_for('profileB.profile'))
 
 # Query
 

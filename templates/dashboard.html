@@ -68,13 +68,20 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-user"></i> Hello {{name}}</a>
+
+            {% if showProfile == 'True' %}
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user"></i> Hello {{name}}</a>
             <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
                 <a class="dropdown-item" href="{{ url_for('profileB.profile') }}">My account</a>
                 <a class="dropdown-item" href="{{ url_for('user.logout') }}" >Log out</a>
             </div>
+            {% else %}
+            <a class="nav-link">
+                <i class="fas fa-user"></i> Hello {{name}}
+            </a>
+            {% endif %}
+            <!-- JINJA IF ELSE ENDS-->
             </li>
         </ul>
         </div>
@@ -296,7 +303,10 @@
             <!-- /.col-lg-4 -->
         </div>
         <centre>
+            <!-- JINJA IF STARTS -->
+            {% if showProfile != 'True' %}
             <a class="btn btn-primary" href="{{ url_for('thankingB.thanking', testId=value3) }}" >Finish</a>
+            {% endif %}
         </centre>
         <!-- /.row -->
     </div>
@@ -312,7 +322,7 @@
     <!-- Custom Theme JavaScript -->
     <script src="../static/js/dashboard.js"></script>
     <script>
-        initialise({{ value|tojson}}, {{ value1|tojson}}, {{ value2|tojson}}, {{ value3|tojson}}, {{ name|tojson}},  {{questions|tojson}} , {{qnum|tojson}}, {{ans|tojson}} , {{markedans|tojson}});
+        initialise({{ value|tojson}}, {{ value1|tojson}}, {{ value2|tojson}}, {{ value3|tojson}}, {{ name|tojson}},  {{questions|tojson}} , {{qnum|tojson}}, {{ans|tojson}} , {{markedans|tojson}}, {{showProfile|tojson|safe}});
     </script>
     <script src="../static/canvasJS/canvasjs.js"> </script>
 </body>

@@ -11,7 +11,8 @@ testB=Blueprint('testB',__name__)
 @testB.route('/test') #selectquery selectTopiclevelratio randomQuestion
 def test():
     global rows
-    global ts,testId,username
+    global ts,testId,username, showProfile
+    showProfile= False
     username= session['username']
     ts=calendar.timegm(time.gmtime())
     testId=str(ts)
@@ -34,7 +35,9 @@ def test():
     # print(questionNumbers)
     # print(len(questionNumbers))
     # print(tuple(quesRows))
-    return render_template('test.html',value=tuple(quesRows), value1=questionNumbers, value2= testId)
+    print("FROM TEST.PY:")
+    print(showProfile)
+    return render_template('test.html',value=tuple(quesRows), value1=questionNumbers, value2= testId, showProfile= showProfile)
     # print(type(rows))
     # return render_template('test.html',value=rows,value1=rows1,value2=rows2,value3=rows3,value4=rows4)
 # Sends all rows as value, possible due to render template

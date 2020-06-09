@@ -32,6 +32,8 @@ var radios=undefined;
 
 var totalTimeTaken=undefined;
 
+var showProfile= undefined;
+
 // var counter=0;
 
 // Function which ensures correct question is selected
@@ -39,12 +41,15 @@ var totalTimeTaken=undefined;
 //row refers to the data sent by flask, in our case it is the entire question table
 
 // function initialise(x,x1,x2,x3,x4){
-function initialise(x,x1,x2){
+function initialise(x,x1,x2,x3){
     row=x;
-    // console.log(x1)
-    // console.log(typeof(x1))
+    // console.log(x3)
+    // console.log(typeof(x3))
     questions=x1;
     testId= x2;
+    showProfile=x3;
+    console.log("FROM INITIALISE OF CAPTURE_PARAMETER.JS");
+    console.log(showProfile);
     // row1=x1;
     // row2=x2;
     // row3=x3;
@@ -205,7 +210,7 @@ function storeAnswer(){
     elapsedtime[qnum_cur-1] += Math.floor(finishTime-startTime); 
     startTime=finishTime;   
     // alert(answers);
-    alert(markedans);
+    // alert(markedans);
     setCookie("Answer"+qnum_cur,ansValue,30);
 var j=qnum_cur+1;
 // while(j<16){
@@ -283,7 +288,8 @@ function checkAnswers(){
         // alert("\nStatus: " + res.status);
         
         alert("Reached here from sendparameters");
-        location.href= '/tp/'+testId;
+        location.href= '/tp/'+testId+'?showProfile='+showProfile;
+        // location.href= '/tp/'+testId+'?showProfile=False';
         // location.href = '/dashboard/'+testId;
     });
 }

@@ -11,10 +11,21 @@ resdis=Blueprint('resdis',__name__)
 
 @resdis.route('/dashboard/<testId>') #selectWhereTable selectTestScore
 def dashboard(testId):
-    rows=selectquery("questiondata")
-    qnum , ans , markedans = initialise_dashboard()
+    rows=selectquery("questiondata")  
     username= request.args.get('username')
-    # print("Name is "+ )
+    showProfile= request.args.get('showProfile')
+    print("From resdis.py: ")
+    print(showProfile)
+    if showProfile == 'False' :
+        # Coming from TEST
+        qnum , ans , markedans = initialise_dashboard()   
+    else:
+        qnum= []
+        ans= []
+        markedans= []
+    # print("showProfile is ", showProfile)
+    # print("showProfile is ", type(showProfile))
+
     ds= selectWhereTable("dataset","testId",testId)
     topicds=selectWhereTable("topicdataset","testId",testId)
     # testds=selectWhereTable("testdataset","testId",testId)
@@ -29,7 +40,7 @@ def dashboard(testId):
             else:
                 temp.append(j)
         newRow.append(temp)
-    return render_template('dashboard.html', value=ds, value1=newRow, value2=testds, value3= testId,name= username ,questions= rows , qnum = qnum , ans=ans , markedans=markedans)
+    return render_template('dashboard.html', value=ds, value1=newRow, value2=testds, value3= testId,name= username ,questions= rows , qnum = qnum , ans=ans , markedans=markedans, showProfile= showProfile)
 
 #One condition
 def selectWhereTable(tableName, columnname, columnvalue):

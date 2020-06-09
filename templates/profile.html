@@ -212,6 +212,7 @@
                       <th>View Analysis</th>
                     </tr>
                   </tfoot>
+                  
                   <tbody>
                     {% for i in value %}
                     <tr>
@@ -220,7 +221,7 @@
                       <td>{{i[2]}}</td>
                       <td>{{i[3]}}</td>
                       <td>{{i[4]}}</td>
-                      <td> <a href="{{ url_for('profileB.tp' , testID = i[0])}}"><i class="fas fa-clipboard-list fa-2x text-gray-300"></i></a></td>
+                      <td> <a href="{{ url_for('profileB.tp' , testID = i[0], showProfile= showProfile) }}"><i class="fas fa-clipboard-list fa-2x text-gray-300"></i></a></td>
                     </tr>
                     {%endfor%}
                   </tbody>

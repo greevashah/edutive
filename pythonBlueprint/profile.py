@@ -1,4 +1,4 @@
-from flask import Flask,Blueprint, render_template, session, redirect, url_for
+from flask import Flask,Blueprint, render_template, session, redirect, url_for, request
 from datetime import datetime
 import pymysql
 import requests
@@ -8,9 +8,11 @@ profileB=Blueprint('profileB',__name__)
 # TestID
 @profileB.route('/profile') 
 def profile():
+    global showProfile
     u= session['username']
     values= selectWhereTableOrder('testdataset', 'Username',u)
-    return render_template('profile.html', name= u , value=values) 
+    showProfile= True
+    return render_template('profile.html', name= u , value=values, showProfile= showProfile) 
 
 def selectWhereTableOrder(tableName, columnname, columnvalue):
     connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")  
@@ -26,11 +28,21 @@ def tp(testID):
     # return requests.post(url_for('resdis.dashboard'), testId=testID, Username= session['name'])
     # requests.post('http://localhost:5000/dashboard', data= { 'testId': testID, 'Username': session['name'] } , allow_redirects= True)
     s=session['username']
+    sP= request.args.get('showProfile')
+    if sP == "false":
+        print("HEREEEEEE")
+        sP= False
+        # sp=True
+    print("showProfile from tp route: ", sP)
+    # else:
+    #     sP=showProfile
+    #     print("showProfile from tp route outside IF: ", sP)
+
     # if analysis == True:
     #     # View details, only for analysis purpose
     # else:
     #     # Show finish button
-    return redirect(url_for('resdis.dashboard', testId=testID, username=s)) 
+    return redirect(url_for('resdis.dashboard', testId=testID, username=s, showProfile= sP )) 
 
 @profileB.app_template_filter('ctime')
 def timestamptotime(testID):
