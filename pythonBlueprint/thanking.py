@@ -12,13 +12,16 @@ thankingB=Blueprint('thankingB',__name__)
 # TestID
 @thankingB.route('/thanking/<testId>') # insertPerformance() topicRatio inferenceEngine insertTopiclevelratio()
 def thanking(testId):
-    global pq,topicLevelRt,topicP,questiondataset ,username
-    ans, elapt, optch, topic, difficulty, l1,l2,l3,l4 = initialise_thanking()
+    global pq,topicLevelRt,questiondataset ,username
+    ans, elapt, optch, topic, difficulty, l11,l22,l33,l44 = initialise_thanking()
     username= session['username']
     pq=dict()
     questiondataset=dict()
-    topicP= dict()
     topicLevelRt=dict()
+    l1 = 1 if l11==0 else l11 
+    l2 = 1 if l22==0 else l22 
+    l3 = 1 if l33==0 else l33 
+    l4 = 1 if l44==0 else l44 
 
     for i in range(15):
         questiondataset[i]=[]
@@ -54,16 +57,22 @@ def thanking(testId):
             elif(questiondataset[i][1]<=120):
                 timeclass[count]=1
         
-        if questiondataset[i][2]>=2:
+        if questiondataset[i][2]>=3:
             optionclass[count]=2
-        elif(questiondataset[i][2]==1):
+        elif(questiondataset[i][2]==2):
             optionclass[count]=1
-        elif(questiondataset[i][2]==0):
+        elif(questiondataset[i][2]==1):
             optionclass[count]=0
         count +=1
     x = np.array((ans,optionclass,timeclass)).T
     y=linearreg(x)
-    # print(y)
+    count=0
+    for i in questiondataset:
+      if questiondataset[i][0]== -1 :
+        y[count]=0.01
+      count +=1
+    print("Question wise p value:: " , y)
+
     pq['TSD']=0.0
     pq['TW']=0.0
     pq['SI']=0.0
@@ -71,11 +80,15 @@ def thanking(testId):
     # y-> 15 p
     for i in range(15):
         pq[topic[i]] += y[i]
+    pq['TSD'] = 0.01 if pq['TSD']==0.0 else pq['TSD']
+    pq['TW'] = 0.01 if pq['TW']==0.0 else pq['TW']
+    pq['SI'] = 0.01 if pq['SI']==0.0 else pq['SI']
+    pq['PPL'] = 0.01 if pq['PPL']==0.0 else pq['PPL']
     pq['TSD'] /=l1
     pq['TW'] /=l2
     pq['SI'] /=l3
     pq['PPL'] /=l4
-    # print("PQ is ", pq)
+    print("topic wise P value is:: ", pq)
     insertPerformance(testId)
     
     # print("No of questions per topic")
@@ -85,7 +98,10 @@ def thanking(testId):
     for i in range(4):
         topicLevelRt[topicname[i]]=inferenceEngine(pq[topicname[i]], topicRt[i])
 
-    print("No of ques of each Level in each topic")
+    # print("No of ques of each Level in each topic")
+    # print("Question params are : ",questiondataset)
+    # print("Time class is : ",timeclass)
+    # print("Option Class is : ", optionclass)
     print(topicLevelRt)
     updateTopiclevelratio()
     # if(selectWhereTable1('topiclevelratio','Username',username)): 
@@ -171,6 +187,24 @@ def findIntRatio(lt, totalq):
     sum_int+=1
   return result
 
+def handleratios(result):
+  count=0
+  # print("Result before calcration: ", result)
+  for r in result.values():
+    if r==0:
+      all=result.values()
+      i= getkey(result, max(all))
+      # i= result.index(max(result)) 
+      result[i]-=1
+      result[count]+=1
+      # print("R was zero and now:: ",result)
+    count+=1
+  # print("Result is:" , result)
+  return result
+
+
+
+
 def getkey(lt_ftp, val):
    for key, value in lt_ftp.items(): 
      if val == value: 
@@ -238,4 +272,5 @@ def topicRatio(pt1,pt2,pt3,pt4,totalq):
   topicRt= dict()
   tmp=findRatioTopic(pt1,pt2,pt3,pt4,totalq)
   topicRt= findIntRatio(tmp,totalq)
-  return topicRt
+  handleratio=handleratios(topicRt)
+  return handleratio
