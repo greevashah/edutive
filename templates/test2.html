@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Test</title>
+  <meta content="width=device-width, height=device-height, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+    <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,600,700,700i|Montserrat:300,400,500,600,700" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/bootstrap/js/bootstrap.min.js" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="../static/styles.css" rel="stylesheet">
+  <!-- <script src="../static/js/lib/jquery-3.4.1.min.js"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+</head>
+
+<body>
+  <div class="test-page">
+  <div class="row ">
+    <!-- COLUMN-1 -->
+    <div class="col-md-8">
+      <div class="row" style="float: right;">
+        <!-- TIMER -->
+        <div class="col-md-12">
+          <div id="test-timer">
+            <span id="test-timer-text">00:30:00</span>
+          </div>
+        </div>
+      </div>
+      <div class="row ques-row">
+        <!-- QUESTION CARD -->
+        <div class="col-md-12 center-ques">
+          <div id="section-card" class="card">
+            <div class="card-body" id="question-data">
+              <!-- <h5 class="card-title" id="question-num">Question No.1</h5>
+                <p class="card-text" id="question-content">What is the square root of 100?</p>
+                <input type="radio" name="option1" value="9"> 9<br><br>
+                <input type="radio" name="option2" value="10">10<br><br>
+                <input type="radio" name="option3" value="7"> 7<br><br>
+                <input type="radio" name="option4" value="11"> 11<br><br> -->
+              </div>
+              <div class="save">
+                  <a href="#" id="save-button" class="btn btn-primary" style="position: absolute;right: 2px;bottom: 2px; " onclick="storeAnswer()">Save</a>
+              </div>
+              <div class="clear card-buttons">
+                <a href="#" id="clear-button" class="btn btn-primary" style="position: absolute;right: 70px;bottom: 2px; " onclick="clearAnswer()">Clear</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- COLUMN-1 ENDs -->
+
+    <!-- COLUMN-2 -->
+    <div class="col-md-4">
+      <div id="ques-numbers" class="card">
+        <div class="card-body" style="align-self: center;padding: 5px 25px;">
+          <div class="row" style="align-self: center;">
+            <h1 style="color: #000;">Questions</h1>
+          </div>
+          <!-- <h4>Normal Circle Buttons</h4> 
+                <button type="button" class="btn btn-primary btn-circle btn-sm">Blue</button> 
+                <button type="button" class="btn btn-secondary btn-circle btn-sm">Gray</button> 
+                <button type="button" class="btn btn-success btn-circle btn-sm">Green</button> 
+                <button type="button" class="btn btn-danger btn-circle btn-sm">Red</button> 
+                <button type="button" class="btn btn-warning btn-circle btn-sm">Yellow</button> 
+                <button type="button" class="btn btn-light btn-circle btn-sm">White</button> 
+                <button type="button" class="btn btn-dark btn-circle btn-sm">Black</button>  -->
+
+          <!-- <h4>Large Circle Buttons</h4>  -->
+          <div class="row" style="align-self: center;">
+            <button type="button" class="btn btn-secondary btn-circle btn-xl" id="primaryButton1" onclick="renderQuestion(1)">1</button>
+            <button type="button" class="btn btn-secondary btn-circle btn-xl" id="primaryButton2" onclick="renderQuestion(2)">2</button>
+            <button type="button" class="btn btn-secondary btn-circle btn-xl" id="primaryButton3" onclick="renderQuestion(3)">3</button>
+          </div>
+          </br>
+
+          <div class="row" style="align-self: center;">
+            <button type="button" class="btn btn-secondary btn-circle btn-xl" id="primaryButton4" onclick="renderQuestion(4)">4</button>
+            <button type="button" class="btn btn-secondary btn-circle btn-xl" id="primaryButton5" onclick="renderQuestion(5)">5</button>
+            <button type="button" class="btn btn-secondary btn-circle btn-xl" id="primaryButton6" onclick="renderQuestion(6)">6</button>
+          </div>
+          </br>
+
+          <div class="row" style="align-self: center;">
+            <button type="button" class="btn btn-secondary btn-circle btn-xl" id="primaryButton7" onclick="renderQuestion(7)">7</button>
+            <button type="button" class="btn btn-secondary btn-circle btn-xl" id="primaryButton8" onclick="renderQuestion(8)">8</button>
+            <button type="button" class="btn btn-secondary btn-circle btn-xl" id="primaryButton9" onclick="renderQuestion(9)">9</button>
+          </div>
+          </br>
+
+          <div class="row" style="align-self: center;">
+            <button type="button" class="btn btn-secondary btn-circle btn-xl" id="primaryButton10" onclick="renderQuestion(10)">10</button>
+            <button type="button" class="btn btn-secondary btn-circle btn-xl" id="primaryButton11" onclick="renderQuestion(11)">11</button>
+            <button type="button" class="btn btn-secondary btn-circle btn-xl" id="primaryButton12" onclick="renderQuestion(12)">12</button>
+          </div>
+          </br>
+
+          <div class="row" style="align-self: center;">
+            <button type="button" class="btn btn-secondary btn-circle btn-xl" id="primaryButton13" onclick="renderQuestion(13)">13</button>
+            <button type="button" class="btn btn-secondary btn-circle btn-xl" id="primaryButton14" onclick="renderQuestion(14)">14</button>
+            <button type="button" class="btn btn-secondary btn-circle btn-xl" id="primaryButton15" onclick="renderQuestion(15)">15</button>
+          </div>
+          </br>
+
+          <div class="row" style="align-self: center; display: block; text-align: center;">
+            <a id="submit-button" class="btn btn-primary" onclick="checkAnswers()">Submit Test</a>
+          </div>
+
+          <!-- <a href="#" class="btn btn-primary">9</a></br></br>
+          <a href="#" class="btn btn-primary">8</a></br></br>
+          <a href="#" class="btn btn-primary">10</a></br></br>
+          <a href="#" class="btn btn-primary">11</a></br></br> -->
+        </div>
+      </div>
+      <!-- COLUMN-2 ENDs -->
+    </div>
+    <!-- ROW -->
+    </div>
+  <!-- TESTPAGE -->
+  </div>
+    <!-- Including External JS files -->
+    <script type="text/javascript" src="../static/js/capture_parameter.js"></script>
+    <script>
+      //Have to place it here as {{value}} is Jinja2- -templating lang, only accessed in html
+      initialise({{ value|tojson }},{{ value1|tojson|safe }},{{ value2|tojson|safe }}, {{ showProfile|tojson|safe}})
+      // console.log({{ value|tojson }})
+      // console.log({{ value1|tojson }})
+    </script>
+  </body>
+</html>
