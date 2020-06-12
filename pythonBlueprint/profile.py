@@ -2,7 +2,7 @@ from flask import Flask,Blueprint, render_template, session, redirect, url_for, 
 from datetime import datetime
 import pymysql
 import requests
-
+from pythonBlueprint.thanking import timelineRatio
 profileB=Blueprint('profileB',__name__)
 
 # TestID
@@ -11,7 +11,9 @@ def profile():
     global showProfile
     u= session['username']
     values= selectWhereTableOrder('testdataset', 'Username',u)
+    testP = selectWhereTableOrder('performance', 'Username',u)
     showProfile= True
+    # a, b, c, d = timelineRatio(p)
     return render_template('profile.html', name= u , value=values, showProfile= showProfile) 
 
 def selectWhereTableOrder(tableName, columnname, columnvalue):

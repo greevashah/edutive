@@ -124,7 +124,9 @@ def selectWhereTable1(tableName, columnname1, columnvalue1):
 def insertPerformance(testId):
     connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")
     cursor=connection.cursor() 
-    insert="INSERT INTO `performance`(`testId`, `TSD`, `TW`, `SI`, `PPL`) VALUES ('"+testId+"',"+str(pq['TSD'])+","+str(pq['TW'])+","+str(pq['SI'])+","+str(pq['PPL'])+")"
+    avg_p = pq['TSD'] + pq['SI'] +pq['TW'] + pq['PPL']
+    avg_p /=4
+    insert="INSERT INTO `performance`(`testId`, `TSD`, `TW`, `SI`, `PPL`, `testP` ,`Username`) VALUES ('"+testId+"',"+str(pq['TSD'])+","+str(pq['TW'])+","+str(pq['SI'])+","+str(pq['PPL'])+","+str(avg_p)+", '"+username+"')"
     cursor.execute(insert)
     connection.commit()
 
@@ -202,61 +204,73 @@ def handleratios(result):
   # print("Result is:" , result)
   return result
 
-
-
-
 def getkey(lt_ftp, val):
    for key, value in lt_ftp.items(): 
      if val == value: 
        return key 
 
-def inferenceEngine(p, totalq):
-  levelRt=dict()
-  # Ratio of levels for a particular topic
+def timelineRatio(p):
   if p<=0.09 :
     a=15
     b=0
     c=0
+    d="Beginner"
   elif(p<=0.19):
     a=13
     b=2
     c=0
+    d="Beginner"
   elif(p<=0.29):
     a=10
     b=5
     c=0
+    d="Beginner"
   elif(p<=0.39):
     a=7
     b=7
     c=1
+    d="Beginner"
   elif(p<=0.49):
     a=5
     b=8
     c=2
+    d="Intermediate"
   elif(p<=0.59):
     a=3
     b=10
     c=2
+    d="Intermediate"
   elif(p<=0.69):
     a=2
     b=8
     c=5
+    d="Intermediate"
   elif(p<=0.79):
     a=2
     b=5
     c=8
+    d="Master"
   elif(p<=0.89):
     a=1
     b=3
     c=11
+    d="Master"
   elif(p<=1):
     a=0
     b=0
     c=15
+    d="Master"
   else:
     a=1
     b=1
     c=1
+    d=""
+  return a,b,c,d
+
+def inferenceEngine(p, totalq):
+  levelRt=dict()
+  # Ratio of levels for a particular topic
+  a,b,c,d = timelineRatio(p)
   tmp=findRatioLevel(a,b,c,totalq)
   levelRt=findIntRatio(tmp, totalq)
   # levelRt[0]=tmp[0]
