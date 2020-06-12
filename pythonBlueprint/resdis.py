@@ -14,8 +14,8 @@ def dashboard(testId):
     rows=selectquery("questiondata")  
     username= request.args.get('username')
     showProfile= request.args.get('showProfile')
-    print("From resdis.py: ")
-    print(showProfile)
+    # print("From resdis.py: ")
+    # print(showProfile)
     if showProfile == 'False' :
         # Coming from TEST
         qnum , ans , markedans = initialise_dashboard()   
@@ -30,7 +30,7 @@ def dashboard(testId):
     topicds=selectWhereTable("topicdataset","testId",testId)
     # testds=selectWhereTable("testdataset","testId",testId)
     testds=selectWhereTableOrder('testdataset', 'Username',username)
-    print("resdis.py ",testds)
+    # print("resdis.py ",testds)
     newRow=[]
     for i in topicds:
         temp=[]

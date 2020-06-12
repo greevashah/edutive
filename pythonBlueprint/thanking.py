@@ -5,6 +5,7 @@ import numpy as np
 from linreg import linearreg
 import pymysql
 from pythonBlueprint.sendparam import initialise_thanking
+from pythonBlueprint.profile import initialise_thankingP
 # ans,elapt,optch, topic,difficulty
 
 thankingB=Blueprint('thankingB',__name__)
@@ -12,8 +13,9 @@ thankingB=Blueprint('thankingB',__name__)
 # TestID
 @thankingB.route('/thanking/<testId>') # insertPerformance() topicRatio inferenceEngine insertTopiclevelratio()
 def thanking(testId):
-    global pq,topicLevelRt,questiondataset ,username
+    global pq,topicLevelRt,questiondataset ,username, values, testP
     ans, elapt, optch, topic, difficulty, l11,l22,l33,l44 = initialise_thanking()
+    values, testP = initialise_thankingP()
     username= session['username']
     pq=dict()
     questiondataset=dict()
@@ -71,7 +73,7 @@ def thanking(testId):
       if questiondataset[i][0]== -1 :
         y[count]=0.01
       count +=1
-    print("Question wise p value:: " , y)
+    # print("Question wise p value:: " , y)
 
     pq['TSD']=0.0
     pq['TW']=0.0
@@ -88,7 +90,7 @@ def thanking(testId):
     pq['TW'] /=l2
     pq['SI'] /=l3
     pq['PPL'] /=l4
-    print("topic wise P value is:: ", pq)
+    # print("topic wise P value is:: ", pq)
     insertPerformance(testId)
     
     # print("No of questions per topic")
@@ -102,7 +104,7 @@ def thanking(testId):
     # print("Question params are : ",questiondataset)
     # print("Time class is : ",timeclass)
     # print("Option Class is : ", optionclass)
-    print(topicLevelRt)
+    # print(topicLevelRt)
     updateTopiclevelratio()
     # if(selectWhereTable1('topiclevelratio','Username',username)): 
     #   updateTopiclevelratio()
@@ -125,8 +127,66 @@ def insertPerformance(testId):
     connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")
     cursor=connection.cursor() 
     avg_p = pq['TSD'] + pq['SI'] +pq['TW'] + pq['PPL']
-    avg_p /=4
-    insert="INSERT INTO `performance`(`testId`, `TSD`, `TW`, `SI`, `PPL`, `testP` ,`Username`) VALUES ('"+testId+"',"+str(pq['TSD'])+","+str(pq['TW'])+","+str(pq['SI'])+","+str(pq['PPL'])+","+str(avg_p)+", '"+username+"')"
+    avg_p /=4 #CURRENT TEST AVG P
+    if( (len(testP) + 1) % 5 ==0 ):
+      # current test is a checkpoint test
+
+      a,b,c, curlevel= timelineRatio(avg_p)
+
+      level_all= list(zip(*testP))[8]
+
+      lastSixlevels= [curlevel] + list(level_all[0:5])
+      print("lastSixLevels ", lastSixlevels)
+      # lastSixlevels.insert(0, curlevel)
+      print("Levels of Last five tests and current test are: ", lastSixlevels)
+      
+      totalP_all= list(zip(*testP))[6]
+      lastFourP = totalP_all[0:4]
+      print("Last four tests P values are ", lastFourP)
+      # lastFiveP = testP[7][-5:]
+      checkpt_avg = (sum(lastFourP) + avg_p)/5
+      # AVG LEVEL FOUND HERE
+      a,b,c, checkpt_level = timelineRatio(checkpt_avg)
+
+      print("Avg P and Avg level is ", checkpt_avg, checkpt_level)
+      # NO. OF CHANGEs
+      changes=0
+      beginner=0
+      intermediate=0
+      master=0
+      # I B I I I B 
+      # B I I I B I 
+
+      for i in range(5):
+        # Changes
+        if(lastSixlevels[i+1] != lastSixlevels[i]):
+          changes +=1
+        # Count or frequency
+        if(lastSixlevels[i] == 'Beginner'):
+          beginner +=1
+        elif(lastSixlevels[i] == 'Intermediate'):
+          intermediate +=1
+        else:
+          master +=1  
+      print("Changes ", changes)
+      print("Freq ", beginner, intermediate, master)
+
+      if(changes == 0 or changes == 1 or changes == 2 or changes == 3):
+        # support decision of checkpt_level
+        gLevel = checkpt_level
+      elif(changes == 4 or changes == 5):
+        # dont support
+        if( master + intermediate > beginner):
+          # Support
+          gLevel = checkpt_level
+        else:
+          gLevel = lastSixlevels[0]
+      print("Final Checkpoint level is ", gLevel)
+    else:
+      a,b,c, gLevel= timelineRatio(avg_p)
+      print("Current non checkpoint test's level is ", gLevel)
+
+    insert="INSERT INTO `performance`(`testId`, `TSD`, `TW`, `SI`, `PPL`, `testP` ,`Username`, `gLevel`) VALUES ('"+testId+"',"+str(pq['TSD'])+","+str(pq['TW'])+","+str(pq['SI'])+","+str(pq['PPL'])+","+str(avg_p)+", '"+username+"','"+ gLevel +"' )"
     cursor.execute(insert)
     connection.commit()
 

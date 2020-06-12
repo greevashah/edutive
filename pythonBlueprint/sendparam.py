@@ -26,7 +26,7 @@ def get_data():
     testscore=request.form['testscore']
     testId=request.form['testId']
     markedans=convertToIntList(request.form['markedans'])
-    print("reached compute" , elapt)
+    # print("reached compute" , elapt)
     computeRows()
     insertDataset()
     computeTopicwise()
@@ -77,7 +77,9 @@ def insertTopicDataset():
 def insertTestDataset():
     connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")
     cursor=connection.cursor() 
-    insert="INSERT INTO `testdataset`(`testId`, `tptest`, `totalcorrect`, `totalincorrect` , `testscore` , `Username`) VALUES ('"+testId+"','"+str(totaltime)+"',"+str(totalcorrect)+","+str(totalincorrect)+","+str(testscore)+" , '"+username+"' )"
+    accuracy = int(totalcorrect)/( int(totalcorrect) + int(totalincorrect) )
+    accuracy *= 100
+    insert="INSERT INTO `testdataset`(`testId`, `tptest`, `totalcorrect`, `totalincorrect` , `testscore` , `Username`,`accuracy`) VALUES ('"+testId+"','"+str(totaltime)+"',"+str(totalcorrect)+","+str(totalincorrect)+","+str(testscore)+" , '"+username+"',"+ str(accuracy)+ ")"
     cursor.execute(insert)
     connection.commit()
 
@@ -104,8 +106,8 @@ def computeRows():
         difficulty.append(rows[q-1][9])     #list of string
         tmp=rows[q-1][10]
         topic.append(tmp)
-        print(q)
-        print(timept)
+        # print(q)
+        # print(timept)
         if(tmp =='TW'):
             topicQ['TW'].append(q)
             timept['TW'] +=elapt[c]

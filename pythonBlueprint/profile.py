@@ -2,19 +2,51 @@ from flask import Flask,Blueprint, render_template, session, redirect, url_for, 
 from datetime import datetime
 import pymysql
 import requests
-from pythonBlueprint.thanking import timelineRatio
+# from pythonBlueprint.thanking import timelineRatio
 profileB=Blueprint('profileB',__name__)
 
 # TestID
 @profileB.route('/profile') 
 def profile():
-    global showProfile
+    global showProfile, values, testP
     u= session['username']
-    values= selectWhereTableOrder('testdataset', 'Username',u)
-    testP = selectWhereTableOrder('performance', 'Username',u)
+    values= selectWhereTableOrder('testdataset', 'Username', u)
+    # print(values['testP'])
+    accuracy_all= list(zip(*values))[6]
+    avg_accuracy= sum(accuracy_all)/ len(values)
+    print("AVG Accuracy is ", avg_accuracy)
+
+    testP = selectWhereTableOrder('performance', 'Username', u)
     showProfile= True
+
+    profileLevel = len(testP) % 5
+    levels_all= list(zip(*testP))[8]
+    print("Levels of all tests: ", levels_all)
+    if( len(testP) < 5):
+        last_level = levels_all[len(testP) - 1 ]
+    else:
+        last_level = levels_all[profileLevel]
+
+    if(last_level == 'Beginner'):
+        width=30
+    elif(last_level == 'Intermediate'):
+        width=60
+    else:
+        width=90
+    
+    TSD_all= list(zip(*testP))[2]
+    TSD_P= int(sum(TSD_all)/ len(values) *100)
+    TW_all= list(zip(*testP))[3]
+    TW_P= int(sum(TW_all)/ len(values) *100)
+    SI_all= list(zip(*testP))[4]
+    SI_P= int(sum(SI_all)/ len(values) *100)
+    PPL_all= list(zip(*testP))[5]
+    PPL_P= int(sum(PPL_all)/ len(values) *100)
+
+    print("Last level ", last_level)
+    # levels= findTestLevel(testP)
     # a, b, c, d = timelineRatio(p)
-    return render_template('profile.html', name= u , value=values, showProfile= showProfile) 
+    return render_template('profile.html', name= u , value=values, showProfile= showProfile, avg_accuracy= avg_accuracy, last_level= last_level, progress_width= width,TSD_P= TSD_P, TW_P= TW_P , SI_P= SI_P , PPL_P= PPL_P ) 
 
 def selectWhereTableOrder(tableName, columnname, columnvalue):
     connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")  
@@ -24,6 +56,8 @@ def selectWhereTableOrder(tableName, columnname, columnvalue):
     rows= cursor.fetchall()
     return rows
 
+def initialise_thankingP():
+    return values, testP
 
 @profileB.route('/tp/<testID>')
 def tp(testID):
@@ -50,8 +84,5 @@ def tp(testID):
 def timestamptotime(testID):
     timestamp = int(testID)
     dt_object = datetime.fromtimestamp(timestamp)
-    print(dt_object)
+    # print(dt_object)
     return dt_object
-
-
-
