@@ -56,9 +56,6 @@ def selectWhereTableOrder(tableName, columnname, columnvalue):
     rows= cursor.fetchall()
     return rows
 
-def initialise_thankingP():
-    return values, testP
-
 @profileB.route('/tp/<testID>')
 def tp(testID):
     # return requests.post(url_for('resdis.dashboard'), testId=testID, Username= session['name'])
