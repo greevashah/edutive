@@ -242,8 +242,19 @@ function deleteCookie(name){
     setCookie(name,"",-1);
 }
 
+function confirmtest(){
+if (confirm("Do you want to finish you test?")== false){
+    return false;
+}
+else 
+{
+   return checkAnswers();
+}
+}
+
 //Function which checks the total number of correct answers at the end of the test
 function checkAnswers(){ 
+   
     var count=0;
     var total=0;
     // alert("ans array is "+ answers);
@@ -256,7 +267,7 @@ function checkAnswers(){
             total++;
         }  
     }
-    alert("Congratulations, Test Complete!\nNumber of correct answers are "+count+"\nTotal number of questions "+total);
+    // alert("Congratulations, Test Complete!\nNumber of correct answers are "+count+"\nTotal number of questions "+total);
     clearInterval(timerFun);
     var tim=document.getElementById('test-timer');  //29:21
     var a= (tim.innerText).split(':'); 

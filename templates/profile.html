@@ -235,12 +235,12 @@
           </div>
       <!--Timeline-->
         <!-- Area Chart -->
+        {% if checkpoint|length != 0 %}
           <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-              <h6 class="m-0 font-weight-bold text-primary">Timeline</h6>
-            </div>
-            
+              <h6 class="m-0 font-weight-bold text-primary">Progress after every 5 tests</h6>
+            </div>          
             <!-- Card Body -->
             <div class="card-body">
               <div class="row">
@@ -260,7 +260,8 @@
                           <div class="timeline-content {{bgcss}}" >
                               <h3 class="title">{{i[3]}} </h3>
                               <p class="description">
-                                 Avg Time {{i[2]}} <br>  Avg Accuracy {{i[0]}} <br> Avg Score {{i[1]}}
+                                 Avg Time {{i[2]}} <br> 
+                                 Avg Accuracy {{i[0]}} <br> 
                               </p>
                             </div>
                       </div>
@@ -269,9 +270,9 @@
                     </div>
                 </div>
             </div>
-          
             </div>
           </div>
+          {% endif %}
         </div>
         <!-- /.container-fluid -->
 
