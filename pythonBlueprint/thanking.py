@@ -5,7 +5,6 @@ import numpy as np
 from linreg import linearreg
 import pymysql
 from pythonBlueprint.sendparam import initialise_thanking
-from pythonBlueprint.profile import initialise_thankingP
 # ans,elapt,optch, topic,difficulty
 
 thankingB=Blueprint('thankingB',__name__)
@@ -13,9 +12,8 @@ thankingB=Blueprint('thankingB',__name__)
 # TestID
 @thankingB.route('/thanking/<testId>') # insertPerformance() topicRatio inferenceEngine insertTopiclevelratio()
 def thanking(testId):
-    global pq,topicLevelRt,questiondataset ,username, values, testP
+    global pq,topicLevelRt,questiondataset ,username, testP
     ans, elapt, optch, topic, difficulty, l11,l22,l33,l44 = initialise_thanking()
-    values, testP = initialise_thankingP()
     username= session['username']
     pq=dict()
     questiondataset=dict()
@@ -123,9 +121,18 @@ def selectWhereTable1(tableName, columnname1, columnvalue1):
     account= cursor.fetchone()
     return account
 
+def selectWhereTableOrder(tableName, columnname, columnvalue):
+    connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")  
+    cursor=connection.cursor()      
+    get1="SELECT * FROM `"+tableName+"` WHERE `"+columnname+"` = '"+columnvalue+"' ORDER BY `testId` desc "
+    cursor.execute(get1)
+    rows= cursor.fetchall()
+    return rows
+
 def insertPerformance(testId):
     connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")
     cursor=connection.cursor() 
+    testP = selectWhereTableOrder('performance', 'Username', username)
     avg_p = pq['TSD'] + pq['SI'] +pq['TW'] + pq['PPL']
     avg_p /=4 #CURRENT TEST AVG P
     if( (len(testP) + 1) % 5 ==0 ):
