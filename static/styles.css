@@ -441,11 +441,12 @@ body {
   font-weight: bold;
   width: 104px;
   height: 130%;
-  background: rgba(0, 0, 0, 0.749);
-  border: 4px solid #000;
   position: relative;
   top: 10px;
-  box-shadow: inset 2px -2px 9px #020202, inset -2px 2px 9px #d2d2d2;
+  background: #303f9f;
+  /* border: 2px solid #413e66; */
+  border: 2px solid #181e46;
+  box-shadow: inset 2px -2px 9px #303f9f, inset -2px 2px 9px #d2d2d2;
 }
 
 #test-timer-text {
@@ -461,21 +462,20 @@ body {
   /* font-weight: bold; */
   color: #fff;
   border-radius: 8px;
-  /* background: rgba(65, 62, 102, 0.749); */
-  background: rgba(0, 0, 0, 0.749);
+  background: #303f9f;
   /* border: 2px solid #413e66; */
-  border: 4px solid #000;
-  box-shadow: inset 2px -2px 9px #020202, inset -2px 2px 9px #d2d2d2;
+  border: 2px solid #181e46;
+  box-shadow: inset 2px -2px 9px #303f9f, inset -2px 2px 9px #d2d2d2;
 }
 
 #submit-button {
   color: #fff;
   border-radius: 8px;
   /* background: rgba(65, 62, 102, 0.749); */
-  background: rgba(20, 19, 19, 0.678);
+  background: #303f9f;
   /* border: 2px solid #413e66; */
-  border: 4px solid #000;
-  box-shadow: inset 2px -2px 9px #020202, inset -2px 2px 9px #d2d2d28a;
+  border: 2px solid #181e46;
+  box-shadow: inset 2px -2px 9px #303f9f, inset -2px 2px 9px #d2d2d2;
   align-items: center;
 }
 
