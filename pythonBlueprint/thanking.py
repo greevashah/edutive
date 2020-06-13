@@ -163,7 +163,8 @@ def insertPerformance(testId):
       master=0
       # I B I I I B 
       # B I I I B I 
-
+      if len(lastSixlevels)== 5:
+        lastSixlevels.append(lastSixlevels[4])
       for i in range(5):
         # Changes
         if(lastSixlevels[i+1] != lastSixlevels[i]):

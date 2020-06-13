@@ -1,5 +1,5 @@
 from flask import Flask,Blueprint, render_template, session, redirect, url_for, request
-from datetime import datetime
+from datetime import datetime 
 import pymysql
 import requests
 # from pythonBlueprint.thanking import timelineRatio
@@ -44,9 +44,12 @@ def profile():
     PPL_P= int(sum(PPL_all)/ len(values) *100)
 
     print("Last level ", last_level)
+
+    checkpoint= timeline(values,testP)
+
     # levels= findTestLevel(testP)
     # a, b, c, d = timelineRatio(p)
-    return render_template('profile.html', name= u , value=values, showProfile= showProfile, avg_accuracy= avg_accuracy, last_level= last_level, progress_width= width,TSD_P= TSD_P, TW_P= TW_P , SI_P= SI_P , PPL_P= PPL_P ) 
+    return render_template('profile.html', name= u , value=values, showProfile= showProfile, avg_accuracy= avg_accuracy, last_level= last_level, progress_width= width,TSD_P= TSD_P, TW_P= TW_P , SI_P= SI_P , PPL_P= PPL_P , checkpoint=checkpoint) 
 
 def selectWhereTableOrder(tableName, columnname, columnvalue):
     connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")  
@@ -83,3 +86,48 @@ def timestamptotime(testID):
     dt_object = datetime.fromtimestamp(timestamp)
     # print(dt_object)
     return dt_object
+
+
+def timeline(values1, testP1):
+    global checkpoint 
+    acc = 0  
+    scr = 0 
+    time = 0
+    checkpoint = []
+    values= values1[::-1]
+    testP = testP1[::-1]
+    print("Values " , values ) 
+    print("testP " , testP ) 
+    # 0 to 9 
+    for i in range(len(values)):
+        #if loop 4 
+        if (i+1) % 5 == 0: 
+            acc+= values[i][6] 
+            scr+= values[i][4] 
+            timeT = timetosec(values[i][1])
+            time+= timeT
+            acc = acc/5
+            scr = scr/5
+            time = time/5
+            xyz = [acc, scr , time]
+            xyz.append(testP[i][8])
+            checkpoint.append(xyz)
+            print("checkpoint is " , checkpoint)
+            acc = 0
+            scr = 0 
+            time = 0
+        else:
+            acc+= values[i][6] 
+            scr+= values[i][4] 
+            timeT = timetosec(values[i][1])
+            time+= timeT  
+    return checkpoint
+         
+def timetosec(timestr):
+    time = int(timestr.split(':')[0])*60*60 + int(timestr.split(':')[1])*60 + int(timestr.split(':')[2])
+    print(time)
+    return time
+
+
+
+

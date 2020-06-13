@@ -168,7 +168,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Accuracy</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ avg_accuracy }}</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ avg_accuracy | round(2, 'floor') }}</div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-medal fa-2x text-gray-300"></i>
@@ -185,9 +185,8 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-          <p class="mb-4">Give a new test<button  class="btn-get-started  bg-primary text-white shadow"><a href="{{ url_for('testB.test') }}" class="text-white">Start Test</a></button></p>
-
+          <h1 class="h6 mb-2 text-gray-800"><p class="mb-4">Give a new test 
+          <button  class="btn-get-started  bg-primary text-white shadow"><a href="{{ url_for('testB.test') }}" class="text-white">Start Test</a></button></p></h1>
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -247,24 +246,26 @@
               <div class="row">
                 <div class="col-md-12">
                     <div class="main-timeline">
-                        <div class="timeline">
-                            <div class="timeline-icon"><span class="year">2018</span></div>
-                            <div class="timeline-content">
-                                <h3 class="title">Web Desginer</h3>
-                                <p class="description">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia mi ultrices, luctus nunc ut, commodo enim. Vivamus sem erat.
-                                </p>
+                      <!--loop-->
+                      {% for i in checkpoint %}
+                      {% if i[3]== 'Master' %}
+                      {% set bgcss = 'golden'%}
+                      {% elif i[3]== 'Intermediate' %}
+                      {% set bgcss = 'silver'%}
+                      {% else %}
+                      {% set bgcss = 'bronze'%}
+                      {% endif %}
+                      <div class="timeline">
+                          <div class="timeline-icon {{bgcss}}i"><span class="year"><i class="fas fa-trophy fa-2x {{bgcss}}ii" style = "margin-top: 25px;"></i></span></div>
+                          <div class="timeline-content {{bgcss}}" >
+                              <h3 class="title">{{i[3]}} </h3>
+                              <p class="description">
+                                 Avg Time {{i[2]}} <br>  Avg Accuracy {{i[0]}} <br> Avg Score {{i[1]}}
+                              </p>
                             </div>
-                        </div>
-                        <div class="timeline">
-                            <div class="timeline-icon"><span class="year">2017</span></div>
-                            <div class="timeline-content">
-                                <h3 class="title">Web Developer</h3>
-                                <p class="description">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia mi ultrices, luctus nunc ut, commodo enim. Vivamus sem erat.
-                                </p>
-                            </div>
-                        </div>
+                      </div>
+                        {%endfor%}
+                        <!--end loop-->
                     </div>
                 </div>
             </div>
