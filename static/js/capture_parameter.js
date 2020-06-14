@@ -243,13 +243,14 @@ function deleteCookie(name){
 }
 
 function confirmtest(){
-if (confirm("Do you want to finish you test?")== false){
-    return false;
-}
-else 
-{
-   return checkAnswers();
-}
+    if (confirm("Do you want to finish you test?")== false){
+        return false;
+    }
+    else 
+    {   
+        alert("Hope you had a great test! Please don't refresh and wait for confirmation");
+        return checkAnswers();
+    }
 }
 
 //Function which checks the total number of correct answers at the end of the test
@@ -298,7 +299,7 @@ function checkAnswers(){
         console.log(res)
         // alert("\nStatus: " + res.status);
         
-        alert("Reached here from sendparameters");
+        alert("Test succesfully submitted!");
         location.href= '/tp/'+testId+'?showProfile='+showProfile;
         // location.href= '/tp/'+testId+'?showProfile=False';
         // location.href = '/dashboard/'+testId;

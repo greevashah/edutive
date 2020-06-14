@@ -17,8 +17,7 @@ def profile():
     print("AVG Accuracy is ", avg_accuracy)
 
     testP = selectWhereTableOrder('performance', 'Username', u)
-    showProfile= True
-
+    showProfile= True 
     profileLevel = len(testP) % 5
     levels_all= list(zip(*testP))[8]
     print("Levels of all tests: ", levels_all)
