@@ -1,6 +1,7 @@
 # Edutive
-BE Project of Ruchi Thosar, Akshay Nambiar, Ninad Mapara and Greeva Shah.
+The proposed application aids aspiring students by providing a variety of MCQ tests to practice. These tests will be adaptive to the user's performance in previous tests. Users will also be able to see the analysis of their performance in each test. The system will simulate the exact test pattern of the entrance exam the aspirant is opting for, hence taking him a step closer to achieve desired grade.
 
+Hosted on - https://edutive.herokuapp.com/
 
 ## Getting Started  
 - Clone the Repo `git clone https://github.com/greevashah/edutive.git`
