@@ -15,13 +15,16 @@ BE Project of Ruchi Thosar, Akshay Nambiar, Ninad Mapara and Greeva Shah.
 
 ## User Performance Analysis
 *  Test Dashboard
+   - [Cards](https://github.com/greevashah/edutive/blob/9a5ea89634a26ec4dab89e6ede20efc628b803f7/templates/dashboard.html#L100-163)
+   - [Tables](https://github.com/greevashah/edutive/blob/9a5ea89634a26ec4dab89e6ede20efc628b803f7/templates/dashboard.html#L165-281)
+   - [Bar-Graphs](https://github.com/greevashah/edutive/blob/9a5ea89634a26ec4dab89e6ede20efc628b803f7/static/js/dashboard.js#L10-59)
+   - [Pie-Charts](https://github.com/greevashah/edutive/blob/9a5ea89634a26ec4dab89e6ede20efc628b803f7/static/js/dashboard.js#L61-87)
+    
+*  Test Profile
    - [Cards]()
    - [Tables]()
-   - [Bar-Graphs]()
-   - [Pie-Charts]()
-    
-* Test Profile []()
-
+   - [Timeline]()
+   - [Line Chart]()
 ## Gamification
 
 
