@@ -10,7 +10,7 @@ BE Project of Ruchi Thosar, Akshay Nambiar, Ninad Mapara and Greeva Shah.
    pip install -r requirements.txt
    .\be_env\Scripts\activate
    ```
-- Download the [Database]() and import on xammp
+- Download the [Database]() , import it on xampp and replace all database connections. 
 - Run `python app.py` for a dev server. Navigate to `http://localhost:5000/`.
 
 
