@@ -3,6 +3,16 @@ BE Project of Ruchi Thosar, Akshay Nambiar, Ninad Mapara and Greeva Shah.
 
 
 ## Getting Started  
+- Clone the Repo `git clone https://github.com/greevashah/edutive.git`
+- Move to directory `cd edutive`
+- Run the following commands
+   ```
+   pip install -r requirements.txt
+   .\be_env\Scripts\activate
+   ```
+- Download the [database]() and import on xammp
+- Run `python app.py` for a dev server. Navigate to `http://localhost:5000/`. The app will automatically reload if you change any of the source files.
+
 
 ## Test Generation
 * [Rendering Test](https://github.com/greevashah/edutive/blob/3beb69a987664a82727931b8db9d5d856e27665c/static/js/capture_parameter.js#L105-L148)
@@ -27,6 +37,6 @@ BE Project of Ruchi Thosar, Akshay Nambiar, Ninad Mapara and Greeva Shah.
    - [Line Chart](https://github.com/greevashah/edutive/blob/335a07e7b9160fbdbc9fcfde67158b1c1b8202d1/static/js/profile.js#L39-L69)
 ## Gamification
 
-* [Checkpoints](https://github.com/greevashah/edutive/blob/9a5ea89634a26ec4dab89e6ede20efc628b803f7/pythonBlueprint/thanking.py#L136-L196)
+* [Checkpoint Logic](https://github.com/greevashah/edutive/blob/9a5ea89634a26ec4dab89e6ede20efc628b803f7/pythonBlueprint/thanking.py#L136-L196)
 
 
