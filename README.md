@@ -27,4 +27,6 @@ BE Project of Ruchi Thosar, Akshay Nambiar, Ninad Mapara and Greeva Shah.
    - [Line Chart](https://github.com/greevashah/edutive/blob/335a07e7b9160fbdbc9fcfde67158b1c1b8202d1/static/js/profile.js#L39-L69)
 ## Gamification
 
+* [Checkpoints](https://github.com/greevashah/edutive/blob/9a5ea89634a26ec4dab89e6ede20efc628b803f7/pythonBlueprint/thanking.py#L136-L196)
+
 
