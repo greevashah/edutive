@@ -14,8 +14,13 @@ BE Project of Ruchi Thosar, Akshay Nambiar, Ninad Mapara and Greeva Shah.
 * Inference Enginee & Defuzzifier: [src code](https://github.com/greevashah/edutive/blob/cff9a862d25f2c76dd6ff2c22234b71eb16c0733/pythonBlueprint/thanking.py#L338-347)
 
 ## User Performance Analysis
-* []()
-* []()
+*  Test Dashboard
+   - [Cards]()
+   - [Tables]()
+   - [Bar-Graphs]()
+   - [Pie-Charts]()
+    
+* Test Profile []()
 
 ## Gamification
 
