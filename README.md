@@ -10,8 +10,8 @@ BE Project of Ruchi Thosar, Akshay Nambiar, Ninad Mapara and Greeva Shah.
    pip install -r requirements.txt
    .\be_env\Scripts\activate
    ```
-- Download the [database]() and import on xammp
-- Run `python app.py` for a dev server. Navigate to `http://localhost:5000/`. The app will automatically reload if you change any of the source files.
+- Download the [Database]() and import on xammp
+- Run `python app.py` for a dev server. Navigate to `http://localhost:5000/`.
 
 
 ## Test Generation
