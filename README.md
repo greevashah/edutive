@@ -20,24 +20,24 @@ Hosted on - https://edutive.herokuapp.com/
 * [Storing Answer](https://github.com/greevashah/edutive/blob/65f988fd5411d68a8d9f8a1cae7ff292fd683cbb/static/js/capture_parameter.js#L139-L184)
 * [Test Submission](https://github.com/greevashah/edutive/blob/65f988fd5411d68a8d9f8a1cae7ff292fd683cbb/static/js/capture_parameter.js#L219-L269)
 ## Test Adaptiveness Logic
-* Fuzzifier: [Src code](https://github.com/greevashah/edutive/blob/cff9a862d25f2c76dd6ff2c22234b71eb16c0733/pythonBlueprint/thanking.py#L14-L66)
-* Machine Learning based Intelligence: [Usage](https://github.com/greevashah/edutive/blob/cff9a862d25f2c76dd6ff2c22234b71eb16c0733/pythonBlueprint/thanking.py#L67-L68) | [Src code](https://github.com/greevashah/edutive/blob/master/edutive/linreg.py/) | [Training Dataset](https://github.com/greevashah/edutive/blob/master/edutive/train.csv/)
-* Inference Enginee & Defuzzifier: [Src code](https://github.com/greevashah/edutive/blob/cff9a862d25f2c76dd6ff2c22234b71eb16c0733/pythonBlueprint/thanking.py#L338-L347)
+* Fuzzifier: [Src code](https://github.com/greevashah/edutive/blob/aba25d6b3ef198b846b6dce2aa32e3d53b871f0e/pythonBlueprint/thanking.py#L12-L64)
+* Machine Learning based Intelligence: [Usage](https://github.com/greevashah/edutive/blob/aba25d6b3ef198b846b6dce2aa32e3d53b871f0e/pythonBlueprint/thanking.py#L65-L64) | [Src code](https://github.com/greevashah/edutive/blob/master/edutive/linreg.py/) | [Training Dataset](https://github.com/greevashah/edutive/blob/master/edutive/train.csv/)
+* Inference Enginee & Defuzzifier: [Src code](https://github.com/greevashah/edutive/blob/aba25d6b3ef198b846b6dce2aa32e3d53b871f0e/pythonBlueprint/thanking.py#L336-L345)
 
 ## User Performance Analysis
 *  Test Dashboard
-   - [Cards](https://github.com/greevashah/edutive/blob/9a5ea89634a26ec4dab89e6ede20efc628b803f7/templates/dashboard.html#L100-L163)
-   - [Tables](https://github.com/greevashah/edutive/blob/9a5ea89634a26ec4dab89e6ede20efc628b803f7/templates/dashboard.html#L165-L281)
-   - [Bar-Graphs](https://github.com/greevashah/edutive/blob/9a5ea89634a26ec4dab89e6ede20efc628b803f7/static/js/dashboard.js#L10-L59)
-   - [Pie-Charts](https://github.com/greevashah/edutive/blob/9a5ea89634a26ec4dab89e6ede20efc628b803f7/static/js/dashboard.js#L61-L87)
+   - [Cards](https://github.com/greevashah/edutive/blob/aba25d6b3ef198b846b6dce2aa32e3d53b871f0e/templates/dashboard.html#L100-L163)
+   - [Tables](https://github.com/greevashah/edutive/blob/aba25d6b3ef198b846b6dce2aa32e3d53b871f0e/templates/dashboard.html#L165-L281)
+   - [Bar-Graphs](https://github.com/greevashah/edutive/blob/aba25d6b3ef198b846b6dce2aa32e3d53b871f0e/static/js/dashboard.js#L10-L59)
+   - [Pie-Charts](https://github.com/greevashah/edutive/blob/aba25d6b3ef198b846b6dce2aa32e3d53b871f0e/static/js/dashboard.js#L61-L87)
     
 *  Test Profile
-   - [Cards](https://github.com/greevashah/edutive/blob/335a07e7b9160fbdbc9fcfde67158b1c1b8202d1/templates/profile.html#L102-L180)
-   - [Tables](https://github.com/greevashah/edutive/blob/335a07e7b9160fbdbc9fcfde67158b1c1b8202d1/templates/profile.html#L195-L235)
-   - [Timeline](https://github.com/greevashah/edutive/blob/335a07e7b9160fbdbc9fcfde67158b1c1b8202d1/pythonBlueprint/profile.py#L90-L123)
-   - [Line Chart](https://github.com/greevashah/edutive/blob/335a07e7b9160fbdbc9fcfde67158b1c1b8202d1/static/js/profile.js#L39-L69)
+   - [Cards](https://github.com/greevashah/edutive/blob/aba25d6b3ef198b846b6dce2aa32e3d53b871f0e/templates/profile.html#L102-L180)
+   - [Tables](https://github.com/greevashah/edutive/blob/aba25d6b3ef198b846b6dce2aa32e3d53b871f0e/templates/profile.html#L195-L235)
+   - [Timeline](https://github.com/greevashah/edutive/blob/aba25d6b3ef198b846b6dce2aa32e3d53b871f0e/pythonBlueprint/profile.py#L89-L122)
+   - [Line Chart](https://github.com/greevashah/edutive/blob/aba25d6b3ef198b846b6dce2aa32e3d53b871f0e/static/js/profile.js#L39-L69)
 ## Gamification
 
-* [Checkpoint Logic](https://github.com/greevashah/edutive/blob/9a5ea89634a26ec4dab89e6ede20efc628b803f7/pythonBlueprint/thanking.py#L136-L196)
+* [Checkpoint Logic](https://github.com/greevashah/edutive/blob/aba25d6b3ef198b846b6dce2aa32e3d53b871f0e/pythonBlueprint/thanking.py#L134-L193)
 
 
