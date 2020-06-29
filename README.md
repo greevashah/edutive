@@ -11,7 +11,7 @@ Hosted on - https://edutive.herokuapp.com/
    pip install -r requirements.txt
    .\be_env\Scripts\activate
    ```
-- Download the [Database]() , import it on xampp and replace all database connections. 
+- Download the [Database](https://github.com/greevashah/edutive/blob/master/Database/edutive.sql) , import it on xampp and replace all database connections. 
 - Run `python app.py` for a dev server. Navigate to `http://localhost:5000/`.
 
 
