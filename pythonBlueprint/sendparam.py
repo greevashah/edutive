@@ -1,6 +1,4 @@
 from flask import Flask,Blueprint, render_template, request,session
-# from models.query import insertTopicDataset , insertDataset , insertTestDataset
-# from models.computation import convertToIntList , computeRows, computeTopicwise
 import pymysql
 
 send=Blueprint('send',__name__)

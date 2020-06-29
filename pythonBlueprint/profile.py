@@ -2,7 +2,6 @@ from flask import Flask,Blueprint, render_template, session, redirect, url_for, 
 from datetime import datetime 
 import pymysql
 import requests
-# from pythonBlueprint.thanking import timelineRatio
 profileB=Blueprint('profileB',__name__)
 
 # TestID

@@ -4,7 +4,7 @@
 }
 .main-timeline .timeline{
     position: relative;
-    margin-top: -57px;
+    margin-top: -23px;
 }
 .main-timeline .timeline:first-child{ margin-top: 0; }
 .main-timeline .timeline:before,
@@ -71,12 +71,12 @@
 
 
 @media only screen and (max-width: 1199px){
-    .main-timeline .timeline{ margin-top: -57px; }
+    .main-timeline .timeline{ margin-top: -23px; }
     .main-timeline .timeline-content:before{ left: -18%; }
     .main-timeline .timeline:nth-child(2n) .timeline-content:before{ right: -18%; }
 }
 @media only screen and (max-width: 990px){
-    .main-timeline .timeline{ margin-top: -81px; }
+    .main-timeline .timeline{ margin-top: -23px; }
     .main-timeline .timeline-content:before{ left: -2%; }
     .main-timeline .timeline:nth-child(2n) .timeline-content:before{ right: -2%; }
 }

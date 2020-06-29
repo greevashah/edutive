@@ -1,6 +1,4 @@
 from flask import Flask,Blueprint, render_template ,  session
-# from models.query import selectquery , selectTopiclevelratio
-# from models.computation import randomQuestion
 import pymysql
 import calendar,time
 import random

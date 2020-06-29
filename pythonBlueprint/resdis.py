@@ -62,13 +62,7 @@ def selectquery(tablename):
     return rows
 
 
-# def selectTestScore():
-#     connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")
-#     cursor=connection.cursor() 
-#     get1="SELECT * FROM `testdataset` Where ORDER BY `testId` desc limit 6"
-#     cursor.execute(get1)
-#     rows= cursor.fetchall()
-#     return rows
+
 
 def selectWhereTableOrder(tableName, columnname, columnvalue):
     connection= pymysql.connect(host="localhost",user="root",passwd="",database="berang")  

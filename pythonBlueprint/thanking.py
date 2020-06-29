@@ -1,6 +1,4 @@
 from flask import Flask,Blueprint, render_template, request , session, redirect, url_for
-# from models.query import insertTopiclevelratio, insertPerformance
-# from models.computation import topicRatio , inferenceEngine
 import numpy as np
 from linreg import linearreg
 import pymysql
