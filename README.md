@@ -16,9 +16,9 @@ Hosted on - https://edutive.herokuapp.com/
 
 
 ## Test Generation
-* [Rendering Test](https://github.com/greevashah/edutive/blob/3beb69a987664a82727931b8db9d5d856e27665c/static/js/capture_parameter.js#L105-L148)
-* [Storing Answer](https://github.com/greevashah/edutive/blob/3beb69a987664a82727931b8db9d5d856e27665c/static/js/capture_parameter.js#L176-L221)
-* [Test Submission](https://github.com/greevashah/edutive/blob/3beb69a987664a82727931b8db9d5d856e27665c/static/js/capture_parameter.js#L257-L307)
+* [Rendering Test](https://github.com/greevashah/edutive/blob/65f988fd5411d68a8d9f8a1cae7ff292fd683cbb/static/js/capture_parameter.js#L68-L111)
+* [Storing Answer](https://github.com/greevashah/edutive/blob/65f988fd5411d68a8d9f8a1cae7ff292fd683cbb/static/js/capture_parameter.js#L139-L184)
+* [Test Submission](https://github.com/greevashah/edutive/blob/65f988fd5411d68a8d9f8a1cae7ff292fd683cbb/static/js/capture_parameter.js#L219-L269)
 ## Test Adaptiveness Logic
 * Fuzzifier: [Src code](https://github.com/greevashah/edutive/blob/cff9a862d25f2c76dd6ff2c22234b71eb16c0733/pythonBlueprint/thanking.py#L14-L66)
 * Machine Learning based Intelligence: [Usage](https://github.com/greevashah/edutive/blob/cff9a862d25f2c76dd6ff2c22234b71eb16c0733/pythonBlueprint/thanking.py#L67-L68) | [Src code](https://github.com/greevashah/edutive/blob/master/edutive/linreg.py/) | [Training Dataset](https://github.com/greevashah/edutive/blob/master/edutive/train.csv/)
