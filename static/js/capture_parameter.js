@@ -7,7 +7,6 @@ var optionchanges=new Array(15);
 var visitedarray=new Array(15);
 var markedans=new Array(15);
 var index=0;
-
 var Default_val=0;
 optionchanges.fill(Default_val);
 elapsedtime.fill(Default_val);
@@ -15,31 +14,23 @@ markedans.fill(Default_val);
 var Default=-1;
 visitedarray.fill(Default_val);
 answers.fill(Default);
-
 var timeTaken=30;
 var timerFun;
 var row=undefined;
-
 var testId=undefined;
 window.onload= function(){
     timer();
     this.renderQuestion(1)
 };
-
 var startTime=undefined;
 var finishTime=undefined;
 var radios=undefined;
-
 var totalTimeTaken=undefined;
-
 var showProfile= undefined;
 
-// var counter=0;
 
 // Function which ensures correct question is selected
-
 //row refers to the data sent by flask, in our case it is the entire question table
-
 // function initialise(x,x1,x2,x3,x4){
 function initialise(x,x1,x2,x3){
     row=x;
@@ -50,17 +41,6 @@ function initialise(x,x1,x2,x3){
     showProfile=x3;
     console.log("FROM INITIALISE OF CAPTURE_PARAMETER.JS");
     console.log(showProfile);
-    // row1=x1;
-    // row2=x2;
-    // row3=x3;
-    // row4=x4;
-
-    // var last_question_no=276;
-
-    // random_questions(row1,5);    //TSD
-    // random_questions(row2,4);    //TW
-    // random_questions(row3,3);    //SI
-    // random_questions(row4,3);    //PPL
     shuffle(questions);
     console.log(questions);
     
@@ -72,24 +52,7 @@ function initialise(x,x1,x2,x3){
 function shuffle(array) {
     array.sort(() => Math.random() - 0.5);
   }
-/*
-function random_questions(arr, l){
-    x=arr;
-    var len=x.length;
-    // alert(len);
-    for(var i=0;i<l;){
-        var temp = Math.floor(Math.random()*(len-1)+1);      //question number between 1 to last_question_no
-        if(!questions.includes(arr[temp][0])){
-            questions[index++]=arr[temp][0];  //To find integral random between a range, max not included, 
-                            //Math.floor(Math.random()*(max-min)+min) 
-            i++;
-        }
-        else{
-            continue;
-        }
-    }
-}
-*/
+
 //Display the question the dynamically and get cookie to mark previously marked answer
 function getIndex(row,x){
     for(var i=0;i<row.length;i++){
@@ -231,7 +194,6 @@ function clearAnswer(){
     deleteCookie("Answer"+qnum_cur);
 }
 
-
 function deleteAllCookies(){
     var cookies = document.cookie.split(";");
     for (var i = 0; i < cookies.length; i++)
@@ -331,17 +293,3 @@ function timer(){
     }
     },1000);
 } 
-// function displayQuestionResult(){
-//     qtable= document.getElementById("qtable-body");
-//     for(var i=1;i<=15;i++){
-//         qtable.innerHTML="<tr><td>"+i+"</td><td>"+answers[i-1]+"</td><td>"+elapsedtime[i-1]+"</td><td>"+optionchanges[i-1]+"</td><td>"+totalTimeTaken+"</td><td>"+row[questions[i]-1][10]+"</td><td>"+row[questions[i]-1][9]+"</td></tr>";
-//     }
-// }
-
-/* <th>Question No</th>
-<th>Correctness</th>    answers
-<th>Time Taken</th> elapsedTime  
-<th>Option Changes</th> optionchanges
-<th>Time Taken per test</th>    totalTimeTaken
-<th>Topic</th>
-<th>Level</th> */
