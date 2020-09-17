@@ -1,4 +1,6 @@
 from flask import Flask,Blueprint, render_template, request , session, redirect, url_for
+# from models.query import insertTopiclevelratio, insertPerformance
+# from models.computation import topicRatio , inferenceEngine
 import numpy as np
 from linreg import linearreg
 import pymysql
@@ -64,6 +66,7 @@ def thanking(testId):
         count +=1
     x = np.array((ans,optionclass,timeclass)).T
     y=linearreg(x)
+    # x-> numpy array of parameters(p1,p2,p3), y -> P value
     count=0
     for i in questiondataset:
       if questiondataset[i][0]== -1 :

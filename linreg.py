@@ -16,12 +16,18 @@ def train_dataset():
     # tmp=np.array()
     header = list(pd.read_csv('train.csv').columns)
     data = pd.read_csv('train.csv').values
-    y_actual= data[:, 3]
+    y_actual= data[:, 3]            
+    # given P values in training dataset
     x=data[:, 0:3].astype(int)
     regr = linear_model.LinearRegression()
     regr.fit(x,y_actual)
 
+# P = aP1 + bP2 + cP3
+# 0.945= a(1) + b(1) + c(0) + d
+# a = (formula), b = (formula), c = (formula)
+
 def linearreg(test):
+    # 3 values -> p1, p2, p3 ka array of 15 questions, which is given from thanking.py
     train_dataset()
     y_pred=regr.predict(test)
     # df = pd.DataFrame({'Actual': y_actual, 'Predicted': y_pred})
